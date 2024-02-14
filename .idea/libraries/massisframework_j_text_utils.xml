@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="massisframework.j.text.utils" type="repository">
+    <properties maven-id="com.massisframework:j-text-utils:0.3.4" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/j-text-utils-0.3.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/guava-21.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-lang-2.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/opencsv-2.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
