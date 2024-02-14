@@ -38,3 +38,6 @@ jobs:
       with:
         name: Package
         path: staging
+    - run: mvn --batch-mode deploy
+      env: 
+        GITHUB_TOKEN: ${{ secrets.JAVA_TOKEN }}
