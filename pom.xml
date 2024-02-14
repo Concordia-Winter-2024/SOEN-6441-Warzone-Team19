@@ -12,7 +12,7 @@
         <repository>
           <id>github</id>
           <name>GitHub Packages</name>
-          <url>https://maven.pkg.github.com/devopshint/publish-java-package-with-maven</url>
+          <url>https://maven.pkg.github.com/Concordia-Winter-2024/SOEN-6441-Warzone-Team20</url>
         </repository>
     </distributionManagement>
          
