@@ -29,3 +29,26 @@ public String showMapEdit() {
     l_final_value = new String(l_baos.toByteArray(), StandardCharsets.UTF_8);
     return l_final_value;
 }
+
+public String showMapPlay() {
+    String[] l_index = {"Country", "Continent; Control Value", "Owner", "Armies", "Neighbors"};
+    Object[][] l_values = new Object[d_countries.size()][l_index.length];
+    Country l_country;
+    TextTable l_textTable;
+    final ByteArrayOutputStream l_baos = new ByteArrayOutputStream();
+    String l_final_value;
+    int l_count = 0;
+
+    l_textTable = new TextTable(l_index, l_values);
+    l_textTable.setAddRowNumbering(false);
+    l_textTable.setSort(0);
+    try (PrintStream l_printStream = new PrintStream(l_baos, true, "UTF-8")) {
+        l_textTable.printTable(l_printStream, 0);
+
+    } catch (UnsupportedEncodingException p_e) {
+        p_e.printStackTrace();
+    }
+    l_final_value = new String(l_baos.toByteArray(), StandardCharsets.UTF_8);
+    return l_final_value;
+}
+    
