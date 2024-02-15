@@ -20,28 +20,10 @@ public class MapValidation {
 		this.d_gameMap = p_gameMap;
 	}
 
-    public Set<Integer> countryIterator(Country p_currentCountry, Set<Integer> p_visitedCountryIds) {
-		if (p_visitedCountryIds.contains(p_currentCountry.getId())) {
-			return p_visitedCountryIds;
-		} else {
-			p_visitedCountryIds.add(p_currentCountry.getId());
-			for (Country l_nextCountry : p_currentCountry.getNeighborCountries()) {
-				if (d_iteratingContinent) {
-					if (l_nextCountry.getContinent().getId() == d_currentContinentIteration) {
-						p_visitedCountryIds = countryIterator(l_nextCountry, p_visitedCountryIds);
-					}
-				} else {
-					p_visitedCountryIds = countryIterator(l_nextCountry, p_visitedCountryIds);
-				}
-			}
-		}
-		return p_visitedCountryIds;
-	}
-
-    public String validate(){
+    public String validateStatus(){
         d_flag = true;
 		StringBuilder l_validationResult = new StringBuilder();
-		boolean l_result = checkAll();
+		boolean l_result = validateAll();
 
 		if (!l_result) {
 			if (d_emptyMap) {
@@ -71,20 +53,47 @@ public class MapValidation {
 		return l_validationResult.toString();
     }
 
-    public boolean isConnected(Country p_firstCountry, Set<Integer> p_countryIds) {
+    public boolean getMapValidationStatus() {
+		if (d_flag) {
+			return d_connectedGraph && (!d_emptyContinent) && (!d_emptyMap) && d_connectedSubGraph;
+		} else {
+			System.out.println("Please validate the map before getting the status of map.");
+			return false;
+		}
+	}
+
+    public boolean isConnectedCountry(Country p_firstCountry, Set<Integer> p_countryIds) {
 		Set<Integer> l_countryIdsVisited = new HashSet<Integer>();
-		l_countryIdsVisited = countryIterator(p_firstCountry, l_countryIdsVisited);
+		l_countryIdsVisited = iterateCountry(p_firstCountry, l_countryIdsVisited);
 		return l_countryIdsVisited.containsAll(p_countryIds);
 	}
 
-    public boolean checkAll(){
+    public Set<Integer> iterateCountry(Country p_currentCountry, Set<Integer> p_visitedCountryIds) {
+		if (p_visitedCountryIds.contains(p_currentCountry.getId())) {
+			return p_visitedCountryIds;
+		} else {
+			p_visitedCountryIds.add(p_currentCountry.getId());
+			for (Country l_nextCountry : p_currentCountry.getNeighborCountries()) {
+				if (d_iteratingContinent) {
+					if (l_nextCountry.getContinent().getId() == d_currentContinentIteration) {
+						p_visitedCountryIds = iterateCountry(l_nextCountry, p_visitedCountryIds);
+					}
+				} else {
+					p_visitedCountryIds = iterateCountry(l_nextCountry, p_visitedCountryIds);
+				}
+			}
+		}
+		return p_visitedCountryIds;
+	}
+
+    public boolean validateAll(){
         if (d_gameMap.getCountries().size() == 0) {
 			d_emptyMap = true;
 			return false;
 		}
 
 		Set<Integer> l_countryIds = d_gameMap.getCountries().keySet();
-		this.d_connectedGraph = isConnected(d_gameMap.getCountries().values().iterator().next(), l_countryIds);
+		this.d_connectedGraph = isConnectedCountry(d_gameMap.getCountries().values().iterator().next(), l_countryIds);
 
 		for (Continent l_continent : d_gameMap.getContinents().values()) {
 			l_countryIds = l_continent.getCountriesIds();
@@ -94,19 +103,11 @@ public class MapValidation {
 				d_emptyContinent = true;
 				continue;
 			}
-			this.d_connectedSubGraph &= isConnected(l_continent.getCountriesSet().iterator().next(), l_countryIds);
+			this.d_connectedSubGraph &= isConnectedCountry(l_continent.getCountriesSet().iterator().next(), l_countryIds);
 			d_iteratingContinent = false;
 		}
 		return d_connectedGraph;
     }
 
-    public boolean getMapValidationStatus() {
-		if (d_flag) {
-			return d_connectedGraph && (!d_emptyContinent) && (!d_emptyMap) && d_connectedSubGraph;
-		} else {
-			System.out.println("Please validate the map before getting the status of map.");
-			return false;
-		}
-	}
 
 }

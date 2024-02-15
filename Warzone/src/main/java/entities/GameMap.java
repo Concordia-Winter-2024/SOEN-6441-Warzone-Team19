@@ -12,17 +12,6 @@ public class GameMap{
 		d_isValid = false;
 	}
 
-    public String validateMap(){
-        MapValidation l_mapValidation = new MapValidation(this);
-		String l_valCheck = l_mapValidation.validate();
-		d_isValid = l_mapValidation.getMapValidationStatus();
-		return String.format(l_valCheck);
-    }
-
-    public boolean getValidateStatus() {
-		return d_isValid;
-	}
-
     public HashMap<Integer, Continent> getContinents() {
 		return d_continents;
 	}
@@ -30,5 +19,20 @@ public class GameMap{
     public HashMap<Integer, Country> getCountries() {
 		return d_countries;
 	}
+
+    public boolean getValidateStatus() {
+		return d_isValid;
+	}
+
+    public String validateMap(){
+        MapValidation l_mapValidation = new MapValidation(this);
+		String l_valCheck = l_mapValidation.validateStatus();
+		d_isValid = l_mapValidation.getMapValidationStatus();
+		return String.format(l_valCheck);
+    }
+
+    
+
+    
 
 }
