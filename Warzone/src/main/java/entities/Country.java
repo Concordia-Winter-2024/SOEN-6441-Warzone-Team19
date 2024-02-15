@@ -17,6 +17,18 @@ public class Country{
 		return d_neighborCountries;
 	}
 
+    public void addNeighbor(Country p_addCountry) {
+		d_neighborCountries.add(p_addCountry);
+	}
+
+    public boolean removeNeighbor(Country p_removeCountry) {
+		if (!d_neighborCountries.contains(p_removeCountry)) {
+			return false;
+		}
+		d_neighborCountries.remove(p_removeCountry);
+		return true;
+	}
+
     public Continent getContinent() {
 		return d_continent;
 	}

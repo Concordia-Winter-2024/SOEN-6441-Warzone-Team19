@@ -43,6 +43,45 @@ public class GameMap{
 		return String.format("Country \"%d\" successfully added to map", p_addCountryId);
 	}
 
+    public String removeCountry(int p_removeCountryId) {
+		if (!d_countries.containsKey(p_removeCountryId)) {
+			return String.format("Country \"%d\" not present in map", p_removeCountryId);
+		}
+		for (Country l_country : d_countries.values()) {
+			if (l_country.getNeighborIds().contains(p_removeCountryId)) {
+				removeNeighbor(l_country.getId(), p_removeCountryId);
+			}
+		}
+		d_countries.remove(p_removeCountryId);
+		return String.format("Country \"%d\" successfully removed from map", p_removeCountryId);
+	}
+
+    public String addNeighbor(int p_sourceCountryId, int p_destCountryId) {
+		if (!d_countries.containsKey(p_sourceCountryId) && !d_countries.containsKey(p_destCountryId)) {
+			return String.format("Ensure that both countries are present in map");
+		}
+		Country l_country1 = d_countries.get(p_sourceCountryId);
+		Country l_country2 = d_countries.get(p_destCountryId);
+		if (l_country1 == null || l_country2 == null) {
+			return String.format("Country not present");
+		}
+		if (l_country1.getNeighborCountries().contains(l_country2)) {
+			return String.format("Country \"%d\" already a neighbor of \"%d\"", p_destCountryId, p_sourceCountryId);
+		}
+		l_country1.addNeighbor(l_country2);
+		return String.format("Country \"%d\" is now a neighbor of country \"%d\"", p_destCountryId, p_sourceCountryId);
+	}
+
+    public String removeNeighbor(int p_countryId, int p_neighborId) {
+		Country l_country = d_countries.get(p_countryId);
+		Country l_neighbor = d_countries.get(p_neighborId);
+		if (!l_country.getNeighborCountries().contains(l_neighbor)) {
+			return String.format("Country \"%d\" is not a neighbor of \"%d\"", p_neighborId, p_countryId);
+		}
+		l_country.removeNeighbor(l_neighbor);
+		return String.format("Country \"%d\" removed from neighbors of \"%d\"", p_neighborId, p_countryId);
+	}
+
     public HashMap<Integer, Continent> getContinents() {
 		return d_continents;
 	}
