@@ -13,4 +13,12 @@ public class Country{
 		d_armiesPresent = 0;
 	}
 
+    public Set<Country> getNeighborCountries() {
+		return d_neighborCountries;
+	}
+
+    public Continent getContinent() {
+		return d_continent;
+	}
+
 }
