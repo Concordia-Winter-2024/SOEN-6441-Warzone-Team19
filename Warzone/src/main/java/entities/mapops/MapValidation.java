@@ -39,7 +39,40 @@ public class MapValidation {
 	}
 
     public String validate(){
-        return "";
+        d_flag = true;
+		StringBuilder l_validationResult = new StringBuilder();
+		boolean l_result = checkAll();
+
+		if (!l_result) {
+			if (d_emptyMap) {
+				l_validationResult.append("The Map does not contain any countries.");
+			} else {
+				if (!d_connectedGraph) {
+					l_validationResult.append(" The graph is not connected. Countries are not traverseble.");
+				}
+				if (d_emptyContinent) {
+					l_validationResult.append(" Empty Continent(s) found.");
+				}
+				if (!d_connectedSubGraph) {
+					l_validationResult.append(" Subgraph not connected.");
+				}
+			}
+		} else {
+			if (d_connectedGraph) {
+				l_validationResult.append(" The graph is connected. Countries are traverseble.");
+			}
+			if (d_emptyContinent) {
+				l_validationResult.append(" Empty Continent(s) found.");
+			}
+			if (!d_connectedSubGraph) {
+				l_validationResult.append(" Subgraph not connected.");
+			}
+		}
+		return l_validationResult.toString();
+    }
+
+    public boolean checkAll(){
+        return false;
     }
 
 }
