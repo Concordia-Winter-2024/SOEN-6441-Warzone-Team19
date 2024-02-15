@@ -1,3 +1,5 @@
+import entities.mapops.MapValidation;
+
 public class GameMap{
 
     private HashMap<Integer, Continent> d_continents;
@@ -11,7 +13,10 @@ public class GameMap{
 	}
 
     public String validateMap(){
-        return "";
+        MapValidation l_mapValidation = new MapValidation(this);
+		String l_valCheck = l_mapValidation.validate();
+		d_isValid = l_mapValidation.getMapValidationStatus();
+		return String.format(l_valCheck);
     }
 
     public boolean getValidateStatus() {
