@@ -71,8 +71,33 @@ public class MapValidation {
 		return l_validationResult.toString();
     }
 
+    public boolean isConnected(Country p_firstCountry, Set<Integer> p_countryIds) {
+		Set<Integer> l_countryIdsVisited = new HashSet<Integer>();
+		l_countryIdsVisited = countryIterator(p_firstCountry, l_countryIdsVisited);
+		return l_countryIdsVisited.containsAll(p_countryIds);
+	}
+
     public boolean checkAll(){
-        return false;
+        if (d_gameMap.getCountries().size() == 0) {
+			d_emptyMap = true;
+			return false;
+		}
+
+		Set<Integer> l_countryIds = d_gameMap.getCountries().keySet();
+		this.d_connectedGraph = isConnected(d_gameMap.getCountries().values().iterator().next(), l_countryIds);
+
+		for (Continent l_continent : d_gameMap.getContinents().values()) {
+			l_countryIds = l_continent.getCountriesIds();
+			d_currentContinentIteration = l_continent.getId();
+			d_iteratingContinent = true;
+			if (l_countryIds.isEmpty()) {
+				d_emptyContinent = true;
+				continue;
+			}
+			this.d_connectedSubGraph &= isConnected(l_continent.getCountriesSet().iterator().next(), l_countryIds);
+			d_iteratingContinent = false;
+		}
+		return d_connectedGraph;
     }
 
 }
