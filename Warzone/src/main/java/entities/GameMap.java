@@ -1,3 +1,16 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.stream.Collectors;
+
+import dnl.utils.text.table.TextTable;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+
+import entities.mapops.ReadMap;
+import entities.mapops.WriteMap;
 import entities.mapops.MapValidation;
 
 public class GameMap{
@@ -80,6 +93,15 @@ public class GameMap{
 		}
 		l_country.removeNeighbor(l_neighbor);
 		return String.format("Country \"%d\" removed from neighbors of \"%d\"", p_neighborId, p_countryId);
+	}
+
+    public String loadMap(String p_mapFileName) {
+		ReadMap l_mapRead = new ReadMap(this);
+		Boolean l_loadCheck = l_mapRead.readFullMap(p_mapFileName);
+		if (!l_loadCheck) {
+			return String.format("Map \"%s\" cannot be loaded", p_mapFileName);
+		}
+		return String.format("Map \"%s\" loaded successfully", p_mapFileName);
 	}
 
     public HashMap<Integer, Continent> getContinents() {
