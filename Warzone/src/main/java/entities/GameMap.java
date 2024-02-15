@@ -57,3 +57,17 @@ public String showMapPlay() {
     l_final_value = new String(l_baos.toByteArray(), StandardCharsets.UTF_8);
     return l_final_value;
 }
+
+public String[] fillCountryData(Country p_country, boolean p_isEdit) {
+    ArrayList<String> l_result = new ArrayList<String>();
+    int l_id;
+    String l_neighboursToCsv = p_country.getNeighbourCountries().stream().map(Country::getId)
+            .collect(Collectors.toSet()).toString();
+
+    l_id = p_country.getId();
+    l_result.add(l_id + "");
+    l_result.add(p_country.getContinent().getId() + "; " + p_country.getContinent().getControlValue());
+    
+    l_result.add(l_neighboursToCsv);
+    return l_result.toArray(new String[0]);
+}
