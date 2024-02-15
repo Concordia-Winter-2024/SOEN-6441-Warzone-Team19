@@ -1,4 +1,4 @@
 /**
  * Contains map operations related to map.
  */
-package entities.mapops;
+package com.warzone.elements.map;

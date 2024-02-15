@@ -1,4 +1,4 @@
-package controller;
+package com.warzone.controller;
 
 /**
  * Class to execute user commands
@@ -320,7 +320,7 @@ public class Commands {
      */
     public String assignCountries(String[] p_splittedCommand) {
         if (p_splittedCommand.length > 1) {
-            return String.format("Please enter valid command");
+            return "Please enter valid command";
         }
         return d_gameEngine.assignCountries();
     }

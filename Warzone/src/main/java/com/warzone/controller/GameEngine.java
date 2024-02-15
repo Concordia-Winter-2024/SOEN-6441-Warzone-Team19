@@ -1,16 +1,16 @@
-package controller;
+package com.warzone.controller;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-import entities.Continent;
-import entities.Country;
-import entities.GameMap;
-import entities.Player;
-import entities.orders.Orders;
-import entities.orders.ShowMap;
+import com.warzone.elements.Continent;
+import com.warzone.elements.Country;
+import com.warzone.elements.GameMap;
+import com.warzone.elements.Player;
+import com.warzone.elements.orders.Orders;
+import com.warzone.elements.orders.ShowMap;
 
 /**
  *
