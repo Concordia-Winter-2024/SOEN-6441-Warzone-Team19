@@ -39,6 +39,12 @@ public String showMapPlay() {
     String l_final_value;
     int l_count = 0;
 
+    for (HashMap.Entry<Integer, Country> l_item : d_countries.entrySet()) {
+        l_country = l_item.getValue();
+        l_values[l_count] = fillCountryData(l_country, false);
+        l_count++;
+    }
+
     l_textTable = new TextTable(l_index, l_values);
     l_textTable.setAddRowNumbering(false);
     l_textTable.setSort(0);
@@ -51,4 +57,3 @@ public String showMapPlay() {
     l_final_value = new String(l_baos.toByteArray(), StandardCharsets.UTF_8);
     return l_final_value;
 }
-    
