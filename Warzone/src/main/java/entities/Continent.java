@@ -29,4 +29,12 @@ public class Continent{
 		return l_countryNameSet;
 	}
 
+    public void addCountry(Country p_country) {
+		d_countriesSet.add(p_country);
+	}
+
+    public void removeCountry(Country p_country) {
+		d_countriesSet.remove(p_country);
+	}
+
 }
