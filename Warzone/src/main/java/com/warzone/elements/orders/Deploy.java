@@ -1,7 +1,7 @@
-package entities.orders;
+package com.warzone.elements.orders;
 
-import controller.GameEngine;
-import entities.Player;
+import com.warzone.controller.GameEngine;
+import com.warzone.elements.Player;
 
 /**
  * Deploy order class

@@ -1,6 +1,6 @@
-package entities.orders;
+package com.warzone.elements.orders;
 
-import controller.GameEngine;
+import com.warzone.controller.GameEngine;
 
 /**
  * Interface implemented by all the order classes

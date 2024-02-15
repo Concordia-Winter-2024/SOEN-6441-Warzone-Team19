@@ -1,6 +1,6 @@
-package entities.orders;
+package com.warzone.elements.orders;
 
-import controller.GameEngine;
+import com.warzone.controller.GameEngine;
 
 /**
  * Class for implementing Orders and is used to show map in game phase

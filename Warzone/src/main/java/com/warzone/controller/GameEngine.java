@@ -1,16 +1,16 @@
-package controller;
+package com.warzone.controller;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-import entities.Continent;
-import entities.Country;
-import entities.GameMap;
-import entities.Player;
-import entities.orders.Orders;
-import entities.orders.ShowMap;
+import com.warzone.elements.Continent;
+import com.warzone.elements.Country;
+import com.warzone.elements.GameMap;
+import com.warzone.elements.Player;
+import com.warzone.elements.orders.Orders;
+import com.warzone.elements.orders.ShowMap;
 
 /**
  *
@@ -28,8 +28,8 @@ public class GameEngine {
     int d_currentPlayer = 0;
 
     /**
-     * method to edit map, it creates new file when specified file name does not
-     * exists else loads existing map file.
+     * This method is to edit map. If the specified map file does not exist, it will create a new map file.
+     * If the map file exists, it will load the map file and set the edit phase to true.
      *
      * @param p_fileName Name of file
      * @return String which states completion of the operation
@@ -56,21 +56,21 @@ public class GameEngine {
     }
 
     /**
-     * used to load map in game phase
+     * This method is used to load a map.
      *
      * @param p_fileName Name of the file
-     * @return loaded map(responses positive or negative)
+     * @return loaded map(responses true or false)
      */
     public String loadMap(String p_fileName) {
         return loadMap(p_fileName, false);
     }
 
     /**
-     * method to load a map
+     * Load map method to load a map
      *
      * @param p_fileName Name of file
      * @param p_isEdit   true if loadmap is called in edit phase
-     * @return loaded map(responses positive or negative)
+     * @return loaded map(responses true or false)
      */
     public String loadMap(String p_fileName, boolean p_isEdit) {
         String l_result;
@@ -96,7 +96,7 @@ public class GameEngine {
     }
 
     /**
-     * method to edit continents
+     * This method is used to edit the continents
      *
      * @param p_commandSplitted splitted commands
      * @return l_result shows whether continents are added or removed
@@ -117,11 +117,10 @@ public class GameEngine {
     }
 
     /**
-     * method to edit countries
+     * This method is used to edit the countries
      *
      * @param p_commandSplitted splitted commands
-     * @return l_result shows whether countries are added or removed with respect to
-     *         the continents they are a part of
+     * @return l_result shows whether countries are added or removed from the map
      */
     public String editCountry(String[] p_commandSplitted) {
         String l_result;
@@ -139,11 +138,10 @@ public class GameEngine {
     }
 
     /**
-     * method to edit neighbors of a specific country
+     * This method is used to edit the neighbors of the countries
      *
      * @param p_commandSplitted splitted commands
-     * @return l_result shows whether neighbors countries to a given country are
-     *         added or removed
+     * @return l_result shows whether neighbors are added or removed from the map
      */
     public String editNeighbor(String[] p_commandSplitted) {
         String l_result;
@@ -162,7 +160,7 @@ public class GameEngine {
     }
 
     /**
-     * method to save a map, it creates new file with specified file name.
+     * This method is used to save the map with the specified file name
      *
      * @param p_fileName filename of map to be saved
      * @return l_result shows whether map is saved or not
@@ -187,7 +185,7 @@ public class GameEngine {
     }
 
     /**
-     * method to add players to the game
+     * This method is to add or remove players from the .
      *
      * @param p_commandSplitted splitted commands
      * @return l_result shows whether players are added or removed
@@ -207,10 +205,10 @@ public class GameEngine {
     }
 
     /**
-     * method to add a player to the game
+     * This method is used to add a player to the game
      *
      * @param p_playerName name of the player
-     * @return Positive response if player is added successfully
+     * @return Positive true if player is added successfully
      */
     public String addPlayer(String p_playerName) {
         if (d_players.containsKey(p_playerName)) {
@@ -222,10 +220,10 @@ public class GameEngine {
     }
 
     /**
-     * method to remove a player from the game
+     * This method is used to remove a player from the game
      *
      * @param p_playerName name of the player
-     * @return Positive response if player is removed successfully
+     * @return Positive true if player is removed successfully
      */
     public String removePlayer(String p_playerName) {
         if (!d_players.containsKey(p_playerName)) {
@@ -237,7 +235,7 @@ public class GameEngine {
     }
 
     /**
-     * method to get a map
+     * Get the map object
      *
      * @return d_gameMap Object of GameMap class
      */
@@ -246,7 +244,7 @@ public class GameEngine {
     }
 
     /**
-     * method to validate a map
+     * Validate map method to validate a map
      *
      * @return l_result Result of map validation
      */
@@ -261,14 +259,15 @@ public class GameEngine {
     }
 
     /**
-     * method to loop over players and in each subsequent loop player deploys
-     * reinforcements to one's owned countries
+     * This method to loop over players and in each subsequent loop player deploys
+     * armies to one's owned countries
      */
     public void deployPhase() {
         int l_currentPlayer = 0;
         Orders l_playerOrders = null;
         HashSet<String> l_playersCompleted = new HashSet<>();
         System.out.println("\nDeploy phase entered");
+        String dash = "-";
         System.out.println(org.apache.commons.lang3.StringUtils.repeat("-", 20));
         while (l_playersCompleted.size() < d_playerName.size()) {
             if (d_players.get(d_playerName.get(l_currentPlayer)).getNumberOfArmies() > 0) {
@@ -292,7 +291,7 @@ public class GameEngine {
     }
 
     /**
-     * method to get the hash map of player names corresponding to their objects
+     * This method to get the hash map of player names corresponding to their objects
      *
      * @return d_players HashMap of players
      */
@@ -301,8 +300,7 @@ public class GameEngine {
     }
 
     /**
-     * method to assign the countries randomly to all the players at the start of
-     * the game
+     * This method is used assign countries to the players
      *
      * @return returns the message to the caller
      */
@@ -338,8 +336,8 @@ public class GameEngine {
     }
 
     /**
-     * method to check if any player acquired any continent, if any then add the
-     * continent to the continents list acquired by player
+     * This method is used to check the ownership of the continents, if a player owns
+     * a continent, player will get the control value/armies of that continent
      */
     public void checkContinentOwnership() {
         for (Player l_player : d_players.values()) {
@@ -352,7 +350,7 @@ public class GameEngine {
     }
 
     /**
-     * method to assign armies to players
+     * This method is used to assign armies to the players
      */
     public void assignArmies() {
         for (Player l_player : d_players.values()) {
@@ -361,7 +359,7 @@ public class GameEngine {
     }
 
     /**
-     * method to show map to player, map can be shown in edit phase and game phase
+     * This method is used to show the map, it will show the map in edit phase and play phase
      *
      * @return map in string format
      */
