@@ -100,4 +100,13 @@ public class MapValidation {
 		return d_connectedGraph;
     }
 
+    public boolean getMapValidationStatus() {
+		if (d_flag) {
+			return d_connectedGraph && (!d_emptyContinent) && (!d_emptyMap) && d_connectedSubGraph;
+		} else {
+			System.out.println("Please validate the map before getting the status of map.");
+			return false;
+		}
+	}
+
 }
