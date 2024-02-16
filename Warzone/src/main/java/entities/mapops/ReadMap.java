@@ -8,18 +8,30 @@ import java.nio.file.Paths;
 
 import entities.GameMap;
 
+/**
+ * Class ReadMap to read file
+ */
 public class ReadMap{
     private GameMap d_gameMap;
 	private HashMap<String, Integer> d_continentsMap;
 	private HashMap<Integer, String> d_countriesMap;
 	Scanner d_reader;
 
+    /**
+     * ReadMap constructor
+     * @param p_gameMap gamemap object
+     */
     public ReadMap(GameMap p_gameMap) {
 		d_gameMap = p_gameMap;
 		d_continentsMap = new HashMap<>();
 		d_countriesMap = new HashMap<>();
 	}
 
+    /**
+     * This method is used to read the map file and store data in gamemap object
+     * @param p_mapFilePath map file path
+     * @return true or false
+     */
     public boolean readFullMap(String p_mapFilePath) {
 		File l_mapFile = new File(
 				Paths.get(Paths.get("").toAbsolutePath().toString() + "/maps/" + p_mapFilePath).toString());
@@ -90,14 +102,26 @@ public class ReadMap{
 
 	}
 
+    /**
+     * This method is used to get continent id
+     * @return set of continent id
+     */
     public Set<Integer> getContinentIds() {
 		return d_gameMap.getContinents().keySet();
 	}
 
+    /**
+     * This method is used to get countries id
+     * @return set of countries id
+     */
     public Set<Integer> getCountriesIds() {
 		return d_gameMap.getCountries().keySet();
 	}
 
+    /**
+     * This method is used to get gamemap object of map file
+     * @return gamemap object
+     */
     public GameMap getGameMap() {
 		return d_gameMap;
 	}
