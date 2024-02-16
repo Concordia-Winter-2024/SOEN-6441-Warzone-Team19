@@ -3,7 +3,7 @@ package entities.orders;
 import controller.GameEngine;
 
 /**
- * Class for implementing Orders and is used to show map in game phase
+ * Class to implement the orders and is used to display the map in the game phase
  *
  */
 public class ShowMap implements Orders {
