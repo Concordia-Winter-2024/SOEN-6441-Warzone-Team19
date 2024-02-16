@@ -33,7 +33,7 @@ public class Deploy implements Orders {
 	 * @return Positive response if command was successful, otherwise negative reply
 	 */
 	@Override
-	public String executeOrder(GameEngine p_game) {
+	public String execute(GameEngine p_game) {
 		if (!d_player.getCountries().containsKey(d_country)) {
 			return String.format("Player \"%s\" does not control country \"%d\"", d_player.getName(), d_country);
 		}

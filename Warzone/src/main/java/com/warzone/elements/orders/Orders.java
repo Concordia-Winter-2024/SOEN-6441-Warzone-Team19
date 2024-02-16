@@ -11,7 +11,7 @@ public interface Orders {
 	 * Executes the order
 	 * 
 	 * @param p_game GameEngine
-	 * @return Positive response if command was successful, otherwise negative reply
+	 * @return True response if command was successful, otherwise false
 	 */
-	String executeOrder(GameEngine p_game);
+	String execute(GameEngine p_game);
 }
