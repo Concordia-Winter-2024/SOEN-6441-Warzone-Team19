@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Country in a Map
+ * Country class
  *
  */
 public class Country {
@@ -46,13 +46,25 @@ public class Country {
     }
 
     /**
-     * This method is used to add a neighboring country
-     *
-     * @param p_addCountry Country to be added
+     * This method is used to add neigbour of a country
+     * @param p_addCountry country to be added
      */
     public void addNeighbor(Country p_addCountry) {
-        d_neighborCountries.add(p_addCountry);
-    }
+		d_neighborCountries.add(p_addCountry);
+	}
+
+    /**
+     * This method is used to remove neighbour country
+     * @param p_removeCountry country to be removed
+     * @return true or false
+     */
+    public boolean removeNeighbor(Country p_removeCountry) {
+		if (!d_neighborCountries.contains(p_removeCountry)) {
+			return false;
+		}
+		d_neighborCountries.remove(p_removeCountry);
+		return true;
+	}
 
     /**
      * This is used to get the number of armies present in the country
@@ -64,27 +76,12 @@ public class Country {
     }
 
     /**
-     * This method is used to get the continent to which country belongs
-     *
-     * @return d_continent continent to which country belongs
+     * This method is used to get the continent for which country belongs.
+     * @return continent
      */
     public Continent getContinent() {
-        return d_continent;
-    }
-
-    /**
-     * This method is used to remove a neighboring country
-     *
-     * @param p_removeCountry country to be removed
-     * @return true of neighboring country present and deleted else false
-     */
-    public boolean removeNeighbor(Country p_removeCountry) {
-        if (!d_neighborCountries.contains(p_removeCountry)) {
-            return false;
-        }
-        d_neighborCountries.remove(p_removeCountry);
-        return true;
-    }
+		return d_continent;
+	}
 
     /**
      * This method returns the set of neighbor names

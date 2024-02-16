@@ -6,8 +6,7 @@ import java.util.*;
 import com.warzone.elements.*;
 
 /**
- * Class to write into map file
- *
+ * Map Writer class to write into map file
  */
 public class MapWriter {
     private GameMap d_gameMap;
@@ -17,7 +16,6 @@ public class MapWriter {
 
     /**
      * Constructor
-     *
      * @param p_gameMap GameMap object
      */
     public MapWriter(GameMap p_gameMap) {
@@ -27,17 +25,15 @@ public class MapWriter {
     }
 
     /**
-     * method that opens a file and writes the data to that file
-     *
-     * @param p_filePath to .map file
+     * This method that opens a file and writes the data to that file
+     * @param p_mapFilePath to .map file
      * @return true if map saved successfully else false
-     *
      */
-    public boolean writeFullMap(String p_filePath) {
+    public boolean writeFullMap(String p_mapFilePath) {
         int l_countryCtn = 0, l_continentCtn = 0;
         try {
             FileWriter l_fw = new FileWriter(
-                    Paths.get(Paths.get("").toAbsolutePath().toString() + "/maps/" + p_filePath).toString());
+                    Paths.get(Paths.get("").toAbsolutePath().toString() + "/maps/" + p_mapFilePath).toString());
             d_writer = new BufferedWriter(l_fw);
 
 //			 Writing Continents
