@@ -50,7 +50,7 @@ public class GameEngine {
             d_isEditMap = true;
             d_isLoadedMap = false;
         } else {
-            l_result = String.format("Edit map not available");
+            l_result = "Edit map not available";
         }
         return l_result;
     }
@@ -111,7 +111,7 @@ public class GameEngine {
                 l_result = d_gameMap.removeContinent(Integer.parseInt(p_commandSplitted[1]));
             }
         } else {
-            l_result = String.format("Map can only be edited when file is open in edit phase");
+            l_result = "Map can only be edited when file is open in edit phase";
         }
         return l_result;
     }
@@ -182,6 +182,18 @@ public class GameEngine {
             l_result = String.format("Cannot save map");
         }
         return l_result;
+    }
+
+    /**
+     * This method is used to show the map, it will show the map in edit phase and play phase
+     *
+     * @return map in string format
+     */
+    public String showMap() {
+        if (!d_isGamePhase) {
+            return d_gameMap.showMapEdit();
+        }
+        return d_gameMap.showMapPlay();
     }
 
     /**
@@ -268,15 +280,15 @@ public class GameEngine {
         HashSet<String> l_playersCompleted = new HashSet<>();
         System.out.println("\nDeploy phase entered");
         String dash = "-";
-        System.out.println(org.apache.commons.lang3.StringUtils.repeat("-", 20));
+        System.out.println(dash.repeat(20));
         while (l_playersCompleted.size() < d_playerName.size()) {
             if (d_players.get(d_playerName.get(l_currentPlayer)).getNumberOfArmies() > 0) {
                 System.out.println("Player " + d_playerName.get(l_currentPlayer) + "'s turn");
                 System.out.println("Number of armies left: "
                         + d_players.get(d_playerName.get(l_currentPlayer)).getNumberOfArmies());
-                d_players.get(d_playerName.get(l_currentPlayer)).issueOrder();
-                l_playerOrders = d_players.get(d_playerName.get(l_currentPlayer)).nextOrder();
-                System.out.println(l_playerOrders.executeOrder(this));
+                d_players.get(d_playerName.get(l_currentPlayer)).issue_order();
+                l_playerOrders = d_players.get(d_playerName.get(l_currentPlayer)).next_order();
+                System.out.println(l_playerOrders.execute(this));
             } else {
                 l_playersCompleted.add(d_playerName.get(l_currentPlayer));
             }
@@ -356,17 +368,5 @@ public class GameEngine {
         for (Player l_player : d_players.values()) {
             l_player.setNumberOfArmies();
         }
-    }
-
-    /**
-     * This method is used to show the map, it will show the map in edit phase and play phase
-     *
-     * @return map in string format
-     */
-    public String showMap() {
-        if (!d_isGamePhase) {
-            return d_gameMap.showMapEdit();
-        }
-        return d_gameMap.showMapPlay();
     }
 }

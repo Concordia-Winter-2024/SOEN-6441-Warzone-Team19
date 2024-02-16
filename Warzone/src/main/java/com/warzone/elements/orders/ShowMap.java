@@ -15,7 +15,7 @@ public class ShowMap implements Orders {
 	 * @return map in string format
 	 */
 	@Override
-	public String executeOrder(GameEngine p_game) {
+	public String execute(GameEngine p_game) {
 		return p_game.showMap();
 	}
 

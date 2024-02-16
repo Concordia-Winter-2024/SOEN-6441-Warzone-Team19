@@ -11,7 +11,6 @@ import com.warzone.elements.orders.ShowMap;
 
 /**
  * Player in a game
- *
  */
 public class Player {
     private String d_name;
@@ -27,8 +26,8 @@ public class Player {
      */
     public Player(String p_name) {
         d_name = p_name;
-        d_countries = new HashMap<>();
         d_continents = new HashMap<>();
+        d_countries = new HashMap<>();
         d_orders = new LinkedList<>();
         d_numberOfArmies = 0;
     }
@@ -43,6 +42,15 @@ public class Player {
     }
 
     /**
+     * method to get the continents occupied by player
+     *
+     * @return d_continents HashMap of continents and their id occupied by player
+     */
+    public HashMap<Integer, Continent> getContinents() {
+        return d_continents;
+    }
+
+    /**
      * method to get the countries occupied by player
      *
      * @return d_countries HashMap of countries and their id occupied by player
@@ -51,14 +59,6 @@ public class Player {
         return d_countries;
     }
 
-    /**
-     * method to get the continents occupied by player
-     *
-     * @return d_continents HashMap of continents and their id occupied by player
-     */
-    public HashMap<Integer, Continent> getContinents() {
-        return d_continents;
-    }
 
     /**
      * method to get the number of armies player has
@@ -132,7 +132,7 @@ public class Player {
     /**
      * method to issue order called by Game engine
      */
-    public void issueOrder() {
+    public void issue_order() {
 
         GameInitialization l_gameInitialization = new GameInitialization();
         String[] l_splittedOrder = null;
@@ -176,7 +176,7 @@ public class Player {
      *
      * @return order
      */
-    public Orders nextOrder() {
+    public Orders next_order() {
         return d_orders.remove();
     }
 }

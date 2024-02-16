@@ -15,53 +15,53 @@ public class Commands {
      * @return l_result result after executing a specific type of command
      */
     public String executeCommand(String[] p_splittedCommand) {
-        String l_result = "";
+        String l_resultOfCommand = "";
         switch (p_splittedCommand[0]) {
             case "loadmap":
-                l_result = loadMap(p_splittedCommand);
+                l_resultOfCommand = loadMap(p_splittedCommand);
                 break;
 
             case "showmap":
-                l_result = showmap();
+                l_resultOfCommand = showmap();
                 break;
 
             case "editmap":
-                l_result = editMap(p_splittedCommand);
+                l_resultOfCommand = editMap(p_splittedCommand);
                 break;
 
             case "savemap":
-                l_result = saveMap(p_splittedCommand);
+                l_resultOfCommand = saveMap(p_splittedCommand);
                 break;
 
             case "validatemap":
-                l_result = validateMap(p_splittedCommand);
+                l_resultOfCommand = validateMap(p_splittedCommand);
                 break;
 
             case "editcontinent":
-                l_result = editContinent(p_splittedCommand);
+                l_resultOfCommand = editContinent(p_splittedCommand);
                 break;
 
             case "editcountry":
-                l_result = editCountry(p_splittedCommand);
+                l_resultOfCommand = editCountry(p_splittedCommand);
                 break;
 
             case "editneighbor":
-                l_result = editNeighbor(p_splittedCommand);
+                l_resultOfCommand = editNeighbor(p_splittedCommand);
                 break;
 
             case "gameplayer":
-                l_result = gamePlayer(p_splittedCommand);
+                l_resultOfCommand = gamePlayer(p_splittedCommand);
                 break;
 
             case "assigncountries":
-                l_result = assignCountries(p_splittedCommand);
+                l_resultOfCommand = assignCountries(p_splittedCommand);
                 break;
 
             default:
-                l_result = "Command not found";
+                l_resultOfCommand = "Command not found";
         }
 
-        return l_result;
+        return l_resultOfCommand;
     }
 
     /**

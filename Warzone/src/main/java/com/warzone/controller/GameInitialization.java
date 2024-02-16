@@ -18,8 +18,7 @@ public class GameInitialization {
         String l_userCommand;
         System.out.print("\033[1;34m"+" * "+"\033[0m");
         l_userCommand = l_scanner.nextLine();
-        String[] l_splittedCommandString = l_userCommand.split(" ");
-        return l_splittedCommandString;
+        return l_userCommand.split(" ");
     }
 
     /**
@@ -34,7 +33,7 @@ public class GameInitialization {
         System.out.println("\033[1;93m"+"=====> Welcome to Warzone <====="+"\033[0m");
         while (true) {
             String[] l_splittedCommandString = l_gameInitialization.getCommand();
-            if (l_splittedCommandString[0].equals("exit()")) {
+            if (l_splittedCommandString[0].equals("exit")) {
                 break;
             }
             System.out.println(l_commands.executeCommand(l_splittedCommandString));

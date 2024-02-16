@@ -1,19 +1,18 @@
 package com.warzone.elements;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
+import com.warzone.elements.map.MapReader;
 import dnl.utils.text.table.TextTable;
 
 import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 
-import elements.map.ReadMap;
-import elements.map.WriteMap;
-import elements.map.MapValidation;
+import com.warzone.elements.map.MapWriter;
+import com.warzone.elements.map.MapValidation;
 
 /**
  * GameMap Class
@@ -151,7 +150,7 @@ public class GameMap {
      *         response if its unsuccessful.
      */
     public String loadMap(String p_fileName) {
-        ReadMap l_mapRead = new ReadMap(this);
+        MapReader l_mapRead = new MapReader(this);
         Boolean l_loadCheck = l_mapRead.readFullMap(p_fileName);
         if (!l_loadCheck) {
             return String.format("Map \"%s\" cannot be loaded", p_fileName);
@@ -165,10 +164,13 @@ public class GameMap {
      * @return l_final_data Table containing data in string format
      */
     public String showMapEdit() {
-        String[] l_column = { "Country", "Continent; Control Value", "Neighbors" };
-        Object[][] l_data = new Object[d_countries.size()][l_column.length];
+        //String[] l_column = { "Country", "Continent; Control Value", "Neighbors" };
+        Object[][] l_data = new Object[d_countries.size()][3];
+        System.out.println("=".repeat(50));
+        System.out.println("Country , Continent; Control Value , Neighbors");
+        System.out.println("=".repeat(50));
         Country l_country;
-        TextTable l_tt;
+        //TextTable l_tt;
         final ByteArrayOutputStream l_baos = new ByteArrayOutputStream();
         String l_final_data;
 
@@ -177,20 +179,22 @@ public class GameMap {
         for (HashMap.Entry<Integer, Country> l_item : d_countries.entrySet()) {
             l_country = l_item.getValue();
             l_data[l_count] = fillCountryData(l_country, true);
+
+            System.out.println(Arrays.toString(l_data[l_count]));
             l_count++;
         }
 
-        l_tt = new TextTable(l_column, l_data);
-        l_tt.setAddRowNumbering(false);
-        l_tt.setSort(0);
+//        l_tt = new TextTable(l_column, l_data);
+//        l_tt.setAddRowNumbering(false);
+//        l_tt.setSort(0);
 
-        try (PrintStream l_ps = new PrintStream(l_baos, true, "UTF-8")) {
-            l_tt.printTable(l_ps, 0);
-
-        } catch (UnsupportedEncodingException p_e) {
-
-            p_e.printStackTrace();
-        }
+//        try (PrintStream l_ps = new PrintStream(l_baos, true, "UTF-8")) {
+//            l_tt.printTable(l_ps, 0);
+//
+//        } catch (UnsupportedEncodingException p_e) {
+//
+//            p_e.printStackTrace();
+//        }
 
         l_final_data = new String(l_baos.toByteArray(), StandardCharsets.UTF_8);
         return l_final_data;
@@ -203,8 +207,11 @@ public class GameMap {
      * @return l_final_data Table containing data in string format
      */
     public String showMapPlay() {
-        String[] l_column = { "Country", "Continent; Control Value", "Owner", "Armies", "Neighbors" };
-        Object[][] l_data = new Object[d_countries.size()][l_column.length];
+        //String[] l_column = { "Country", "Continent; Control Value", "Owner", "Armies", "Neighbors" };
+        Object[][] l_data = new Object[d_countries.size()][5];
+        System.out.println("=".repeat(70));
+        System.out.println("Country, Continent; Control Value , Owner , Armies , Neighbors");
+        System.out.println("=".repeat(70));
         Country l_country;
         TextTable l_tt;
         final ByteArrayOutputStream l_baos = new ByteArrayOutputStream();
@@ -214,17 +221,18 @@ public class GameMap {
         for (HashMap.Entry<Integer, Country> l_item : d_countries.entrySet()) {
             l_country = l_item.getValue();
             l_data[l_count] = fillCountryData(l_country, false);
+            System.out.println(Arrays.toString(l_data[l_count]));
             l_count++;
         }
-        l_tt = new TextTable(l_column, l_data);
-        l_tt.setAddRowNumbering(false);
-        l_tt.setSort(0);
-        try (PrintStream l_ps = new PrintStream(l_baos, true, "UTF-8")) {
-            l_tt.printTable(l_ps, 0);
-
-        } catch (UnsupportedEncodingException p_e) {
-            p_e.printStackTrace();
-        }
+//        l_tt = new TextTable(l_column, l_data);
+//        l_tt.setAddRowNumbering(false);
+//        l_tt.setSort(0);
+//        try (PrintStream l_ps = new PrintStream(l_baos, true, "UTF-8")) {
+//            l_tt.printTable(l_ps, 0);
+//
+//        } catch (UnsupportedEncodingException p_e) {
+//            p_e.printStackTrace();
+//        }
         l_final_data = new String(l_baos.toByteArray(), StandardCharsets.UTF_8);
         return l_final_data;
     }
@@ -244,11 +252,11 @@ public class GameMap {
                 .collect(Collectors.toSet()).toString();
 
         l_id = p_country.getId();
-        l_result.add(l_id + "");
-        l_result.add(p_country.getContinent().getId() + "; " + p_country.getContinent().getControlValue());
+        l_result.add(l_id + "       ");
+        l_result.add(p_country.getContinent().getId() + "       ;       " + p_country.getContinent().getControlValue()+"    ");
         if (!p_isEdit) {
-            l_result.add(p_country.getPlayer() != null ? p_country.getPlayer().getName() : "");
-            l_result.add(p_country.getNumberOfArmiesPresent() + "");
+            l_result.add(p_country.getPlayer() != null ? p_country.getPlayer().getName() : "        ");
+            l_result.add(p_country.getNumberOfArmiesPresent() + "       ");
         }
         l_result.add(l_neighborsAsCsv);
         return l_result.toArray(new String[0]);
@@ -261,8 +269,8 @@ public class GameMap {
      * @return True response if map written to file successfully
      */
     public String saveMap(String p_fileName) {
-        WriteMap l_writeMap = new WriteMap(this);
-        if (!l_writeMap.writeFullMap(p_fileName)) {
+        MapWriter l_mapWriter = new MapWriter(this);
+        if (!l_mapWriter.writeFullMap(p_fileName)) {
             return String.format("Map file \"%s\" cannot be saved", p_fileName);
         }
         return String.format("Map file \"%s\" saved successfully", p_fileName);
