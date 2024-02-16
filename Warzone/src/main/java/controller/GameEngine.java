@@ -20,7 +20,7 @@ import entities.orders.ShowMap;
 public class GameEngine {
 
     GameMap d_gameMap = new GameMap();
-    private boolean d_isLoadedMap = false;
+    private boolean d_isLoadMap = false;
     private boolean d_isEditMap = false;
     private boolean d_isGamePhase = false;
     private HashMap<String, Player> d_players = new HashMap<>();
@@ -36,7 +36,7 @@ public class GameEngine {
      */
     public String editMap(String p_fileName) {
         String l_result;
-        if (!d_isEditMap && !d_isLoadedMap) {
+        if (!d_isEditMap && !d_isLoadMap) {
             this.loadMap(p_fileName, true);
             if (!Files.exists(Paths.get(Paths.get("").toAbsolutePath().toString() + "/maps/" + p_fileName))) {
                 try {
@@ -48,7 +48,7 @@ public class GameEngine {
             }
             l_result = String.format("Map \"%s\" ready for edit", p_fileName);
             d_isEditMap = true;
-            d_isLoadedMap = false;
+            d_isLoadMap = false;
         } else {
             l_result = String.format("Edit map not available");
         }
@@ -88,7 +88,7 @@ public class GameEngine {
                     return l_result;
                 }
             }
-            d_isLoadedMap = true;
+            d_isLoadMap = true;
         } else {
             l_result = String.format("Cannot be loaded map when map is edited");
         }
@@ -103,7 +103,7 @@ public class GameEngine {
      */
     public String editContinent(String[] p_commandSplitted) {
         String l_result;
-        if (d_isEditMap && !d_isLoadedMap) {
+        if (d_isEditMap && !d_isLoadMap) {
             if (p_commandSplitted[0].equals("-add")) {
                 l_result = d_gameMap.addContinent(Integer.parseInt(p_commandSplitted[1]),
                         Integer.parseInt(p_commandSplitted[2]));
@@ -125,7 +125,7 @@ public class GameEngine {
      */
     public String editCountry(String[] p_commandSplitted) {
         String l_result;
-        if (d_isEditMap && !d_isLoadedMap) {
+        if (d_isEditMap && !d_isLoadMap) {
             if (p_commandSplitted[0].equals("-add")) {
                 l_result = d_gameMap.addCountry(Integer.parseInt(p_commandSplitted[1]),
                         Integer.parseInt(p_commandSplitted[2]));
@@ -147,7 +147,7 @@ public class GameEngine {
      */
     public String editNeighbor(String[] p_commandSplitted) {
         String l_result;
-        if (d_isEditMap && !d_isLoadedMap) {
+        if (d_isEditMap && !d_isLoadMap) {
             if (p_commandSplitted[0].equals("-add")) {
                 l_result = d_gameMap.addNeighbor(Integer.parseInt(p_commandSplitted[1]),
                         Integer.parseInt(p_commandSplitted[2]));
@@ -169,16 +169,16 @@ public class GameEngine {
      */
     public String saveMap(String p_fileName) {
         String l_result;
-        if (d_isEditMap && !d_isLoadedMap) {
-            String l_validMsg = d_gameMap.validateMap();
-            Boolean l_validateResult = d_gameMap.getValidateStatus();
-            if (!l_validateResult) {
-                l_result = l_validMsg;
+        if (d_isEditMap && !d_isLoadMap) {
+            String l_validMessage = d_gameMap.validateMap();
+            Boolean l_validationResult = d_gameMap.getValidateStatus();
+            if (!l_validationResult) {
+                l_result = l_validMessage;
                 return l_result;
             }
 
             l_result = d_gameMap.saveMap(p_fileName);
-            d_isLoadedMap = false;
+            d_isLoadMap = false;
             d_isEditMap = false;
         } else {
             l_result = String.format("Cannot save map");
@@ -194,7 +194,7 @@ public class GameEngine {
      */
     public String gamePlayer(String[] p_commandSplitted) {
         String l_result;
-        if (!d_isEditMap && d_isLoadedMap) {
+        if (!d_isEditMap && d_isLoadMap) {
             if (p_commandSplitted[0].equals("-add")) {
                 l_result = addPlayer(p_commandSplitted[1]);
             } else {

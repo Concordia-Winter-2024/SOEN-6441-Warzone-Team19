@@ -166,35 +166,35 @@ public class GameMap {
      * @return l_final_data Table containing data in string format
      */
     public String showMapEdit() {
-        String[] l_column = { "Country", "Continent; Control Value", "Neighbors" };
-        Object[][] l_data = new Object[d_countries.size()][l_column.length];
+        String[] l_index = { "Country", "Continent; Control Value", "Neighbors" };
+        Object[][] l_value = new Object[d_countries.size()][l_index.length];
         Country l_country;
-        TextTable l_tt;
+        TextTable l_textTable;
         final ByteArrayOutputStream l_baos = new ByteArrayOutputStream();
-        String l_final_data;
+        String l_final_value;
 
         int l_count = 0;
 
         for (HashMap.Entry<Integer, Country> l_item : d_countries.entrySet()) {
             l_country = l_item.getValue();
-            l_data[l_count] = fillCountryData(l_country, true);
+            l_value[l_count] = fillCountryData(l_country, true);
             l_count++;
         }
 
-        l_tt = new TextTable(l_column, l_data);
-        l_tt.setAddRowNumbering(false);
-        l_tt.setSort(0);
+        l_textTable = new TextTable(l_index, l_value);
+        l_textTable.setAddRowNumbering(false);
+        l_textTable.setSort(0);
 
-        try (PrintStream l_ps = new PrintStream(l_baos, true, "UTF-8")) {
-            l_tt.printTable(l_ps, 0);
+        try (PrintStream l_printStream = new PrintStream(l_baos, true, "UTF-8")) {
+            l_textTable.printTable(l_printStream, 0);
 
         } catch (UnsupportedEncodingException p_e) {
 
             p_e.printStackTrace();
         }
 
-        l_final_data = new String(l_baos.toByteArray(), StandardCharsets.UTF_8);
-        return l_final_data;
+        l_final_value = new String(l_baos.toByteArray(), StandardCharsets.UTF_8);
+        return l_final_value;
     }
 
     /**
@@ -205,30 +205,31 @@ public class GameMap {
      * @return l_final_data Table containing data in string format
      */
     public String showMapPlay() {
-        String[] l_column = { "Country", "Continent; Control Value", "Owner", "Armies", "Neighbors" };
-        Object[][] l_data = new Object[d_countries.size()][l_column.length];
+        String[] l_index = {"Country", "Continent; Control Value", "Owner", "Armies", "Neighbors"};
+        Object[][] l_values = new Object[d_countries.size()][l_index.length];
         Country l_country;
-        TextTable l_tt;
+        TextTable l_textTable;
         final ByteArrayOutputStream l_baos = new ByteArrayOutputStream();
-        String l_final_data;
+        String l_final_value;
         int l_count = 0;
 
         for (HashMap.Entry<Integer, Country> l_item : d_countries.entrySet()) {
             l_country = l_item.getValue();
-            l_data[l_count] = fillCountryData(l_country, false);
+            l_values[l_count] = fillCountryData(l_country, false);
             l_count++;
         }
-        l_tt = new TextTable(l_column, l_data);
-        l_tt.setAddRowNumbering(false);
-        l_tt.setSort(0);
-        try (PrintStream l_ps = new PrintStream(l_baos, true, "UTF-8")) {
-            l_tt.printTable(l_ps, 0);
+
+        l_textTable = new TextTable(l_index, l_values);
+        l_textTable.setAddRowNumbering(false);
+        l_textTable.setSort(0);
+        try (PrintStream l_printStream = new PrintStream(l_baos, true, "UTF-8")) {
+            l_textTable.printTable(l_printStream, 0);
 
         } catch (UnsupportedEncodingException p_e) {
             p_e.printStackTrace();
         }
-        l_final_data = new String(l_baos.toByteArray(), StandardCharsets.UTF_8);
-        return l_final_data;
+        l_final_value = new String(l_baos.toByteArray(), StandardCharsets.UTF_8);
+        return l_final_value;
     }
 
     /**
@@ -240,20 +241,23 @@ public class GameMap {
      * @return array of data of the specific country i.e. Country name, Continent
      *         Name and it's neighbors
      */
+
     public String[] fillCountryData(Country p_country, boolean p_isEdit) {
         ArrayList<String> l_result = new ArrayList<String>();
         int l_id;
-        String l_neighborsAsCsv = p_country.getNeighborCountries().stream().map(Country::getId)
+        String l_neighboursToCsv = p_country.getNeighborCountries().stream().map(Country::getId)
                 .collect(Collectors.toSet()).toString();
 
         l_id = p_country.getId();
         l_result.add(l_id + "");
         l_result.add(p_country.getContinent().getId() + "; " + p_country.getContinent().getControlValue());
+
         if (!p_isEdit) {
             l_result.add(p_country.getPlayer() != null ? p_country.getPlayer().getName() : "");
             l_result.add(p_country.getNumberOfArmiesPresent() + "");
         }
-        l_result.add(l_neighborsAsCsv);
+
+        l_result.add(l_neighboursToCsv);
         return l_result.toArray(new String[0]);
     }
 

@@ -18,7 +18,7 @@ public class ReadMap {
 
     private HashMap<String, Integer> d_continentsMap;
     private HashMap<Integer, String> d_countriesMap;
-    Scanner d_reader;
+    Scanner d_scanner;
 
     /**
      * ReadMap Constructor
@@ -49,23 +49,23 @@ public class ReadMap {
     public boolean readFullMap(String p_filePath) {
         File l_mapFile = new File(
                 Paths.get(Paths.get("").toAbsolutePath().toString() + "/maps/" + p_filePath).toString());
-        String l_line, l_dataString;
-        int l_countryCtn = 0, l_continentCtn = 0;
+        String l_nextLine, l_dataString;
+        int l_countryCount = 0, l_continentCount = 0;
 
         try {
-            d_reader = new Scanner(l_mapFile);
-            while (d_reader.hasNextLine()) {
-                l_dataString = d_reader.nextLine();
+            d_scanner = new Scanner(l_mapFile);
+            while (d_scanner.hasNextLine()) {
+                l_dataString = d_scanner.nextLine();
 
 //				Read continents
                 if (l_dataString.equals("[continents]")) {
-                    while (d_reader.hasNextLine()) {
-                        l_line = d_reader.nextLine();
-                        if (l_line.length() > 0) {
-                            String[] l_continents = l_line.split(" ");
-                            ++l_continentCtn;
-                            d_continentsMap.put(l_continents[0], l_continentCtn);
-                            d_gameMap.addContinent(l_continentCtn, Integer.parseInt(l_continents[1]));
+                    while (d_scanner.hasNextLine()) {
+                        l_nextLine = d_scanner.nextLine();
+                        if (l_nextLine.length() > 0) {
+                            String[] l_continents = l_nextLine.split(" ");
+                            ++l_continentCount;
+                            d_continentsMap.put(l_continents[0], l_continentCount);
+                            d_gameMap.addContinent(l_continentCount, Integer.parseInt(l_continents[1]));
                         } else {
                             break;
                         }
@@ -74,12 +74,12 @@ public class ReadMap {
 
 //				Read countries
                 else if (l_dataString.equals("[countries]")) {
-                    while (d_reader.hasNextLine()) {
-                        l_line = d_reader.nextLine();
-                        if (l_line.length() > 0) {
-                            String[] l_countries = l_line.split(" ");
-                            ++l_countryCtn;
-                            d_countriesMap.put(l_countryCtn, l_countries[1]);
+                    while (d_scanner.hasNextLine()) {
+                        l_nextLine = d_scanner.nextLine();
+                        if (l_nextLine.length() > 0) {
+                            String[] l_countries = l_nextLine.split(" ");
+                            ++l_countryCount;
+                            d_countriesMap.put(l_countryCount, l_countries[1]);
                             d_gameMap.addCountry(Integer.parseInt(l_countries[0]), Integer.parseInt(l_countries[2]));
                         } else {
                             break;
@@ -90,10 +90,10 @@ public class ReadMap {
 
 //				Read boundries
                 else if (l_dataString.equals("[borders]")) {
-                    while (d_reader.hasNextLine()) {
-                        l_line = d_reader.nextLine();
-                        if (l_line.length() > 0) {
-                            String[] l_borders = l_line.split(" ");
+                    while (d_scanner.hasNextLine()) {
+                        l_nextLine = d_scanner.nextLine();
+                        if (l_nextLine.length() > 0) {
+                            String[] l_borders = l_nextLine.split(" ");
                             int l_countryId = Integer.parseInt(l_borders[0]);
                             int l_neighborId;
                             for (int i = 1; i < l_borders.length; i++) {
@@ -107,9 +107,9 @@ public class ReadMap {
                     }
                 }
             }
-            d_reader.close();
+            d_scanner.close();
             return true;
-        } catch (FileNotFoundException p_e) {
+        } catch (FileNotFoundException fnfe) {
             return false;
         }
 
