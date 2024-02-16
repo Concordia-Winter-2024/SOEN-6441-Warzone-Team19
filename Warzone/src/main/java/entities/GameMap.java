@@ -1,3 +1,9 @@
+/**
+ * method to display map from the map file in a particular representation during edit phase
+ * print continents, countries, and corresponding neighbours
+ *
+ * @return array list containing data in string format
+ **/
 public String showMapEdit() {
     String[] l_index = { "Country", "Continent; Control Value", "Neighbors" };
     Object[][] l_values = new Object[d_countries.size()][l_index.length];
