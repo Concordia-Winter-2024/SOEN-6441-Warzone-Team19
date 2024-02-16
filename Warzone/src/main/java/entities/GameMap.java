@@ -36,6 +36,13 @@ public String showMapEdit() {
     return l_final_value;
 }
 
+/**
+ * to display map from the map file in a particular representation
+ * during game play phase display continents, countries, corresponding neighbors,
+ * armies, and owners in string format
+ *
+ * @return array list containing data in string format
+ **/
 public String showMapPlay() {
     String[] l_index = {"Country", "Continent; Control Value", "Owner", "Armies", "Neighbors"};
     Object[][] l_values = new Object[d_countries.size()][l_index.length];
