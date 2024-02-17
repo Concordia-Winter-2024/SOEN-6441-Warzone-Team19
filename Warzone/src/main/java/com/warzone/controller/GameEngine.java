@@ -21,7 +21,7 @@ public class GameEngine {
 
     GameMap d_gameMap = new GameMap();
     private boolean d_isLoadedMap = false;
-    private boolean d_isEditMap = false;
+    boolean d_isEditMap = false;
     private boolean d_isGamePhase = false;
     private HashMap<String, Player> d_players = new HashMap<>();
     private ArrayList<String> d_playerName = new ArrayList<>();
@@ -132,7 +132,7 @@ public class GameEngine {
                 l_result = d_gameMap.removeCountry(Integer.parseInt(p_commandSplitted[1]));
             }
         } else {
-            l_result = String.format("Map can only be edited when file is open in edit phase");
+            l_result = "Map can only be edited when file is open in edit phase";
         }
         return l_result;
     }
@@ -154,7 +154,7 @@ public class GameEngine {
                         Integer.parseInt(p_commandSplitted[2]));
             }
         } else {
-            l_result = String.format("Map can only be edited when file is open in edit phase");
+            l_result = "Map can only be edited when file is open in edit phase";
         }
         return l_result;
     }
@@ -179,7 +179,7 @@ public class GameEngine {
             d_isLoadedMap = false;
             d_isEditMap = false;
         } else {
-            l_result = String.format("Cannot save map");
+            l_result = "Cannot save map";
         }
         return l_result;
     }
