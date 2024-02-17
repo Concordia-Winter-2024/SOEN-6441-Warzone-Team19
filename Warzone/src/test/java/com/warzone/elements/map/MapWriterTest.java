@@ -7,7 +7,7 @@ import org.junit.Test;
 public class MapWriterTest {
 
     /**
-     * Checks if map is written properly
+     * It Checks if map is written properly
      */
     @Test
     public void testWriteFullMap() {
