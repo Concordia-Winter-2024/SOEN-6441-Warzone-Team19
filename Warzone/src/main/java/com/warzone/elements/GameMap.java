@@ -163,13 +163,11 @@ public class GameMap {
      * @return l_final_data represents table containing data in string format
      */
     public String showMapEdit() {
-        //String[] l_column = { "Country", "Continent; Control Value", "Neighbors" };
         Object[][] l_data = new Object[d_countries.size()][3];
         System.out.println("=".repeat(50));
         System.out.println("Country , Continent; Control Value , Neighbors");
         System.out.println("=".repeat(50));
         Country l_country;
-        //TextTable l_tt;
         final ByteArrayOutputStream l_baos = new ByteArrayOutputStream();
         String l_final_data;
 
@@ -194,13 +192,11 @@ public class GameMap {
      * @return l_final_data Table containing data in string format
      */
     public String showMapPlay() {
-        //String[] l_column = { "Country", "Continent; Control Value", "Owner", "Armies", "Neighbors" };
         Object[][] l_data = new Object[d_countries.size()][5];
         System.out.println("=".repeat(70));
         System.out.println("Country, Continent; Control Value , Owner , Armies , Neighbors");
         System.out.println("=".repeat(70));
         Country l_country;
-        TextTable l_tt;
         final ByteArrayOutputStream l_baos = new ByteArrayOutputStream();
         String l_final_data;
         int l_count = 0;
