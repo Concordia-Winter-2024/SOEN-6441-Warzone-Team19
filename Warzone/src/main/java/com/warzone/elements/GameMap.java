@@ -146,8 +146,7 @@ public class GameMap {
      * This method is used to load a map from a file
      *
      * @param p_fileName Name of a .map file
-     * @return True response if map file is loaded successfully or a False
-     *         response if its unsuccessful.
+     * @return False response if map file is failed to load successfully, returns True otherwise.
      */
     public String loadMap(String p_fileName) {
         MapReader l_mapRead = new MapReader(this);
@@ -159,9 +158,9 @@ public class GameMap {
     }
 
     /**
-     * This method is used to show the map file in edit phase with proper formatting.
+     * The method shows the map file in edit phase with proper formatting.
      *
-     * @return l_final_data Table containing data in string format
+     * @return l_final_data represents table containing data in string format
      */
     public String showMapEdit() {
         //String[] l_column = { "Country", "Continent; Control Value", "Neighbors" };
@@ -184,24 +183,12 @@ public class GameMap {
             l_count++;
         }
 
-//        l_tt = new TextTable(l_column, l_data);
-//        l_tt.setAddRowNumbering(false);
-//        l_tt.setSort(0);
-
-//        try (PrintStream l_ps = new PrintStream(l_baos, true, "UTF-8")) {
-//            l_tt.printTable(l_ps, 0);
-//
-//        } catch (UnsupportedEncodingException p_e) {
-//
-//            p_e.printStackTrace();
-//        }
-
         l_final_data = new String(l_baos.toByteArray(), StandardCharsets.UTF_8);
         return l_final_data;
     }
 
     /**
-     * This method is used to show the map file in gameplay phase with proper formatting.
+     * The method shows the map file in gameplay phase with proper formatting.
      * It prints String of Countries, Continent, Owner, Armies present, Corresponding Neighbors
      *
      * @return l_final_data Table containing data in string format
@@ -224,26 +211,18 @@ public class GameMap {
             System.out.println(Arrays.toString(l_data[l_count]));
             l_count++;
         }
-//        l_tt = new TextTable(l_column, l_data);
-//        l_tt.setAddRowNumbering(false);
-//        l_tt.setSort(0);
-//        try (PrintStream l_ps = new PrintStream(l_baos, true, "UTF-8")) {
-//            l_tt.printTable(l_ps, 0);
-//
-//        } catch (UnsupportedEncodingException p_e) {
-//            p_e.printStackTrace();
-//        }
+
         l_final_data = new String(l_baos.toByteArray(), StandardCharsets.UTF_8);
         return l_final_data;
     }
 
     /**
-     * This method is used for filling the data of a specific country
+     * The method fills the data of a specific country
      *
      * @param p_country country for which data is to be present
-     * @param p_isEdit  true if showMap called in edit phase, false if called in
-     *                  gameplay phase
-     * @return Country data in array format
+     * @param p_isEdit  false if showMap called in gameplay phase, true if called in
+     *                  edit phase
+     * @return Country returns data in array format
      */
     public String[] fillCountryData(Country p_country, boolean p_isEdit) {
         ArrayList<String> l_result = new ArrayList<String>();
@@ -263,7 +242,7 @@ public class GameMap {
     }
 
     /**
-     * This method is used to save the map to a file
+     * The method saves the map to a file
      *
      * @param p_fileName File name
      * @return True response if map written to file successfully
@@ -298,7 +277,7 @@ public class GameMap {
     }
 
     /**
-     * This method is used to get all the continents
+     * The method gets all the continents to load
      *
      * @return d_continents Set of continents
      */
@@ -307,7 +286,7 @@ public class GameMap {
     }
 
     /**
-     * This method is used to get all the countries
+     * The method gets all the countries to load
      *
      * @return d_countries Set of countries
      */
