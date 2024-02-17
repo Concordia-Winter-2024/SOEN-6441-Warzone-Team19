@@ -16,7 +16,7 @@ public class MapReaderTest {
     MapReader d_map;
 
     /**
-     * It Initialize map before each test
+     * It initialize map before each test
      */
     @Before
     public void setUp() {
