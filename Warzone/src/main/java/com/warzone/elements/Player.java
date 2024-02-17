@@ -33,7 +33,7 @@ public class Player {
     }
 
     /**
-     * method to get name of player
+     * This method is used to get the name of player
      *
      * @return d_name name of player
      */
@@ -42,7 +42,7 @@ public class Player {
     }
 
     /**
-     * method to get the continents occupied by player
+     * This method is used to get the continents occupied by player
      *
      * @return d_continents HashMap of continents and their id occupied by player
      */
@@ -51,7 +51,7 @@ public class Player {
     }
 
     /**
-     * method to get the countries occupied by player
+     * This method is used to get the countries occupied by player
      *
      * @return d_countries HashMap of countries and their id occupied by player
      */
@@ -61,7 +61,7 @@ public class Player {
 
 
     /**
-     * method to get the number of armies player has
+     * This method is used to get the number of armies player has
      *
      * @return d_numberOfArmies number of armies
      */
@@ -70,7 +70,7 @@ public class Player {
     }
 
     /**
-     * method to remove armies
+     * This method is used to remove armies to player
      *
      * @param p_numberArmies number of armies to be removed
      */
@@ -79,7 +79,7 @@ public class Player {
     }
 
     /**
-     * method to add country occupied by player
+     * This is method to add country to player when player wins the country
      *
      * @param p_country Object of country
      */
@@ -88,7 +88,7 @@ public class Player {
     }
 
     /**
-     * method to remove country from player, when player looses the country
+     * This method is used to remove country from player when player loses the country
      *
      * @param p_countryId Id of the country
      */
@@ -97,8 +97,7 @@ public class Player {
     }
 
     /**
-     * method to add continent to player when player wins all the countries in that
-     * continent
+     * This method is used to add continent to player when player wins the all countries of continent
      *
      * @param p_continent object of the continent
      */
@@ -107,7 +106,7 @@ public class Player {
     }
 
     /**
-     * method to remove continent from player
+     * This method is used to remove continent from player when player loses the all countries of continent
      *
      * @param p_continentId Id of continent
      */
@@ -116,8 +115,7 @@ public class Player {
     }
 
     /**
-     * method to set number of armies, which depends upon number of countries and
-     * continents occupied by player
+     * This method is used for setting the number of armies
      */
     public void setNumberOfArmies() {
         d_numberOfArmies = d_countries.size() / 3;
@@ -130,7 +128,7 @@ public class Player {
     }
 
     /**
-     * method to issue order called by Game engine
+     * This method is used to issue order
      */
     public void issue_order() {
 
@@ -159,7 +157,7 @@ public class Player {
     }
 
     /**
-     * method to check if player owns all countries of a continent
+     * This method to check if player owns all the countries of continent
      *
      * @param p_continent continent for which ownership is to be checked
      * @return true if player owns all the countries of continent; else false
@@ -172,7 +170,7 @@ public class Player {
     }
 
     /**
-     * method to get next order from the orders queue
+     * This method is used to get the next order
      *
      * @return order
      */
