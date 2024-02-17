@@ -44,7 +44,7 @@ public class GameMap {
             return String.format("Continent \"%d\" already present in map", p_continentId);
         }
         d_continents.put(p_continentId, new Continent(p_continentId, p_controlValue));
-        return String.format("Continent \"%d\" added to map", p_continentId);
+        return String.format("Continent \"%d\" successfully added to map", p_continentId);
     }
 
     /**
