@@ -38,10 +38,10 @@ public class GameEngine {
         String l_result;
         if (!d_isEditMap && !d_isLoadedMap) {
             this.loadMap(p_fileName, true);
-            if (!Files.exists(Paths.get(Paths.get("").toAbsolutePath().toString() + "/maps/" + p_fileName))) {
+            if (!Files.exists(Paths.get(Paths.get("").toAbsolutePath() + "/maps/" + p_fileName))) {
                 try {
-                    Files.createDirectories(Paths.get(Paths.get("").toAbsolutePath().toString() + "/maps"));
-                    Files.createFile(Paths.get(Paths.get("").toAbsolutePath().toString() + "/maps/" + p_fileName));
+                    Files.createDirectories(Paths.get(Paths.get("").toAbsolutePath() + "/maps"));
+                    Files.createFile(Paths.get(Paths.get("").toAbsolutePath() + "/maps/" + p_fileName));
                 } catch (IOException p_e) {
                     p_e.printStackTrace();
                 }
@@ -81,7 +81,7 @@ public class GameEngine {
             }
             if (!p_isEdit) {
                 String l_validMsg = d_gameMap.validateMap();
-                Boolean l_validateResult = d_gameMap.getValidateStatus();
+                boolean l_validateResult = d_gameMap.getValidateStatus();
                 if (!l_validateResult) {
                     l_result = l_validMsg;
                     d_gameMap = new GameMap();
@@ -90,7 +90,7 @@ public class GameEngine {
             }
             d_isLoadedMap = true;
         } else {
-            l_result = String.format("Cannot be loaded map when map is edited");
+            l_result = "Cannot be loaded map when map is edited";
         }
         return l_result;
     }
@@ -169,7 +169,7 @@ public class GameEngine {
         String l_result;
         if (d_isEditMap && !d_isLoadedMap) {
             String l_validMsg = d_gameMap.validateMap();
-            Boolean l_validateResult = d_gameMap.getValidateStatus();
+            boolean l_validateResult = d_gameMap.getValidateStatus();
             if (!l_validateResult) {
                 l_result = l_validMsg;
                 return l_result;
@@ -211,7 +211,7 @@ public class GameEngine {
                 l_result = removePlayer(p_commandSplitted[1]);
             }
         } else {
-            l_result = String.format("Players cannot be added/removed in this phase");
+            l_result = "Players cannot be added/removed in this phase";
         }
         return l_result;
     }
@@ -265,7 +265,7 @@ public class GameEngine {
         if (this.d_gameMap != null) {
             l_result = d_gameMap.validateMap();
         } else {
-            l_result = String.format("Cannot validate map");
+            l_result = "Cannot validate map";
         }
         return l_result;
     }
@@ -321,12 +321,11 @@ public class GameEngine {
             return "There must be at least two player";
         }
         HashMap<Integer, Country> l_countries = d_gameMap.getCountries();
-        List<Country> l_countryObjects = new ArrayList<Country>();
-        l_countryObjects.addAll(l_countries.values());
+        List<Country> l_countryObjects = new ArrayList<>(l_countries.values());
         Random l_random = new Random();
-        while (true) {
+        do {
             for (Player p_player : d_players.values()) {
-                if (l_countryObjects.size() == 0) {
+                if (l_countryObjects.isEmpty()) {
                     break;
                 }
                 int l_idOfCountry = l_random.nextInt(l_countryObjects.size());
@@ -334,10 +333,7 @@ public class GameEngine {
                 l_countryObjects.get(l_idOfCountry).setPlayer(p_player);
                 l_countryObjects.remove(l_countryObjects.get(l_idOfCountry));
             }
-            if (l_countryObjects.size() == 0) {
-                break;
-            }
-        }
+        } while (!l_countryObjects.isEmpty());
 
         System.out.print("Countries Assigned\n");
         checkContinentOwnership();

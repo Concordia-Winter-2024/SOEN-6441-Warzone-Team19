@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.stream.Collectors;
 
 import com.warzone.elements.map.MapReader;
-import dnl.utils.text.table.TextTable;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
@@ -57,7 +56,7 @@ public class GameMap {
         if (!d_continents.containsKey(p_continentId)) {
             return String.format("Continent \"%d\" not present in map", p_continentId);
         }
-        if (d_continents.get(p_continentId).getCountriesSet().size() > 0) {
+        if (!d_continents.get(p_continentId).getCountriesSet().isEmpty()) {
             for (Country l_country : d_continents.get(p_continentId).getCountriesSet()) {
                 removeCountry(l_country.getId());
             }
@@ -67,7 +66,7 @@ public class GameMap {
     }
 
     /**
-     * This nethod is used to add a country to the map
+     * This method is used to add a country to the map
      *
      * @param p_countryId   Id of country
      * @param p_continentId Id of continent where country present
@@ -111,12 +110,12 @@ public class GameMap {
      */
     public String addNeighbor(int p_sourceCountryId, int p_destCountryId) {
         if (!d_countries.containsKey(p_sourceCountryId) && !d_countries.containsKey(p_destCountryId)) {
-            return String.format("Ensure that both countries are present in map");
+            return "Ensure that both countries are present in map";
         }
         Country l_country1 = d_countries.get(p_sourceCountryId);
         Country l_country2 = d_countries.get(p_destCountryId);
         if (l_country1 == null || l_country2 == null) {
-            return String.format("Country not present");
+            return "Country not present";
         }
         if (l_country1.getNeighborCountries().contains(l_country2)) {
             return String.format("Country \"%d\" already a neighbor of \"%d\"", p_destCountryId, p_sourceCountryId);
@@ -150,7 +149,7 @@ public class GameMap {
      */
     public String loadMap(String p_fileName) {
         MapReader l_mapRead = new MapReader(this);
-        Boolean l_loadCheck = l_mapRead.readFullMap(p_fileName);
+        boolean l_loadCheck = l_mapRead.readFullMap(p_fileName);
         if (!l_loadCheck) {
             return String.format("Map \"%s\" cannot be loaded", p_fileName);
         }
@@ -181,7 +180,7 @@ public class GameMap {
             l_count++;
         }
 
-        l_final_data = new String(l_baos.toByteArray(), StandardCharsets.UTF_8);
+        l_final_data = l_baos.toString(StandardCharsets.UTF_8);
         return l_final_data;
     }
 
@@ -208,12 +207,12 @@ public class GameMap {
             l_count++;
         }
 
-        l_final_data = new String(l_baos.toByteArray(), StandardCharsets.UTF_8);
+        l_final_data = l_baos.toString(StandardCharsets.UTF_8);
         return l_final_data;
     }
 
     /**
-     * The method fills the data of a specific country
+     * The method fills the data with a specific country
      *
      * @param p_country country for which data is to be present
      * @param p_isEdit  false if showMap called in gameplay phase, true if called in
@@ -221,7 +220,7 @@ public class GameMap {
      * @return Country returns data in array format
      */
     public String[] fillCountryData(Country p_country, boolean p_isEdit) {
-        ArrayList<String> l_result = new ArrayList<String>();
+        ArrayList<String> l_result = new ArrayList<>();
         int l_id;
         String l_neighborsAsCsv = p_country.getNeighborCountries().stream().map(Country::getId)
                 .collect(Collectors.toSet()).toString();

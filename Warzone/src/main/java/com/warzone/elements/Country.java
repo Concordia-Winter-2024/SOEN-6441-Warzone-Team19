@@ -23,7 +23,7 @@ public class Country {
     public Country(int p_id, Continent p_continent) {
         d_id = p_id;
         d_continent = p_continent;
-        d_neighborCountries = new HashSet<Country>();
+        d_neighborCountries = new HashSet<>();
         d_armiesPresent = 0;
     }
 

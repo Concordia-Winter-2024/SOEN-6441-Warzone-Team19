@@ -22,7 +22,7 @@ public class Continent {
     public Continent(int p_id, int p_controlValue) {
         d_id = p_id;
         d_controlValue = p_controlValue;
-        d_countriesSet = new HashSet<Country>();
+        d_countriesSet = new HashSet<>();
     }
 
     /**

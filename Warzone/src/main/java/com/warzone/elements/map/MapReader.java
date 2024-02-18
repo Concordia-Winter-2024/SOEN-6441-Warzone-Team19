@@ -16,7 +16,7 @@ import com.warzone.elements.GameMap;
 public class MapReader {
     private GameMap d_gameMap;
 
-    private HashMap<String, Integer> d_continentsMap;
+    private final HashMap<String, Integer> d_continentsMap;
     private HashMap<Integer, String> d_countriesMap;
     Scanner d_reader;
 
@@ -58,52 +58,53 @@ public class MapReader {
                 l_dataString = d_reader.nextLine();
 
 //				Read continents
-                if (l_dataString.equals("[continents]")) {
-                    while (d_reader.hasNextLine()) {
-                        l_line = d_reader.nextLine();
-                        if (l_line.length() > 0) {
-                            String[] l_continents = l_line.split(" ");
-                            ++l_continentCtn;
-                            d_continentsMap.put(l_continents[0], l_continentCtn);
-                            d_gameMap.addContinent(l_continentCtn, Integer.parseInt(l_continents[1]));
-                        } else {
-                            break;
+                switch (l_dataString) {
+                    case "[continents]" -> {
+                        while (d_reader.hasNextLine()) {
+                            l_line = d_reader.nextLine();
+                            if (!l_line.isEmpty()) {
+                                String[] l_continents = l_line.split(" ");
+                                ++l_continentCtn;
+                                d_continentsMap.put(l_continents[0], l_continentCtn);
+                                d_gameMap.addContinent(l_continentCtn, Integer.parseInt(l_continents[1]));
+                            } else {
+                                break;
+                            }
                         }
                     }
-                }
 
 //				Read countries
-                else if (l_dataString.equals("[countries]")) {
-                    while (d_reader.hasNextLine()) {
-                        l_line = d_reader.nextLine();
-                        if (l_line.length() > 0) {
-                            String[] l_countries = l_line.split(" ");
-                            ++l_countryCtn;
-                            d_countriesMap.put(l_countryCtn, l_countries[1]);
-                            d_gameMap.addCountry(Integer.parseInt(l_countries[0]), Integer.parseInt(l_countries[2]));
-                        } else {
-                            break;
+                    case "[countries]" -> {
+                        while (d_reader.hasNextLine()) {
+                            l_line = d_reader.nextLine();
+                            if (!l_line.isEmpty()) {
+                                String[] l_countries = l_line.split(" ");
+                                ++l_countryCtn;
+                                d_countriesMap.put(l_countryCtn, l_countries[1]);
+                                d_gameMap.addCountry(Integer.parseInt(l_countries[0]), Integer.parseInt(l_countries[2]));
+                            } else {
+                                break;
+                            }
                         }
                     }
 
-                }
-
 //				Read boundries
-                else if (l_dataString.equals("[borders]")) {
-                    while (d_reader.hasNextLine()) {
-                        l_line = d_reader.nextLine();
-                        if (l_line.length() > 0) {
-                            String[] l_borders = l_line.split(" ");
-                            int l_countryId = Integer.parseInt(l_borders[0]);
-                            int l_neighborId;
-                            for (int i = 1; i < l_borders.length; i++) {
-                                l_neighborId = Integer.parseInt(l_borders[i]);
-                                d_gameMap.addNeighbor(l_countryId, l_neighborId);
+                    case "[borders]" -> {
+                        while (d_reader.hasNextLine()) {
+                            l_line = d_reader.nextLine();
+                            if (!l_line.isEmpty()) {
+                                String[] l_borders = l_line.split(" ");
+                                int l_countryId = Integer.parseInt(l_borders[0]);
+                                int l_neighborId;
+                                for (int i = 1; i < l_borders.length; i++) {
+                                    l_neighborId = Integer.parseInt(l_borders[i]);
+                                    d_gameMap.addNeighbor(l_countryId, l_neighborId);
+                                }
+                            } else {
+                                break;
                             }
-                        } else {
-                            break;
-                        }
 
+                        }
                     }
                 }
             }

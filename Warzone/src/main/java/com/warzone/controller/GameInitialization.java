@@ -3,7 +3,7 @@ package com.warzone.controller;
 import java.util.Scanner;
 
 /**
- * Main class from where game starts, user commands are taken from here..
+ * Main class from where game starts, user commands are taken from here.
  *
  */
 public class GameInitialization {
