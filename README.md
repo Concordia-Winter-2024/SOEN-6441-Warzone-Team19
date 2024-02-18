@@ -7,7 +7,7 @@ This is a Java based Command Line implementation of popular "Risk" game, compati
 <h2> Authors (GitHub Username) </h2>
 <ul>
   <li>Rushin Makwana (RushinMakwana) </li>
-  <li>Meet Kalaria (Meet-Kalariya) </li>
+  <li>Meet Kalariya (Meet-Kalariya) </li>
   <li>Nen Patel (nenpatel2001) </li>
   <li>Tushar Jain (Tushar-rj) </li>
   <li>Amal Gupta (Amal01111) </li>
