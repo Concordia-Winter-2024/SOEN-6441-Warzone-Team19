@@ -13,6 +13,9 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+* Test cases for GameEngine
+*/
 class GameEngineTest {
     GameEngine d_gameEngine;
     String d_mapName1 = "risk.map";
