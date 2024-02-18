@@ -28,8 +28,3 @@ jobs:
 
       - name: Test with Maven
         run: mvn test --file pom.xml
-
-      - name: Publish to GitHub Packages Apache Maven
-        run: mvn deploy
-        env:
-          GITHUB_TOKEN: ${{ secrets.JAVA_TOKEN }} # GITHUB_TOKEN is the GitHub Packages token
