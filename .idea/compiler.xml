@@ -6,7 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="SOEN-6441-Warzone-Team20" />
+        <module name="SOEN-6441-Warzone-Team19" />
       </profile>
     </annotationProcessing>
   </component>
