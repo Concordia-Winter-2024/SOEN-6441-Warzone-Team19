@@ -11,6 +11,9 @@ import com.warzone.elements.GameMap;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Testcases for MapReader
+ */
 public class MapReaderTest {
 
     MapReader d_map;
