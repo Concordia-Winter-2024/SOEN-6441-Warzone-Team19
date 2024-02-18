@@ -4,6 +4,10 @@ import static org.junit.Assert.*;
 
 import com.warzone.elements.GameMap;
 import org.junit.Test;
+
+/**
+ * Testcases for MapWriterTest
+ */
 public class MapWriterTest {
 
     /**
