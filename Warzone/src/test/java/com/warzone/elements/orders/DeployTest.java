@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Testcases for Deploy
+ */
 class DeployTest {
     GameEngine gameEngine;
     Player player;
@@ -29,6 +32,9 @@ class DeployTest {
         deploy = null;
     }
 
+    /**
+     * Test for player to control counrty and whether it has enough armies
+     */
     @Test
     public void testExecute() {
         // Test when player does not control the country
