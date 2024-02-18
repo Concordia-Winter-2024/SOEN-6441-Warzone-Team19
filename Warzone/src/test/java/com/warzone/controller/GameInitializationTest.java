@@ -9,6 +9,9 @@ import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+* Test cases for GameInitialization
+*/
 class GameInitializationTest {
     GameInitialization gameInitialization;
 
@@ -22,6 +25,9 @@ class GameInitializationTest {
         gameInitialization = null;
     }
 
+    /**
+    * Test to verify if the command entered is correct or not
+    */
     @Test
     public void testGetCommand() {
         String input = "test command";
