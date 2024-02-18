@@ -8,6 +8,9 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Testcases for MapValidationTest
+ */
 class MapValidationTest {
 
     GameMap d_gameMap = new GameMap();
