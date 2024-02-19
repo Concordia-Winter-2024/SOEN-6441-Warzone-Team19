@@ -8,7 +8,7 @@ This is a Java based Command Line implementation of popular "Risk" game, compati
 <ul>
   <li>Meet Kalariya (Meet-Kalariya)</li>
   <li>Nen Patel (nenpatel2001) </li>
-  <li>Tushar Jain (Tushar-rj) </li>
-  <li>Rushin Makwana (RushinMakwana) </li>
+  <li>Rushin Makwana (Rushin-Makwana) </li>  
   <li>Amal Gupta (Amal01111) </li>
+  <li>Tushar Jain (Tushar-rj) </li>
 </ul>
