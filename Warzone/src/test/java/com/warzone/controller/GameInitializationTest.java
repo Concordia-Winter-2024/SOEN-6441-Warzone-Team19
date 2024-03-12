@@ -30,7 +30,7 @@ class GameInitializationTest {
     */
     @Test
     public void testGetCommand() {
-        String input = "test command";
+        java.lang.String input = "test command";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         gameInitialization.l_scanner = new Scanner(System.in);
 
