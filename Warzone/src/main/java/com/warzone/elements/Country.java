@@ -5,7 +5,6 @@ import java.util.Set;
 
 /**
  * Country in a Map
- *
  */
 public class Country {
     private int d_id;
@@ -23,12 +22,48 @@ public class Country {
     public Country(int p_id, Continent p_continent) {
         d_id = p_id;
         d_continent = p_continent;
-        d_neighborCountries = new HashSet<>();
+        d_neighborCountries = new HashSet<Country>();
         d_armiesPresent = 0;
     }
 
     /**
-     * This method is used to get the id of country
+     * method to set owner of the country
+     *
+     * @param p_player player object
+     */
+    public void setPlayer(Player p_player) {
+        d_owner = p_player;
+    }
+
+    /**
+     * method to get the owner of country
+     *
+     * @return d_owner owner player object
+     */
+    public Player getPlayer() {
+        return d_owner;
+    }
+
+    /**
+     * method to place number of armies
+     *
+     * @param p_armiesNumber number of armies to be added
+     */
+    public void placeArmies(int p_armiesNumber) {
+        d_armiesPresent += p_armiesNumber;
+    }
+
+    /**
+     * method to remove armies from country
+     *
+     * @param p_armiesNumber number of armies to be removed
+     */
+    public void removeArmies(int p_armiesNumber) {
+        d_armiesPresent -= p_armiesNumber;
+    }
+
+    /**
+     * method to get id of country
      *
      * @return d_id Id of a country
      */
@@ -37,7 +72,7 @@ public class Country {
     }
 
     /**
-     * This method is used to get the set of neighboring countries
+     * method to get neighboring countries in form of set
      *
      * @return d_neighborCountries set of neighboring countries
      */
@@ -46,16 +81,25 @@ public class Country {
     }
 
     /**
-     * This method is used to add a neighboring country
+     * method to add neighboring country
      *
-     * @param p_addCountry Country to be added
+     * @param p_country Country to be added
      */
-    public void addNeighbor(Country p_addCountry) {
-        d_neighborCountries.add(p_addCountry);
+    public void addNeighbor(Country p_country) {
+        d_neighborCountries.add(p_country);
     }
 
     /**
-     * This is used to get the number of armies present in the country
+     * method to set number of armies present
+     *
+     * @param p_armiesPresent number of armies to be set
+     */
+    public void setNumberOfArmiesPresent(int p_armiesPresent) {
+        d_armiesPresent = p_armiesPresent;
+    }
+
+    /**
+     * method to set number of armies present
      *
      * @return d_armiesPresent number of armies
      */
@@ -64,7 +108,7 @@ public class Country {
     }
 
     /**
-     * This method is used to get the continent to which country belongs
+     * method to get continent to which country belongs
      *
      * @return d_continent continent to which country belongs
      */
@@ -73,21 +117,21 @@ public class Country {
     }
 
     /**
-     * This method is used to remove a neighboring country
+     * method to remove neighbor country
      *
-     * @param p_removeCountry country to be removed
+     * @param p_country country to be removed
      * @return true of neighboring country present and deleted else false
      */
-    public boolean removeNeighbor(Country p_removeCountry) {
-        if (!d_neighborCountries.contains(p_removeCountry)) {
+    public boolean removeNeighbor(Country p_country) {
+        if (!d_neighborCountries.contains(p_country)) {
             return false;
         }
-        d_neighborCountries.remove(p_removeCountry);
+        d_neighborCountries.remove(p_country);
         return true;
     }
 
     /**
-     * This method returns the set of neighbor names
+     * method to get neighbors names
      *
      * @return l_neighborNameSet Set of neighbor names
      */
@@ -98,41 +142,4 @@ public class Country {
         }
         return l_neighborNameSet;
     }
-
-    /**
-     * This method is used to set the owner of the country
-     *
-     * @param p_player player object
-     */
-    public void setPlayer(Player p_player) {
-        d_owner = p_player;
-    }
-
-    /**
-     * This method is used to get the owner of country
-     *
-     * @return d_owner owner player object
-     */
-    public Player getPlayer() {
-        return d_owner;
-    }
-
-    /**
-     * This method is used to place number of armies
-     *
-     * @param p_armiesNumber number of armies to be added
-     */
-    public void placeArmies(int p_armiesNumber) {
-        d_armiesPresent += p_armiesNumber;
-    }
-
-    /**
-     * This method is used to remove armies from country
-     *
-     * @param p_armiesNumber number of armies to be removed
-     */
-    public void removeArmies(int p_armiesNumber) {
-        d_armiesPresent -= p_armiesNumber;
-    }
-
 }

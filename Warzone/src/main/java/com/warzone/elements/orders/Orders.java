@@ -3,7 +3,7 @@ package com.warzone.elements.orders;
 import com.warzone.controller.GameEngine;
 
 /**
- * Interface implemented by all the order classes
+ * Interface for the orders
  *
  */
 public interface Orders {
@@ -11,7 +11,7 @@ public interface Orders {
 	 * Executes the order
 	 * 
 	 * @param p_game GameEngine
-	 * @return True response if command was successful, otherwise false
+	 * @return true response if command was successful, otherwise false
 	 */
 	String execute(GameEngine p_game);
 }

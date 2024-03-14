@@ -1,49 +1,66 @@
 package com.warzone.elements.orders;
 
 import com.warzone.controller.GameEngine;
-import com.warzone.elements.Player;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Testcases for Deploy
+ * Test to check that deploy command works perfectly
  */
-class DeployTest {
-    GameEngine gameEngine;
-    Player player;
-    Deploy deploy;
+public class DeployTest {
 
-    @BeforeEach
-    public void setUp() {
-        gameEngine = new GameEngine();
-        player = new Player("John");
-        gameEngine.addPlayer(String.valueOf(player));
-        gameEngine.loadMap("risk.map");
-        deploy = new Deploy(player, 1, 5);
-    }
+	GameEngine d_game;
 
-    @AfterEach
-    public void tearDown() {
-        gameEngine = null;
-        player = null;
-        deploy = null;
-    }
+	/**
+	 * Setup context for test to happen, object of game is created and player and
+	 * countries are setup
+	 */
+	@Before
+	public void setUp() {
+		d_game = new GameEngine();
+		d_game.setPhase(new PostLoad(d_game));
+		String[] l_newStrings = new String[] { "gameplayer", "-add", "Meet" };
+		String l_result = d_game.executeCommand(l_newStrings);
+		d_game.getGameMap().addContinent(1, 5);
+		d_game.getGameMap().addCountry(1, 1);
+		d_game.d_players.get("Meet").addCountry(d_game.getGameMap().getCountries().get(1));
+		d_game.d_players.get("Meet").setNumberOfArmies();
+	}
 
-    /**
-     * Test for player to control counrty and whether it has enough armies
-     */
-    @Test
-    public void testExecute() {
-        // Test when player does not control the country
-        String result = deploy.execute(gameEngine);
-        assertEquals(String.format("Player \"%s\" does not control country \"%d\"", player.getName(), 1), result);
+	/**
+	 * Test where player armies are placed on country occupied by player
+	 */
+	@Test
+	public void testExecuteOrder1() {
+		int l_country = 1;
+		int l_armies = 2;
+		Deploy l_Deploy = new Deploy(d_game.d_players.get("Meet"), l_country, l_armies);
+		assertEquals("Player \"Meet\" deployed \"2\" armies to country \"1\"", l_Deploy.execute(d_game));
+	}
 
-        // Assign country to player and test when player does not have enough armies
-        player.addCountry(gameEngine.getGameMap().getCountries().get(1));
-        result = deploy.execute(gameEngine);
-        assertEquals(String.format("Player \"%s\" does not enough armies", player.getName()), result);
-    }
+	/**
+	 * Test where armies greater than player has, are tried to placed on a country,
+	 * rejected command with error message
+	 */
+	@Test
+	public void testExecuteOrder2() {
+		int l_country = 1;
+		int l_armies = 5;
+		Deploy l_Deploy = new Deploy(d_game.d_players.get("Meet"), l_country, l_armies);
+		assertEquals("Player \"Meet\" does not enough armies", l_Deploy.execute(d_game));
+	}
+
+	/**
+	 * Test where player tries to deploy armies to country which player doesn't
+	 * possess, rejected command with error message
+	 */
+	@Test
+	public void testExecuteOrder3() {
+		int l_country = 4;
+		int l_armies = 1;
+		Deploy l_Deploy = new Deploy(d_game.d_players.get("Meet"), l_country, l_armies);
+		assertEquals("Player \"Meet\" does not control country \"4\"", l_Deploy.execute(d_game));
+	}
 }

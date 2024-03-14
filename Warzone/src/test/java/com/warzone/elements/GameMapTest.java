@@ -101,7 +101,7 @@ public class GameMapTest {
     @Test
     public void testLoadMap() {
         assertEquals(String.format("Map \"world.map\" loaded successfully"), d_map.loadMap("world.map"));
-        assertEquals(String.format("Map \"uk.map\" cannot be loaded"), d_map.loadMap("uk.map"));
+        assertEquals(String.format("Map \"uk1.map\" cannot be loaded"), d_map.loadMap("uk1.map"));
     }
 
 }

@@ -2,24 +2,71 @@ package com.warzone.controller;
 
 import java.util.Scanner;
 
+import com.warzone.controller.state.Phase;
+
 /**
  * Main class from where game starts, user commands are taken from here.
  *
  */
-public class GameInitialization {
-    Scanner l_scanner = new Scanner(System.in);
+public class  GameInitialization {
+    Scanner d_scanner = new Scanner(System.in);
+    public GameEngine d_gameEngine;
+
+
+    /**
+     * constructor method to the class that sets the phase to the PreEdit phase to
+     * start the initial process of the game
+     */
+    public GameInitialization() {
+        d_gameEngine = new GameEngine();
+        d_gameEngine.setPhase(new PreEdit(d_gameEngine));
+    }
+
+    /**
+     * function to manually set the phase of the game depending upon the user
+     *
+     * @param p_phase the phase that has to be set for next steps in the game
+     */
+    public void setPhase(Phase p_phase) {
+        d_gameEngine.setPhase(p_phase);
+    }
 
     /**
      * Get commands from user
      *
      * @return l_splittedCommandString array containing command that is split using " ".
      */
-    public String[] getCommand() {
+    public String getCommand() {
         String l_userCommand;
+        d_gameEngine.setUserCommand(this);
         System.out.print("\033[1;34m"+" * "+"\033[0m");
-        l_userCommand = l_scanner.nextLine();
-        return l_userCommand.split(" ");
+        l_userCommand = d_scanner.nextLine();
+        String[] l_splittedCommandString = l_userCommand.split(" ");
+        if ("exit".equals(l_splittedCommandString[0])) {
+            return "exit()";
+        }
+        return d_gameEngine.executeCommand(l_splittedCommandString);
     }
+
+
+    /**
+     * function that launches the game
+     */
+    public void start() {
+        System.out.println("\033[1;93m"+"=====> Welcome to Warzone <====="+"\033[0m");
+        new GameEngine().d_logEntryBuffer.setString("Game Started");
+        GameInitialization l_gameInitialization = new GameInitialization();
+        while (true) {
+            String l_commandOpt = (l_gameInitialization.getCommand());
+            if ("exit()".equals(l_commandOpt)) {
+                break;
+            }
+            System.out.println(l_commandOpt);
+        }
+        System.out.print("\nThank you for playing Warzone :)");
+        l_gameInitialization.d_scanner.close();
+    }
+
 
     /**
      * Main method to start the game
@@ -27,18 +74,6 @@ public class GameInitialization {
      * @param args argument to main
      */
     public static void main(String[] args) {
-        Commands l_commands = new Commands();
-        GameInitialization l_gameInitialization = new GameInitialization();
-
-        System.out.println("\033[1;93m"+"=====> Welcome to Warzone <====="+"\033[0m");
-        while (true) {
-            String[] l_splittedCommandString = l_gameInitialization.getCommand();
-            if (l_splittedCommandString[0].equals("exit")) {
-                break;
-            }
-            System.out.println(l_commands.executeCommand(l_splittedCommandString));
-        }
-        System.out.print("\033[1;93m"+"\n😃 Thank you for playing 😃 "+"\033[0m");
-        l_gameInitialization.l_scanner.close();
+        new GameInitialization().start();
     }
 }
