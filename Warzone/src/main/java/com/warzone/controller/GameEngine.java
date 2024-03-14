@@ -28,7 +28,7 @@ public class GameEngine {
     int d_currentPlayer = 0;
 
     /**
-     * Main execution method for commands
+     * Main method for execution method for commands
      *
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for processing
@@ -109,7 +109,7 @@ public class GameEngine {
     }
 
     /**
-     * function to get the order size of the player
+     * This method is used to get the order size of the player
      *
      * @return an integer representing the size of the orders, the players has
      */
@@ -118,7 +118,7 @@ public class GameEngine {
     }
 
     /**
-     * function to add order to the order queue of the player
+     * This method is used to add order to the order queue of the player
      *
      * @param p_player represents the player whose order is to be added to the queue
      */
@@ -127,7 +127,7 @@ public class GameEngine {
     }
 
     /**
-     * function to remove an order from the order queue of the player
+     * This method is used to remove an order from the order queue of the player
      *
      * @return removal of order from the queue of the player
      */
@@ -136,7 +136,7 @@ public class GameEngine {
     }
 
     /**
-     * function to obtain the phase in which we are present in the game
+     * This method is used to obtain the phase in which we are present in the game
      *
      * @return the phase we currently are in the game
      */
@@ -145,7 +145,7 @@ public class GameEngine {
     }
 
     /**
-     * function to return the current state/situation of the game map
+     * This method is used to return the current state/situation of the game map
      *
      * @return the current game map
      */
@@ -154,7 +154,7 @@ public class GameEngine {
     }
 
     /**
-     * function to set the game map according to the parameter provided
+     * This method is used set the game map according to the parameter provided
      *
      * @param p_gameMap the game map state we want to set
      */
@@ -163,13 +163,80 @@ public class GameEngine {
     }
 
     /**
-     * function to set the phases of the game like editing phase, loading phase,
+     * This method is used to set the phases of the game like editing phase, loading phase,
      * gamesetup and gameplay phase
      *
      * @param p_phase the name of the phase to be set
      */
     public void setPhase(Phase p_phase) {
         d_phase = p_phase;
+    }
+
+    /**
+     * This method is used for deployment of armies to countries
+     *
+     * @param p_splittedCommand the command that has been splitted into multiple
+     *                          parts for further processing
+     * @return the result of the deploy command
+     */
+    public String deploy(String[] p_splittedCommand) {
+        return d_phase.deploy(p_splittedCommand);
+    }
+
+    /**
+     * This method is used to  advance of armies from player country to enemy country or
+     * own country
+     *
+     * @param p_splittedCommand the command that has been splitted into multiple
+     *                          parts for further processing
+     * @return the result of the advance command
+     */
+    public String advance(String[] p_splittedCommand) {
+        return d_phase.deploy(p_splittedCommand);
+    }
+
+    /**
+     * This method is used to  airlift of armies to player's own countries
+     *
+     * @param p_splittedCommand the command that has been splitted into multiple
+     *                          parts for further processing
+     * @return the result of the airlift command
+     */
+    public String airlift(String[] p_splittedCommand) {
+        return d_phase.deploy(p_splittedCommand);
+    }
+
+    /**
+     * This method is used to  bombing of the country of enemy player
+     *
+     * @param p_splittedCommand the command that has been splitted into multiple
+     *                          parts for further processing
+     * @return the result of the bomb command
+     */
+    public String bomb(String[] p_splittedCommand) {
+        return d_phase.deploy(p_splittedCommand);
+    }
+
+    /**
+     * This method is used to  blockade card that blocks player own country
+     *
+     * @param p_splittedCommand the command that has been splitted into multiple
+     *                          parts for further processing
+     * @return the result of the blockade command
+     */
+    public String blockade(String[] p_splittedCommand) {
+        return d_phase.deploy(p_splittedCommand);
+    }
+
+    /**
+     * This method is used to establish diplomacy among players
+     *
+     * @param p_splittedCommand the command that has been splitted into multiple
+     *                          parts for further processing
+     * @return the result of the diplomacy command
+     */
+    public String diplomacy(String[] p_splittedCommand) {
+        return d_phase.deploy(p_splittedCommand);
     }
 
     /**
