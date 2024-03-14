@@ -1,4 +1,4 @@
-package com.warzone.elements.map;
+ epackage com.warzone.elements.map;
 
 import java.util.HashSet;
 import java.util.Set;
