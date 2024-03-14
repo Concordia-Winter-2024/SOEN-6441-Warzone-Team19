@@ -135,6 +135,42 @@ public class GameEngine {
         return d_playersOrder.remove();
     }
 
+    /**
+     * function to obtain the phase in which we are present in the game
+     *
+     * @return the phase we currently are in the game
+     */
+    public Phase getPhase() {
+        return d_phase;
+    }
+
+    /**
+     * function to return the current state/situation of the game map
+     *
+     * @return the current game map
+     */
+    public GameMap getGameMap() {
+        return d_gameMap;
+    }
+
+    /**
+     * function to set the game map according to the parameter provided
+     *
+     * @param p_gameMap the game map state we want to set
+     */
+    public void setGameMap(GameMap p_gameMap) {
+        d_gameMap = p_gameMap;
+    }
+
+    /**
+     * function to set the phases of the game like editing phase, loading phase,
+     * gamesetup and gameplay phase
+     *
+     * @param p_phase the name of the phase to be set
+     */
+    public void setPhase(Phase p_phase) {
+        d_phase = p_phase;
+    }
 
     /**
      * This method is to edit map. If the specified map file does not exist, it will create a new map file.
