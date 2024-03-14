@@ -40,3 +40,4 @@ public class Observable {
             l_observer.update(p_observable);
         }
     }
+}

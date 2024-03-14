@@ -15,5 +15,5 @@ public interface Observer {
      *                         Though it's not always the case,
      *                         this object is frequently the subject.
      */
-    public void update(GameInitialization.Observable p_observableState);
+    public void update(Observable p_observableState);
 }
