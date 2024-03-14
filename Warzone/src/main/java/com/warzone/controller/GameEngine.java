@@ -28,6 +28,88 @@ public class GameEngine {
     int d_currentPlayer = 0;
 
     /**
+     * Main execution method for commands
+     *
+     * @param p_splittedCommand the command that has been splitted into multiple
+     *                          parts for processing
+     * @return the result of the command to be executed
+     */
+    public String executeCommand(String[] p_splittedCommand) {
+        String l_result = "";
+        switch (p_splittedCommand[0]) {
+            case "loadmap":
+                l_result = loadMap(p_splittedCommand);
+                break;
+
+            case "editcontinent":
+                l_result = editContinent(p_splittedCommand);
+                break;
+
+            case "editcountry":
+                l_result = editCountry(p_splittedCommand);
+                break;
+
+            case "editneighbor":
+                l_result = editNeighbor(p_splittedCommand);
+                break;
+
+            case "editmap":
+                l_result = editMap(p_splittedCommand);
+                break;
+
+            case "savemap":
+                l_result = saveMap(p_splittedCommand);
+                break;
+
+            case "gameplayer":
+                l_result = gamePlayer(p_splittedCommand);
+                break;
+
+            case "assigncountries":
+                l_result = assignCountries(p_splittedCommand);
+                break;
+
+            case "validatemap":
+                l_result = validateMap(p_splittedCommand);
+                break;
+
+            case "showmap":
+                l_result = showmap();
+                break;
+
+            case "deploy":
+                l_result = deploy(p_splittedCommand);
+                break;
+
+            case "negotiate":
+                l_result = diplomacy(p_splittedCommand);
+                break;
+
+            case "advance":
+                l_result = advance(p_splittedCommand);
+                break;
+
+            case "airlift":
+                l_result = airlift(p_splittedCommand);
+                break;
+
+            case "bomb":
+                l_result = bomb(p_splittedCommand);
+                break;
+
+            case "blockade":
+                l_result = blockade(p_splittedCommand);
+                break;
+
+            default:
+                l_result = "Command not found";
+        }
+
+        return l_result;
+    }
+
+
+    /**
      * This method is to edit map. If the specified map file does not exist, it will create a new map file.
      * If the map file exists, it will load the map file and set the edit phase to true.
      *
