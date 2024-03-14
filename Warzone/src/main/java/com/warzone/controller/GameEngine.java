@@ -1,16 +1,17 @@
 package com.warzone.controller;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Random;
 
-import com.warzone.elements.Continent;
-import com.warzone.elements.Country;
+
+import com.warzone.controller.state.Phase;
+import com.warzone.controller.state.edit.EditPhase;
+import com.warzone.controller.state.gamephase.gamesetup.PreLoad;
 import com.warzone.elements.GameMap;
 import com.warzone.elements.Player;
-import com.warzone.elements.orders.Orders;
-import com.warzone.elements.orders.ShowMap;
 
 /**
  *
@@ -19,13 +20,27 @@ import com.warzone.elements.orders.ShowMap;
  */
 public class GameEngine {
 
-    GameMap d_gameMap = new GameMap();
-    private boolean d_isLoadedMap = false;
-    boolean d_isEditMap = false;
-    private boolean d_isGamePhase = false;
-    private HashMap<String, Player> d_players = new HashMap<>();
-    private ArrayList<String> d_playerName = new ArrayList<>();
-    int d_currentPlayer = 0;
+    private Phase d_phase;
+    private GameMap d_gameMap = new GameMap();
+    private Queue<Player> d_playersOrder = new LinkedList<>();
+    public HashMap<String, Player> d_players = new HashMap<>();
+    public ArrayList<String> d_playerName = new ArrayList<>();
+    public GameInitialization d_gameInitialization;
+    public LogEntryBuffer d_logEntryBuffer;
+    private LogWriter d_logWriter;
+    public Player d_neutralPlayer;
+    public Random d_random;
+
+    /**
+     * Constructor which creates a neutral player when game is started
+     * and also initializes LogEntryBuffer
+     */
+    public GameEngine() {
+        d_logEntryBuffer = new LogEntryBuffer();
+        d_logWriter = new LogWriter(d_logEntryBuffer);
+        d_neutralPlayer = new Player("neutralPlayer#1");
+        d_random = new Random();
+    }
 
     /**
      * Main method for execution method for commands
