@@ -25,7 +25,7 @@ public class PostLoad extends GameSetup {
 	}
 
 	/**
-	 * function to load the map for playing the game
+	 * This method is used to load the map for playing the game
 	 * 
 	 * @param p_fileName Name of the map file to be loaded
 	 * @return string suggesting that map has already been loaded as it is in the
@@ -37,7 +37,7 @@ public class PostLoad extends GameSetup {
 	}
 
 	/**
-	 * function to support adding and removing of players to the game
+	 * This method is used to support adding and removing of players to the game
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return the result of the command provided
@@ -54,7 +54,7 @@ public class PostLoad extends GameSetup {
 	}
 
 	/**
-	 * function to assign countries to the players present in the game
+	 * This method is used to assign countries to the players present in the game
 	 * 
 	 * @return string indicating that countries are assigned to the players
 	 */
@@ -88,7 +88,7 @@ public class PostLoad extends GameSetup {
 	}
 
 	/**
-	 * function to add a player in the game and checks whether the player is already
+	 * This method is used to add a player in the game and checks whether the player is already
 	 * present in the game or not
 	 * 
 	 * @param p_playerName Name of the player to be added
@@ -108,7 +108,7 @@ public class PostLoad extends GameSetup {
 	}
 
 	/**
-	 * function to remove a player from the game and checks whether the player is
+	 * This method is used to remove a player from the game and checks whether the player is
 	 * already present in the game or not
 	 * 
 	 * @param p_playerName Name of the player to be removed
@@ -127,7 +127,7 @@ public class PostLoad extends GameSetup {
 	}
 
 	/**
-	 * Function that sets the phase to proceed in the game
+	 * This method is used that sets the phase to proceed in the game
 	 */
 	@Override
 	public void next() {

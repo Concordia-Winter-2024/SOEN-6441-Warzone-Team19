@@ -21,7 +21,7 @@ public class ExecuteOrders extends GamePlay {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in this phase
+	 * This method is used to print invalid command as the following command cannot be used in this phase
 	 * @return string to print the invalid command message
 	 */
 	@Override
@@ -30,7 +30,7 @@ public class ExecuteOrders extends GamePlay {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in this phase
+	 * This method is used to print invalid command as the following command cannot be used in this phase
 	 * @return string to print the invalid command message
 	 */
 	@Override
@@ -39,7 +39,7 @@ public class ExecuteOrders extends GamePlay {
 	}
 	
 	/**
-	 * function to print invalid command as the following command cannot be used in this phase
+	 * This method is used to print invalid command as the following command cannot be used in this phase
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return string to print the invalid command message
 	 */
@@ -49,7 +49,7 @@ public class ExecuteOrders extends GamePlay {
 	}
 	
 	/**
-	 * function to print invalid command as the following command cannot be used in this phase
+	 * This method is used to print invalid command as the following command cannot be used in this phase
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return string to print the invalid command message
 	 */
@@ -59,7 +59,7 @@ public class ExecuteOrders extends GamePlay {
 	}
 	
 	/**
-	 * function to print invalid command as the following command cannot be used in this phase
+	 * This method is used to print invalid command as the following command cannot be used in this phase
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return string to print the invalid command message
 	 */
@@ -69,7 +69,7 @@ public class ExecuteOrders extends GamePlay {
 	}
 	
 	/**
-	 * function to print invalid command as the following command cannot be used in this phase
+	 * This method is used to print invalid command as the following command cannot be used in this phase
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return string to print the invalid command message
 	 */
@@ -79,7 +79,7 @@ public class ExecuteOrders extends GamePlay {
 	}
 	
 	/**
-	 * function to print invalid command as the following command cannot be used in this phase
+	 * This method is used to print invalid command as the following command cannot be used in this phase
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return string to print the invalid command message
 	 */
@@ -89,7 +89,7 @@ public class ExecuteOrders extends GamePlay {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in this phase
+	 * This method is used to print invalid command as the following command cannot be used in this phase
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return string to print the invalid command message
 	 */
@@ -99,7 +99,7 @@ public class ExecuteOrders extends GamePlay {
 	}
 	
 	/**
-	 * function to print invalid command as the following command cannot be used in this phase
+	 * This method is used to print invalid command as the following command cannot be used in this phase
 	 * @return string to print the invalid command message
 	 */
 	@Override
@@ -108,7 +108,7 @@ public class ExecuteOrders extends GamePlay {
 	}
 	
 	/**
-	 * function to execute order given by the player
+	 * This method is used to execute order given by the player
 	 * @return string to output result of execution of order
 	 */
 	@Override

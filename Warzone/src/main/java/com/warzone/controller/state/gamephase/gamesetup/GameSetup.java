@@ -20,7 +20,7 @@ public abstract class GameSetup extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @return string to print the invalid command message
@@ -31,7 +31,7 @@ public abstract class GameSetup extends GamePhase {
 	}
 
 	/**
-	 * Function to allow users to provide orders
+	 * This method is used to allow users to provide orders
 	 * 
 	 * @return string conveying that game has not yet been setup to use this command
 	 */
@@ -41,7 +41,7 @@ public abstract class GameSetup extends GamePhase {
 	}
 
 	/**
-	 * function to assign countries to the players in the game
+	 * This method is used to assign countries to the players in the game
 	 * 
 	 * @return string conveying that game has not yet been setup to use this command
 	 */
@@ -51,7 +51,7 @@ public abstract class GameSetup extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
@@ -62,7 +62,7 @@ public abstract class GameSetup extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
@@ -73,7 +73,7 @@ public abstract class GameSetup extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
@@ -84,7 +84,7 @@ public abstract class GameSetup extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
@@ -95,7 +95,7 @@ public abstract class GameSetup extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
@@ -106,7 +106,7 @@ public abstract class GameSetup extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
@@ -117,7 +117,7 @@ public abstract class GameSetup extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @return string to print the invalid command message
@@ -127,7 +127,7 @@ public abstract class GameSetup extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @return string to print the invalid command message
@@ -137,7 +137,7 @@ public abstract class GameSetup extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @param p_playerName name of the winner of the game

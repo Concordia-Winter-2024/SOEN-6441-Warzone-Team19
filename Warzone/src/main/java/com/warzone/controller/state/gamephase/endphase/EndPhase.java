@@ -4,13 +4,13 @@ import com.warzone.controller.GameEngine;
 import com.warzone.controller.state.gamephase.GamePhase;
 
 /**
- * This is the class that inherits GamePhase class whose fucntion is to print
- * the winner of the game
+ * This class  inherits GamePhase class whose fucntion is to print
+ * the winner of  game
  */
 public class EndPhase extends GamePhase {
 
 	/**
-	 * constructor method for the class that takes in the object of GameEngine
+	 * constructor that takes  the object of GameEngine
 	 * 
 	 * @param p_gameEngine object of GameEngine class
 	 */
@@ -19,8 +19,7 @@ public class EndPhase extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print invalid command
 	 * 
 	 * @param p_fileName name of the file used to laod
 	 * @return string to print the invalid command message
@@ -31,8 +30,7 @@ public class EndPhase extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print invalid command 
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return string to print the invalid command message
@@ -43,8 +41,7 @@ public class EndPhase extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print invalid command 
 	 * 
 	 * @param p_playerName name of the player to add
 	 * @return string to print the invalid command message
@@ -55,8 +52,7 @@ public class EndPhase extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print invalid command 
 	 * 
 	 * @param p_playerName name of the player to remove
 	 * @return string to print the invalid command message
@@ -67,8 +63,7 @@ public class EndPhase extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print invalid command 
 	 * 
 	 * @return string to print the invalid command message
 	 */
@@ -78,8 +73,7 @@ public class EndPhase extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print invalid command 
 	 * 
 	 * @return string to print the invalid command message
 	 */
@@ -89,8 +83,7 @@ public class EndPhase extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print invalid command 
 	 * 
 	 * @return string to print the invalid command message
 	 */
@@ -100,7 +93,7 @@ public class EndPhase extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
@@ -112,7 +105,7 @@ public class EndPhase extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
@@ -124,7 +117,7 @@ public class EndPhase extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
@@ -136,7 +129,7 @@ public class EndPhase extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
@@ -148,7 +141,7 @@ public class EndPhase extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
@@ -160,7 +153,7 @@ public class EndPhase extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
@@ -172,7 +165,7 @@ public class EndPhase extends GamePhase {
 	}
 
 	/**
-	 * function to print the winner of the game
+	 * This method is used to print the winner of the game
 	 * 
 	 * @param p_playerName name of the player that has won
 	 * @return string to print winner of the game
@@ -182,7 +175,7 @@ public class EndPhase extends GamePhase {
 	}
 
 	/**
-	 * function to proceed to the next phase of the game but as this is the final
+	 * This method is used to proceed to the next phase of the game but as this is the final
 	 * phase of the game this function does not execute
 	 */
 	@Override
@@ -191,7 +184,7 @@ public class EndPhase extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @return string to print the invalid command message
@@ -202,7 +195,7 @@ public class EndPhase extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @return string to print the invalid command message

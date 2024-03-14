@@ -22,7 +22,7 @@ public class IssueOrders extends GamePlay {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @return string to print the invalid command message
@@ -33,7 +33,7 @@ public class IssueOrders extends GamePlay {
 	}
 
 	/**
-	 * function to support deploy command for further processing
+	 * This method is used to support deploy command for further processing
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return merged string of the deploy order provided
@@ -49,7 +49,7 @@ public class IssueOrders extends GamePlay {
 	}
 
 	/**
-	 * function to support advance command for further processing
+	 * This method is used to support advance command for further processing
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return merged string of the advance order provided
@@ -65,7 +65,7 @@ public class IssueOrders extends GamePlay {
 	}
 
 	/**
-	 * function to support airlift command for further processing
+	 * This method is used to support airlift command for further processing
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return merged string of the airlift order provided
@@ -81,7 +81,7 @@ public class IssueOrders extends GamePlay {
 	}
 
 	/**
-	 * function to support bomb command for further processing
+	 * This method is used to support bomb command for further processing
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return merged string of the bomb order provided
@@ -97,7 +97,7 @@ public class IssueOrders extends GamePlay {
 	}
 
 	/**
-	 * function to support blockade command for further processing
+	 * This method is used to support blockade command for further processing
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return merged string of the blockade order provided
@@ -113,7 +113,7 @@ public class IssueOrders extends GamePlay {
 	}
 
 	/**
-	 * function to support diplomacy command for further processing
+	 * This method is used to support diplomacy command for further processing
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return merged string of the diplomacy order provided
@@ -129,7 +129,7 @@ public class IssueOrders extends GamePlay {
 	}
 
 	/**
-	 * function that takes player's and that adds to them to the orders queue
+	 * This method is used that takes player's and that adds to them to the orders queue
 	 * 
 	 * @return string to output result of issue orders
 	 */
@@ -175,7 +175,7 @@ public class IssueOrders extends GamePlay {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @return string to print the invalid command message
@@ -186,7 +186,7 @@ public class IssueOrders extends GamePlay {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @return string to print the invalid command message
@@ -197,7 +197,7 @@ public class IssueOrders extends GamePlay {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @return string to print the invalid command message
@@ -208,7 +208,7 @@ public class IssueOrders extends GamePlay {
 	}
 
 	/**
-	 * function to proceed to the next phase of the game
+	 * This method is used to proceed to the next phase of the game
 	 */
 	@Override
 	public void next() {

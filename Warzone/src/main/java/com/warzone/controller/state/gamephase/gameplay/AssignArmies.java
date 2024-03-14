@@ -11,7 +11,7 @@ import com.warzone.elements.Player;
 public class AssignArmies extends GamePlay {
 
 	/**
-	 * constructor method that takes game engine object from the parent class
+	 * constructor takes game engine object from the parent class
 	 * 
 	 * @param p_gameEngine object of the game engine
 	 */
@@ -20,7 +20,7 @@ public class AssignArmies extends GamePlay {
 	}
 
 	/**
-	 * function to assign armies to the players
+	 * This method is used to assign armies to the players
 	 */
 	@Override
 	public String assignArmies() {
@@ -39,8 +39,7 @@ public class AssignArmies extends GamePlay {
 	}
 
 	/**
-	 * function to check whether continent is owned by the players before assigning
-	 * countries
+	 * This method is used to check whether continent is owned by the players
 	 * 
 	 * @return string to output result of continent ownership
 	 */
@@ -60,7 +59,7 @@ public class AssignArmies extends GamePlay {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @return string to print the invalid command message
@@ -71,8 +70,7 @@ public class AssignArmies extends GamePlay {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print invalid command
 	 * 
 	 * @param p_splittedCommand splitted command parts used for execution of command
 	 * @return string to print the invalid command message
@@ -95,8 +93,7 @@ public class AssignArmies extends GamePlay {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print invalid command 
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return string to print the invalid command message
@@ -107,8 +104,7 @@ public class AssignArmies extends GamePlay {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print invalid command 
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return string to print the invalid command message
@@ -119,8 +115,7 @@ public class AssignArmies extends GamePlay {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print invalid command 
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return string to print the invalid command message
@@ -131,8 +126,7 @@ public class AssignArmies extends GamePlay {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print invalid command 
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return string to print the invalid command message
@@ -143,8 +137,7 @@ public class AssignArmies extends GamePlay {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print invalid command 
 	 * 
 	 * @return string to print the invalid command message
 	 */
@@ -154,8 +147,7 @@ public class AssignArmies extends GamePlay {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print invalid command 
 	 * 
 	 * @return string to print the invalid command message
 	 */
@@ -165,7 +157,7 @@ public class AssignArmies extends GamePlay {
 	}
 
 	/**
-	 * function to proceed to the next phase of the game
+	 * This method is used to proceed to the next phase of the game
 	 */
 	@Override
 	public void next() {

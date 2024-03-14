@@ -19,7 +19,7 @@ public abstract class GamePlay extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @param p_fileName name of the map file used for loading
@@ -31,7 +31,7 @@ public abstract class GamePlay extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
@@ -43,8 +43,7 @@ public abstract class GamePlay extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print invalid command 
 	 * 
 	 * @param p_playerName name of the player to add to the game
 	 * @return string to print the invalid command message
@@ -55,7 +54,7 @@ public abstract class GamePlay extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @param p_playerName name of the player to remove from the game
@@ -67,7 +66,7 @@ public abstract class GamePlay extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @return string to print the invalid command message
@@ -78,7 +77,7 @@ public abstract class GamePlay extends GamePhase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @param p_playerName name of the winner of the game

@@ -259,17 +259,6 @@ public class GameEngine {
         }
         return d_phase.editMap(p_splittedCommand[1]);
     }
-
-    /**
-     * This method is used to load a map.
-     *
-     * @param p_fileName Name of the file
-     * @return loaded map(responses true or false)
-     */
-    public String loadMap(String p_fileName) {
-        return loadMap(p_fileName, false);
-    }
-
     
 
     /**

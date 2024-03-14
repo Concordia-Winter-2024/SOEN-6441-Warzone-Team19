@@ -19,7 +19,7 @@ public abstract class GamePhase extends Phase {
 	}
 
 	/**
-	 * function to save map
+	 * This method is used to save map
 	 * 
 	 * @return shows the current state of the map
 	 */
@@ -28,7 +28,7 @@ public abstract class GamePhase extends Phase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @param p_fileName name of the file used for editing
@@ -39,7 +39,7 @@ public abstract class GamePhase extends Phase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
@@ -50,7 +50,7 @@ public abstract class GamePhase extends Phase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
@@ -61,7 +61,7 @@ public abstract class GamePhase extends Phase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
@@ -72,7 +72,7 @@ public abstract class GamePhase extends Phase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @param p_fileName name of the map file used for saving
@@ -83,7 +83,7 @@ public abstract class GamePhase extends Phase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * This method is used to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @param p_playerName name of the winner to be displayed

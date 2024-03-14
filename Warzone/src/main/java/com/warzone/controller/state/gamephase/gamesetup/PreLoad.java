@@ -19,7 +19,7 @@ public class PreLoad extends GameSetup {
 	}
 
 	/**
-	 * function to load the map file that will be used to play the game
+	 * This method is used to load the map file for play
 	 * 
 	 * @param p_fileName name of the file to be loaded
 	 */
@@ -45,7 +45,7 @@ public class PreLoad extends GameSetup {
 	}
 
 	/**
-	 * function to add and remove players in the game
+	 * This method is used to add and remove players
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return string indicating that map has to be loaded to use this command
@@ -56,7 +56,7 @@ public class PreLoad extends GameSetup {
 	}
 
 	/**
-	 * function to add players in the game
+	 * This method is used to add players in the game
 	 * 
 	 * @param p_playerName name of the player to be added
 	 * @return string indicating that map has to be loaded to use this command
@@ -67,7 +67,7 @@ public class PreLoad extends GameSetup {
 	}
 
 	/**
-	 * function to remove players from the game
+	 * This method is used to remove players from the game
 	 * 
 	 * @param p_playerName splitted name of the player to be removed
 	 * @return string indicating that map has to be loaded to use this command
@@ -78,7 +78,7 @@ public class PreLoad extends GameSetup {
 	}
 
 	/**
-	 * function to allow proceeding to the next phase of the game
+	 * This method is used to allow proceeding to the next phase of the game
 	 */
 	@Override
 	public void next() {
