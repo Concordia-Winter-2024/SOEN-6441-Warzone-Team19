@@ -108,6 +108,33 @@ public class GameEngine {
         return l_result;
     }
 
+    /**
+     * function to get the order size of the player
+     *
+     * @return an integer representing the size of the orders, the players has
+     */
+    public int getPlayersOrderSize() {
+        return d_playersOrder.size();
+    }
+
+    /**
+     * function to add order to the order queue of the player
+     *
+     * @param p_player represents the player whose order is to be added to the queue
+     */
+    public void addPlayerOrder(Player p_player) {
+        d_playersOrder.add(p_player);
+    }
+
+    /**
+     * function to remove an order from the order queue of the player
+     *
+     * @return removal of order from the queue of the player
+     */
+    public Player getPlayerOrder() {
+        return d_playersOrder.remove();
+    }
+
 
     /**
      * This method is to edit map. If the specified map file does not exist, it will create a new map file.
