@@ -115,7 +115,7 @@ public class PlayerTest {
      */
     @Test
     public void testRemoveCountryNonExistentID() {
-        d_player.removeCountry(10); // Assuming ID 10 does not exist in the player's countries map
+        d_player.removeCountry(10); 
         assertFalse(d_player.getCountries().keySet().contains(10));
     }
 }
