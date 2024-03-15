@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.warzone.controller.GameInitialization;
 
+import com.warzone.controller.state.gamephase.gameplay.IssueOrders;
 import com.warzone.elements.orders.Advance;
 import com.warzone.elements.orders.Deploy;
 import com.warzone.elements.orders.Orders;
@@ -11,7 +12,7 @@ import com.warzone.elements.orders.Orders;
 import com.warzone.elements.orders.*;
 
 /**
- * Player in a game
+ * Player class in a game
  */
 public class Player {
     private String d_name;
@@ -170,7 +171,7 @@ public class Player {
         while (!l_isCorrect) {
             try {
                 String l_result = (l_gameInitialization.getCommand());
-                if ("exit()".equals(l_result)) {
+                if ("exit".equals(l_result)) {
                     l_isCorrect = true;
                     d_isCommit = true;
                     return;

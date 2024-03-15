@@ -18,7 +18,7 @@ public abstract class Phase {
 	}
 
 	/**
-	 * abstract function to support editMap command
+	 * abstract method to support editMap command
 	 * 
 	 * @param p_fileName the name of the file used for editing
 	 * @return output string of execution of command
@@ -26,7 +26,7 @@ public abstract class Phase {
 	abstract public String editMap(String p_fileName);
 
 	/**
-	 * abstract function to support editContinent command
+	 * abstract method to support editContinent command
 	 * 
 	 * @param p_commandSplitted splitted parts of the command used to execution of
 	 *                          the command
@@ -35,7 +35,7 @@ public abstract class Phase {
 	abstract public String editContinent(String[] p_commandSplitted);
 
 	/**
-	 * abstract function to support editCountry command
+	 * abstract method to support editCountry command
 	 * 
 	 * @param p_commandSplitted splitted parts of the command used to execution of
 	 *                          the command
@@ -44,7 +44,7 @@ public abstract class Phase {
 	abstract public String editCountry(String[] p_commandSplitted);
 
 	/**
-	 * abstract function to support editNeighbor command
+	 * abstract method to support editNeighbor command
 	 * 
 	 * @param p_commandSplitted splitted parts of the command used to execution of
 	 *                          the command
@@ -53,7 +53,7 @@ public abstract class Phase {
 	abstract public String editNeighbor(String[] p_commandSplitted);
 
 	/**
-	 * abstract function to support saveMap command
+	 * abstract method to support saveMap command
 	 * 
 	 * @param p_fileName the name of the file used for editing
 	 * @return output string of execution of command
@@ -61,7 +61,7 @@ public abstract class Phase {
 	abstract public String saveMap(String p_fileName);
 
 	/**
-	 * abstract function to support loadMap command
+	 * abstract method to support loadMap command
 	 * 
 	 * @param p_fileName the name of the file used for editing
 	 * @return output string of execution of command
@@ -69,7 +69,7 @@ public abstract class Phase {
 	abstract public String loadMap(String p_fileName);
 
 	/**
-	 * abstract function to support gamePlayer command
+	 * abstract method to support gamePlayer command
 	 * 
 	 * @param p_commandSplitted splitted parts of the command used to execution of
 	 *                          the command
@@ -78,7 +78,7 @@ public abstract class Phase {
 	abstract public String gamePlayer(String[] p_commandSplitted);
 
 	/**
-	 * abstract function to support addPlayer command
+	 * abstract method to support addPlayer command
 	 * 
 	 * @param p_playerName name of the player to be added
 	 * @return output string of execution of command
@@ -86,7 +86,7 @@ public abstract class Phase {
 	abstract public String addPlayer(String p_playerName);
 
 	/**
-	 * abstract function to support addPlayer command
+	 * abstract method to support addPlayer command
 	 * 
 	 * @param p_playerName name of the player to be removed
 	 * @return output string of execution of command
@@ -94,28 +94,28 @@ public abstract class Phase {
 	abstract public String removePlayer(String p_playerName);
 
 	/**
-	 * Abstract function to assign countries
+	 * Abstract method to assign countries
 	 * 
 	 * @return output string of execution of command
 	 */
 	abstract public String assignCountries();
 
 	/**
-	 * Abstract function to assign Armies
+	 * Abstract method to assign Armies
 	 * 
 	 * @return output string of execution of command
 	 */
 	abstract public String assignArmies();
 
 	/**
-	 * Abstract function to issue Orders
+	 * Abstract method to issue Orders
 	 * 
 	 * @return output string of execution of command
 	 */
 	abstract public String issueOrders();
 
 	/**
-	 * abstract function to support deploy command
+	 * abstract method to support deploy command
 	 * 
 	 * @param p_commandSplitted splitted parts of the command used to execution of
 	 *                          the command
@@ -124,7 +124,7 @@ public abstract class Phase {
 	abstract public String deploy(String[] p_commandSplitted);
 
 	/**
-	 * abstract function to support advance command
+	 * abstract method to support advance command
 	 * 
 	 * @param p_commandSplitted splitted parts of the command used to execution of
 	 *                          the command
@@ -133,7 +133,7 @@ public abstract class Phase {
 	abstract public String advance(String[] p_commandSplitted);
 
 	/**
-	 * abstract function to support bomb command
+	 * abstract method to support bomb command
 	 * 
 	 * @param p_commandSplitted splitted parts of the command used to execution of
 	 *                          the command
@@ -142,7 +142,7 @@ public abstract class Phase {
 	abstract public String bomb(String[] p_commandSplitted);
 
 	/**
-	 * abstract function to support blockade command
+	 * abstract method to support blockade command
 	 * 
 	 * @param p_commandSplitted splitted parts of the command used to execution of
 	 *                          the command
@@ -151,7 +151,7 @@ public abstract class Phase {
 	abstract public String blockade(String[] p_commandSplitted);
 
 	/**
-	 * abstract function to support airlift command
+	 * abstract method to support airlift command
 	 * 
 	 * @param p_commandSplitted splitted parts of the command used to execution of
 	 *                          the command
@@ -160,7 +160,7 @@ public abstract class Phase {
 	abstract public String airlift(String[] p_commandSplitted);
 
 	/**
-	 * abstract function to support diplomacy command
+	 * abstract method to support diplomacy command
 	 * 
 	 * @param p_commandSplitted splitted parts of the command used to execution of
 	 *                          the command
@@ -169,26 +169,26 @@ public abstract class Phase {
 	abstract public String diplomacy(String[] p_commandSplitted);
 
 	/**
-	 * abstract function to support proceeding to the next phase of the game
+	 * abstract method to support proceeding to the next phase of the game
 	 */
 	abstract public void next();
 
 	/**
-	 * Abstract function to execute Orders
+	 * Abstract method to execute Orders
 	 * 
 	 * @return output string of execution of command
 	 */
 	abstract public String executeOrders();
 
 	/**
-	 * Abstract function to check Continent Ownership
+	 * Abstract method to check Continent Ownership
 	 * 
 	 * @return output string of execution of command
 	 */
 	abstract public String checkContinentOwnership();
 
 	/**
-	 * abstract function display the winner of the game
+	 * abstract method display the winner of the game
 	 * 
 	 * @param p_playerName name of the player that has won
 	 * @return output string of execution of command
@@ -196,7 +196,7 @@ public abstract class Phase {
 	abstract public String printWinner(String p_playerName);
 
 	/**
-	 * function to show the map with all the information at all times
+	 * method to show the map with all the information at all times
 	 * 
 	 * @return output string of execution of command
 	 */

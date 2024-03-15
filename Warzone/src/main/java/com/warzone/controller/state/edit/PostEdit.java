@@ -17,7 +17,7 @@ public class PostEdit extends EditPhase {
 	}
 
 	/**
-	 * as this command is not applicable in this phase we print invalid command string
+	 * Method as this command is not applicable in this phase we print invalid command string
 	 * @param p_fileName name of the map file to use for editing
 	 * @return string containing invalid command string
 	 */
@@ -27,7 +27,7 @@ public class PostEdit extends EditPhase {
 	}
   
 	/**
-	 * as this command is applicable in this phase we process the editContinent command
+	 * Method as this command is applicable in this phase we process the editContinent command
 	 * @param p_commandSplitted splitted command parts to execute
 	 * @return string indicating the add or remove command result
 	 */
@@ -45,7 +45,7 @@ public class PostEdit extends EditPhase {
 	}
 
 	/**
-	 * as this command is applicable in this phase we process the editCountry command
+	 * Method as this command is applicable in this phase we process the editCountry command
 	 * @param p_commandSplitted splitted command parts to execute
 	 * @return string indicating the add or remove command result
 	 */
@@ -64,7 +64,7 @@ public class PostEdit extends EditPhase {
 	}
 
 	/**
-	 * as this command is applicable in this phase we process the editNeighbor command
+	 * Method as this command is applicable in this phase we process the editNeighbor command
 	 * @param p_commandSplitted splitted command parts to execute
 	 * @return string indicating the add or remove command result
 	 */
@@ -83,7 +83,7 @@ public class PostEdit extends EditPhase {
 	}
 
 	/**
-	 * as this command is applicable in this phase we process the saveMap command
+	 * This method is used to save the map
 	 * @param p_fileName name of the map file for saving
 	 * @return string indicating the result of the map saving whether it was successful or not
 	 */
@@ -104,7 +104,7 @@ public class PostEdit extends EditPhase {
 	}
 
 	/**
-	 * function to proceed to the next phase of the game
+	 * Method to allow proceeding to the next phase of the game
 	 */
 	@Override
 	public void next() {

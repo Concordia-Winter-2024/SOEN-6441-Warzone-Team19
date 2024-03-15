@@ -8,13 +8,13 @@ import java.util.Random;
 
 
 import com.warzone.controller.state.Phase;
+import com.warzone.controller.state.edit.EditPhase;
+import com.warzone.controller.state.gamephase.gamesetup.PreLoad;
 import com.warzone.elements.GameMap;
 import com.warzone.elements.Player;
 
 /**
- *
- * Main file to start game
- *
+ * Main file class to process command and to start game
  */
 public class GameEngine {
     private Phase d_phase;
@@ -29,9 +29,7 @@ public class GameEngine {
     public Random d_random;
 
     /**
-     * Game Engine constructor which creates a neutral player when game is started
-     * and also initializes LogEntryBuffer which is observable and attaches it to
-     * LogWriter.
+     * Constructor to creates a neutral player also initializes LogEntryBuffer
      */
     public GameEngine() {
         d_logEntryBuffer = new LogEntryBuffer();
@@ -41,39 +39,38 @@ public class GameEngine {
     }
 
     /**
-     * Main execution method for commands
+     * Main method for execution method for commands
      *
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for processing
      * @return the result of the command to be executed
      */
     public String executeCommand(String[] p_splittedCommand) {
-        String l_result = "";
-        switch (p_splittedCommand[0]) {
-            case "loadmap" -> l_result = loadMap(p_splittedCommand);
-            case "editcontinent" -> l_result = editContinent(p_splittedCommand);
-            case "editcountry" -> l_result = editCountry(p_splittedCommand);
-            case "editneighbor" -> l_result = editNeighbor(p_splittedCommand);
-            case "editmap" -> l_result = editMap(p_splittedCommand);
-            case "savemap" -> l_result = saveMap(p_splittedCommand);
-            case "gameplayer" -> l_result = gamePlayer(p_splittedCommand);
-            case "assigncountries" -> l_result = assignCountries(p_splittedCommand);
-            case "validatemap" -> l_result = validateMap(p_splittedCommand);
-            case "showmap" -> l_result = showmap();
-            case "deploy" -> l_result = deploy(p_splittedCommand);
-            case "negotiate" -> l_result = diplomacy(p_splittedCommand);
-            case "advance" -> l_result = advance(p_splittedCommand);
-            case "airlift" -> l_result = airlift(p_splittedCommand);
-            case "bomb" -> l_result = bomb(p_splittedCommand);
-            case "blockade" -> l_result = blockade(p_splittedCommand);
-            default -> l_result = "Command not found";
-        }
+        String l_result = switch (p_splittedCommand[0]) {
+            case "loadmap" -> loadMap(p_splittedCommand);
+            case "editcontinent" -> editContinent(p_splittedCommand);
+            case "editcountry" -> editCountry(p_splittedCommand);
+            case "editneighbor" -> editNeighbor(p_splittedCommand);
+            case "editmap" -> editMap(p_splittedCommand);
+            case "savemap" -> saveMap(p_splittedCommand);
+            case "gameplayer" -> gamePlayer(p_splittedCommand);
+            case "assigncountries" -> assignCountries(p_splittedCommand);
+            case "validatemap" -> validateMap(p_splittedCommand);
+            case "showmap" -> showmap();
+            case "deploy" -> deploy(p_splittedCommand);
+            case "negotiate" -> diplomacy(p_splittedCommand);
+            case "advance" -> advance(p_splittedCommand);
+            case "airlift" -> airlift(p_splittedCommand);
+            case "bomb" -> bomb(p_splittedCommand);
+            case "blockade" -> blockade(p_splittedCommand);
+            default -> "Command not found";
+        };
 
         return l_result;
     }
 
     /**
-     * function to get the order size of the player
+     * This method is used to get the order size of the player
      *
      * @return an integer representing the size of the orders, the players has
      */
@@ -82,7 +79,7 @@ public class GameEngine {
     }
 
     /**
-     * function to add order to the order queue of the player
+     * This method is used to add order to the order queue of the player
      *
      * @param p_player represents the player whose order is to be added to the queue
      */
@@ -91,7 +88,7 @@ public class GameEngine {
     }
 
     /**
-     * function to remove an order from the order queue of the player
+     * This method is used to remove an order from the order queue of the player
      *
      * @return removal of order from the queue of the player
      */
@@ -100,7 +97,7 @@ public class GameEngine {
     }
 
     /**
-     * function to obtain the phase in which we are present in the game
+     * This method is used to obtain the phase in which we are present in the game
      *
      * @return the phase we currently are in the game
      */
@@ -109,7 +106,7 @@ public class GameEngine {
     }
 
     /**
-     * function to return the current state/situation of the game map
+     * This method is used to return the current state/situation of the game map
      *
      * @return the current game map
      */
@@ -118,7 +115,7 @@ public class GameEngine {
     }
 
     /**
-     * function to set the game map according to the parameter provided
+     * This method is used set the game map according to the parameter provided
      *
      * @param p_gameMap the game map state we want to set
      */
@@ -127,7 +124,7 @@ public class GameEngine {
     }
 
     /**
-     * function to set the phases of the game like editing phase, loading phase,
+     * This method is used to set the phases of the game like editing phase, loading phase,
      * gamesetup and gameplay phase
      *
      * @param p_phase the name of the phase to be set
@@ -137,7 +134,7 @@ public class GameEngine {
     }
 
     /**
-     * Function to support deployment of armies to countries
+     * This method is used for deployment of armies to countries
      *
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
@@ -148,7 +145,7 @@ public class GameEngine {
     }
 
     /**
-     * Function to support advance of armies from player country to enemy country or
+     * This method is used to  advance of armies from player country to enemy country or
      * own country
      *
      * @param p_splittedCommand the command that has been splitted into multiple
@@ -160,7 +157,7 @@ public class GameEngine {
     }
 
     /**
-     * Function to support airlift of armies to player's own countries
+     * This method is used to  airlift of armies to player's own countries
      *
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
@@ -171,7 +168,7 @@ public class GameEngine {
     }
 
     /**
-     * Function to support bombing of the country of enemy player
+     * This method is used to  bombing of the country of enemy player
      *
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
@@ -182,7 +179,7 @@ public class GameEngine {
     }
 
     /**
-     * Function to support blockade card that blocks player own country
+     * This method is used to  blockade card that blocks player own country
      *
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
@@ -193,7 +190,7 @@ public class GameEngine {
     }
 
     /**
-     * Function to establish diplomacy among players
+     * This method is used to establish diplomacy among players
      *
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
@@ -204,18 +201,7 @@ public class GameEngine {
     }
 
     /**
-     * Constructor which creates a neutral player when game is started
-     * and also initializes LogEntryBuffer
-     */
-    public GameEngine() {
-        d_logEntryBuffer = new LogEntryBuffer();
-        d_logWriter = new LogWriter(d_logEntryBuffer);
-        d_neutralPlayer = new Player("neutralPlayer#1");
-        d_random = new Random();
-    }
-
-    /**
-     * Main method for execution method for commands
+     * This method is basically used to edit map.
      *
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
@@ -236,7 +222,7 @@ public class GameEngine {
     }
 
     /**
-     * function to support adding and removing of players to the game map
+     * This method is used to add and remove player.
      *
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
@@ -308,7 +294,7 @@ public class GameEngine {
     }
 
     /**
-     * This method is used to show the map, it will show the map in edit phase and play phase
+     * This method is used to allow user to display the current state of the map
      *
      * @return the map with all the information of the current state
      */
@@ -413,7 +399,7 @@ public class GameEngine {
     }
 
     /**
-     * This method is used to  airlift of armies to player's own countries
+     * This method is used to edit  countries
      *
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
@@ -505,7 +491,7 @@ public class GameEngine {
     }
 
     /**
-     * This method is used to establish diplomacy among players
+     * method is used to edit the neighbors of  countries
      *
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
@@ -599,7 +585,7 @@ public class GameEngine {
     }
 
     /**
-     * This method is used to save the map with the specified file name
+     *  Method to save the map with the specific file name
      *
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
@@ -618,12 +604,9 @@ public class GameEngine {
         return d_phase.saveMap(p_splittedCommand[1]);
     }
 
-     /**
-     * Validate map method to validate a map
+    /**
+     *  Validate map method to validate a map
      *
-     * @param p_splittedCommand the command that has been splitted into multiple
-     *                          parts for further processing
-     * @return the result of map validation
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
      * @return the result of map validation
@@ -631,35 +614,11 @@ public class GameEngine {
     public String validateMap(String[] p_splittedCommand) {
         if (p_splittedCommand.length > 1) {
             return "Please enter valid command";
-    public String validateMap(String[] p_splittedCommand) {
-        if (p_splittedCommand.length > 1) {
-            return "Please enter valid command";
         }
-        return d_phase.validateMap();
         return d_phase.validateMap();
     }
 
     /**
-     * This method is used to load a map.
-     *
-     * @param p_splittedCommand the command that has been splitted into multiple
-     *                          parts for further processing
-     * @return the result of loading of map
-     */
-    public String loadMap(String[] p_splittedCommand) {
-        if (d_phase instanceof EditPhase) {
-            setPhase(new PreLoad(this));
-        }
-        if (p_splittedCommand.length < 2) {
-            return "Please enter valid command";
-        }
-        if (p_splittedCommand[1].split("\\.").length <= 1) {
-            return "File extension should be .map";
-        }
-        if (!"map".equals(p_splittedCommand[1].split("\\.")[1])) {
-            return "File extension should be .map";
-        }
-        return d_phase.loadMap(p_splittedCommand[1]);
      * This method is used to load a map.
      *
      * @param p_splittedCommand the command that has been splitted into multiple
@@ -697,7 +656,7 @@ public class GameEngine {
     }
 
     /**
-     * function to process the entire command provided by the user that will be
+     * This method is used to process the entire command provided by the user that will be
      * splitted for further processing
      *
      * @param p_userCommand the entire line that acts as the command
@@ -707,7 +666,7 @@ public class GameEngine {
     }
 
     /**
-     * This function is used to check if a string can be converted to integer or
+     * This method is used to check if a string can be converted to integer or
      * not.
      *
      * @param p_str represents the string to be casted to Integer value.

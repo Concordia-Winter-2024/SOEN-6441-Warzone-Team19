@@ -4,6 +4,12 @@ import static org.junit.Assert.*;
 
 import java.util.HashMap;
 
+import com.warzone.controller.state.edit.PostEdit;
+import com.warzone.controller.state.edit.PreEdit;
+import com.warzone.controller.state.gamephase.gameplay.ExecuteOrders;
+import com.warzone.controller.state.gamephase.gameplay.IssueOrders;
+import com.warzone.controller.state.gamephase.gamesetup.PostLoad;
+import com.warzone.controller.state.gamephase.gamesetup.PreLoad;
 import org.junit.Test;
 
 import com.warzone.elements.orders.Advance;
@@ -224,21 +230,21 @@ public class GameEngineTest {
 		String[] l_newStrings = new String[] { "loadmap", "risk.map" };
 		String l_result = d_gameEngine.executeCommand(l_newStrings);
 
-		String[] l_addPlayer1 = new String[] { "gameplayer", "-add", "Jay" };
+		String[] l_addPlayer1 = new String[] { "gameplayer", "-add", "Tushar" };
 		String l_addResult1 = d_gameEngine.executeCommand(l_addPlayer1);
-		assertEquals("Player \"Jay\" added to game", l_addResult1);
+		assertEquals("Player \"Tushar\" added to game", l_addResult1);
 
-		String[] l_addPlayer2 = new String[] { "gameplayer", "-add", "Jay" };
+		String[] l_addPlayer2 = new String[] { "gameplayer", "-add", "Tushar" };
 		String l_addResult2 = d_gameEngine.executeCommand(l_addPlayer2);
-		assertEquals("Player \"Jay\" already present in game", l_addResult2);
+		assertEquals("Player \"Tushar\" already present in game", l_addResult2);
 
-		String[] l_removePlayer1 = new String[] { "gameplayer", "-remove", "Jay" };
+		String[] l_removePlayer1 = new String[] { "gameplayer", "-remove", "Tushar" };
 		String l_removeResult1 = d_gameEngine.executeCommand(l_removePlayer1);
-		assertEquals("Player \"Jay\" removed from game", l_removeResult1);
+		assertEquals("Player \"Tushar\" removed from game", l_removeResult1);
 
-		String[] l_removePlayer2 = new String[] { "gameplayer", "-remove", "Jay" };
+		String[] l_removePlayer2 = new String[] { "gameplayer", "-remove", "Tushar" };
 		String l_removeResult2 = d_gameEngine.executeCommand(l_removePlayer2);
-		assertEquals("Player \"Jay\" not present in game", l_removeResult2);
+		assertEquals("Player \"Tushar\" not present in game", l_removeResult2);
 	}
 
 	/**

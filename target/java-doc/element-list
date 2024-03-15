@@ -1,4 +1,11 @@
+com.warzone
 com.warzone.controller
+com.warzone.controller.state
+com.warzone.controller.state.edit
+com.warzone.controller.state.gamephase
+com.warzone.controller.state.gamephase.endphase
+com.warzone.controller.state.gamephase.gameplay
+com.warzone.controller.state.gamephase.gamesetup
 com.warzone.elements
 com.warzone.elements.map
 com.warzone.elements.orders

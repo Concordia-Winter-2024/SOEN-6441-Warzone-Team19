@@ -10,8 +10,8 @@ import com.warzone.controller.state.Phase;
 public abstract class EditPhase extends Phase {
 
 	/**
-	 * constructor method that takes game engine object from the parent class
-	 * 
+	 * Constructor method to initialize the phase
+	 *
 	 * @param p_gameEngine object of game engine
 	 */
 	public EditPhase(GameEngine p_gameEngine) {
@@ -19,7 +19,7 @@ public abstract class EditPhase extends Phase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * Method to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @return string to print the invalid command message
@@ -29,8 +29,7 @@ public abstract class EditPhase extends Phase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print the invalid command message
 	 * 
 	 * @param p_playerName name of the player to add
 	 * @return string to print the invalid command message
@@ -40,8 +39,7 @@ public abstract class EditPhase extends Phase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print the invalid command message
 	 * 
 	 * @param p_playerName name of the player to remove
 	 * @return string to print the invalid command message
@@ -51,8 +49,7 @@ public abstract class EditPhase extends Phase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print the invalid command message
 	 * 
 	 * @return string to print the invalid command message
 	 */
@@ -61,8 +58,7 @@ public abstract class EditPhase extends Phase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print the invalid command message
 	 * 
 	 * @return string to print the invalid command message
 	 */
@@ -71,8 +67,7 @@ public abstract class EditPhase extends Phase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print the invalid command message
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return string to print the invalid command message
@@ -82,8 +77,7 @@ public abstract class EditPhase extends Phase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print the invalid command message
 	 * 
 	 * @param p_fileName name of the map file used for loading
 	 * @return string to print the invalid command message
@@ -93,8 +87,7 @@ public abstract class EditPhase extends Phase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print the invalid command message
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return string to print the invalid command message
@@ -104,8 +97,7 @@ public abstract class EditPhase extends Phase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print the invalid command message
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return string to print the invalid command message
@@ -115,8 +107,7 @@ public abstract class EditPhase extends Phase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print the invalid command message
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return string to print the invalid command message
@@ -126,8 +117,7 @@ public abstract class EditPhase extends Phase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print the invalid command message
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return string to print the invalid command message
@@ -137,8 +127,7 @@ public abstract class EditPhase extends Phase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print the invalid command message
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return string to print the invalid command message
@@ -148,8 +137,7 @@ public abstract class EditPhase extends Phase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print the invalid command message
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command
 	 * @return string to print the invalid command message
@@ -159,8 +147,7 @@ public abstract class EditPhase extends Phase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print the invalid command message
 	 * 
 	 * @param p_playerName name of the winner to be displayed
 	 * @return string to print the invalid command message
@@ -170,8 +157,7 @@ public abstract class EditPhase extends Phase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print the invalid command message
 	 * 
 	 * @return string to print the invalid command message
 	 */
@@ -180,8 +166,7 @@ public abstract class EditPhase extends Phase {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
-	 * this phase
+	 * This method is used to print the invalid command message
 	 * 
 	 * @return string to print the invalid command message
 	 */
