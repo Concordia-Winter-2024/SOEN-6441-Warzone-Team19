@@ -204,8 +204,18 @@ public class GameEngine {
     }
 
     /**
-     * This method is to edit map. If the specified map file does not exist, it will create a new map file.
-     * If the map file exists, it will load the map file and set the edit phase to true.
+     * Constructor which creates a neutral player when game is started
+     * and also initializes LogEntryBuffer
+     */
+    public GameEngine() {
+        d_logEntryBuffer = new LogEntryBuffer();
+        d_logWriter = new LogWriter(d_logEntryBuffer);
+        d_neutralPlayer = new Player("neutralPlayer#1");
+        d_random = new Random();
+    }
+
+    /**
+     * Main method for execution method for commands
      *
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
@@ -403,7 +413,7 @@ public class GameEngine {
     }
 
     /**
-     * This method is used to edit the countries
+     * This method is used to  airlift of armies to player's own countries
      *
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
@@ -495,7 +505,7 @@ public class GameEngine {
     }
 
     /**
-     * This method is used to edit the neighbors of the countries
+     * This method is used to establish diplomacy among players
      *
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
@@ -608,9 +618,12 @@ public class GameEngine {
         return d_phase.saveMap(p_splittedCommand[1]);
     }
 
-    /**
+     /**
      * Validate map method to validate a map
      *
+     * @param p_splittedCommand the command that has been splitted into multiple
+     *                          parts for further processing
+     * @return the result of map validation
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
      * @return the result of map validation
@@ -618,11 +631,35 @@ public class GameEngine {
     public String validateMap(String[] p_splittedCommand) {
         if (p_splittedCommand.length > 1) {
             return "Please enter valid command";
+    public String validateMap(String[] p_splittedCommand) {
+        if (p_splittedCommand.length > 1) {
+            return "Please enter valid command";
         }
+        return d_phase.validateMap();
         return d_phase.validateMap();
     }
 
     /**
+     * This method is used to load a map.
+     *
+     * @param p_splittedCommand the command that has been splitted into multiple
+     *                          parts for further processing
+     * @return the result of loading of map
+     */
+    public String loadMap(String[] p_splittedCommand) {
+        if (d_phase instanceof EditPhase) {
+            setPhase(new PreLoad(this));
+        }
+        if (p_splittedCommand.length < 2) {
+            return "Please enter valid command";
+        }
+        if (p_splittedCommand[1].split("\\.").length <= 1) {
+            return "File extension should be .map";
+        }
+        if (!"map".equals(p_splittedCommand[1].split("\\.")[1])) {
+            return "File extension should be .map";
+        }
+        return d_phase.loadMap(p_splittedCommand[1]);
      * This method is used to load a map.
      *
      * @param p_splittedCommand the command that has been splitted into multiple

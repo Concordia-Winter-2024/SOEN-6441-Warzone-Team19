@@ -1,5 +1,6 @@
 package com.warzone.controller;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 import com.warzone.controller.state.Phase;
@@ -32,12 +33,23 @@ public class  GameInitialization {
     }
 
     /**
-     * Get commands from user
+     * This method is used to manually set the phase of the game depending upon the user
+     *
+     * @param p_phase the phase that has to be set for next steps in the game
+     */
+    public void setPhase(Phase p_phase) {
+        d_gameEngine.setPhase(p_phase);
+    }
+
+    /**
+     * Method to get user command
      *
      * @return l_splittedCommandString array containing command that is split using " ".
      */
     public String getCommand() {
+    public String getCommand() {
         String l_userCommand;
+        d_gameEngine.setUserCommand(this);
         d_gameEngine.setUserCommand(this);
         System.out.print("\033[1;34m"+" * "+"\033[0m");
         l_userCommand = d_scanner.nextLine();
@@ -74,6 +86,7 @@ public class  GameInitialization {
      * @param args argument to main
      */
     public static void main(String[] args) {
+        new GameInitialization().start();
         new GameInitialization().start();
     }
 }
