@@ -110,4 +110,12 @@ public class PlayerTest {
         assertEquals(7, d_player.getNumberOfArmies());
     }
 
+    /**
+     * Test to check Non-existent country ID
+     */
+    @Test
+    public void testRemoveCountryNonExistentID() {
+        d_player.removeCountry(10); // Assuming ID 10 does not exist in the player's countries map
+        assertFalse(d_player.getCountries().keySet().contains(10));
+    }
 }
