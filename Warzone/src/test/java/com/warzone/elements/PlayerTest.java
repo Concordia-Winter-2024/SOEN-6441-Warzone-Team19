@@ -130,4 +130,13 @@ public class PlayerTest {
         assertEquals(1, d_player.getContinents().size());
     }
 
+    /**
+     * Test to check remove non-existing continent
+     */
+    @Test
+    public void testRemoveNonExistentContinent() {
+        d_player.removeContinent(10);
+        assertFalse(d_player.getContinents().containsKey(10));
+    }
+
 }
