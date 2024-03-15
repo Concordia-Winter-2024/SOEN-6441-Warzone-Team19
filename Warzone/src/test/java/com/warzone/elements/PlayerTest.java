@@ -115,7 +115,16 @@ public class PlayerTest {
      */
     @Test
     public void testRemoveCountryNonExistentID() {
-        d_player.removeCountry(10); 
+        d_player.removeCountry(10);
         assertFalse(d_player.getCountries().keySet().contains(10));
     }
+
+    @Test
+    public void testAddDuplicateContinent() {
+        Continent l_continent = new Continent(1, 3);
+        d_player.addContinent(l_continent);
+        d_player.addContinent(l_continent);
+        assertEquals(1, d_player.getContinents().size()-1);
+    }
+
 }
