@@ -8,8 +8,6 @@ import java.util.Random;
 
 
 import com.warzone.controller.state.Phase;
-import com.warzone.controller.state.edit.EditPhase;
-import com.warzone.controller.state.gamephase.gamesetup.PreLoad;
 import com.warzone.elements.GameMap;
 import com.warzone.elements.Player;
 
@@ -19,7 +17,6 @@ import com.warzone.elements.Player;
  *
  */
 public class GameEngine {
-
     private Phase d_phase;
     private GameMap d_gameMap = new GameMap();
     private Queue<Player> d_playersOrder = new LinkedList<>();
@@ -30,6 +27,181 @@ public class GameEngine {
     private LogWriter d_logWriter;
     public Player d_neutralPlayer;
     public Random d_random;
+
+    /**
+     * Game Engine constructor which creates a neutral player when game is started
+     * and also initializes LogEntryBuffer which is observable and attaches it to
+     * LogWriter.
+     */
+    public GameEngine() {
+        d_logEntryBuffer = new LogEntryBuffer();
+        d_logWriter = new LogWriter(d_logEntryBuffer);
+        d_neutralPlayer = new Player("neutralPlayer#1");
+        d_random = new Random();
+    }
+
+    /**
+     * Main execution method for commands
+     *
+     * @param p_splittedCommand the command that has been splitted into multiple
+     *                          parts for processing
+     * @return the result of the command to be executed
+     */
+    public String executeCommand(String[] p_splittedCommand) {
+        String l_result = "";
+        switch (p_splittedCommand[0]) {
+            case "loadmap" -> l_result = loadMap(p_splittedCommand);
+            case "editcontinent" -> l_result = editContinent(p_splittedCommand);
+            case "editcountry" -> l_result = editCountry(p_splittedCommand);
+            case "editneighbor" -> l_result = editNeighbor(p_splittedCommand);
+            case "editmap" -> l_result = editMap(p_splittedCommand);
+            case "savemap" -> l_result = saveMap(p_splittedCommand);
+            case "gameplayer" -> l_result = gamePlayer(p_splittedCommand);
+            case "assigncountries" -> l_result = assignCountries(p_splittedCommand);
+            case "validatemap" -> l_result = validateMap(p_splittedCommand);
+            case "showmap" -> l_result = showmap();
+            case "deploy" -> l_result = deploy(p_splittedCommand);
+            case "negotiate" -> l_result = diplomacy(p_splittedCommand);
+            case "advance" -> l_result = advance(p_splittedCommand);
+            case "airlift" -> l_result = airlift(p_splittedCommand);
+            case "bomb" -> l_result = bomb(p_splittedCommand);
+            case "blockade" -> l_result = blockade(p_splittedCommand);
+            default -> l_result = "Command not found";
+        }
+
+        return l_result;
+    }
+
+    /**
+     * function to get the order size of the player
+     *
+     * @return an integer representing the size of the orders, the players has
+     */
+    public int getPlayersOrderSize() {
+        return d_playersOrder.size();
+    }
+
+    /**
+     * function to add order to the order queue of the player
+     *
+     * @param p_player represents the player whose order is to be added to the queue
+     */
+    public void addPlayerOrder(Player p_player) {
+        d_playersOrder.add(p_player);
+    }
+
+    /**
+     * function to remove an order from the order queue of the player
+     *
+     * @return removal of order from the queue of the player
+     */
+    public Player getPlayerOrder() {
+        return d_playersOrder.remove();
+    }
+
+    /**
+     * function to obtain the phase in which we are present in the game
+     *
+     * @return the phase we currently are in the game
+     */
+    public Phase getPhase() {
+        return d_phase;
+    }
+
+    /**
+     * function to return the current state/situation of the game map
+     *
+     * @return the current game map
+     */
+    public GameMap getGameMap() {
+        return d_gameMap;
+    }
+
+    /**
+     * function to set the game map according to the parameter provided
+     *
+     * @param p_gameMap the game map state we want to set
+     */
+    public void setGameMap(GameMap p_gameMap) {
+        d_gameMap = p_gameMap;
+    }
+
+    /**
+     * function to set the phases of the game like editing phase, loading phase,
+     * gamesetup and gameplay phase
+     *
+     * @param p_phase the name of the phase to be set
+     */
+    public void setPhase(Phase p_phase) {
+        d_phase = p_phase;
+    }
+
+    /**
+     * Function to support deployment of armies to countries
+     *
+     * @param p_splittedCommand the command that has been splitted into multiple
+     *                          parts for further processing
+     * @return the result of the deploy command
+     */
+    public String deploy(String[] p_splittedCommand) {
+        return d_phase.deploy(p_splittedCommand);
+    }
+
+    /**
+     * Function to support advance of armies from player country to enemy country or
+     * own country
+     *
+     * @param p_splittedCommand the command that has been splitted into multiple
+     *                          parts for further processing
+     * @return the result of the advance command
+     */
+    public String advance(String[] p_splittedCommand) {
+        return d_phase.deploy(p_splittedCommand);
+    }
+
+    /**
+     * Function to support airlift of armies to player's own countries
+     *
+     * @param p_splittedCommand the command that has been splitted into multiple
+     *                          parts for further processing
+     * @return the result of the airlift command
+     */
+    public String airlift(String[] p_splittedCommand) {
+        return d_phase.deploy(p_splittedCommand);
+    }
+
+    /**
+     * Function to support bombing of the country of enemy player
+     *
+     * @param p_splittedCommand the command that has been splitted into multiple
+     *                          parts for further processing
+     * @return the result of the bomb command
+     */
+    public String bomb(String[] p_splittedCommand) {
+        return d_phase.deploy(p_splittedCommand);
+    }
+
+    /**
+     * Function to support blockade card that blocks player own country
+     *
+     * @param p_splittedCommand the command that has been splitted into multiple
+     *                          parts for further processing
+     * @return the result of the blockade command
+     */
+    public String blockade(String[] p_splittedCommand) {
+        return d_phase.deploy(p_splittedCommand);
+    }
+
+    /**
+     * Function to establish diplomacy among players
+     *
+     * @param p_splittedCommand the command that has been splitted into multiple
+     *                          parts for further processing
+     * @return the result of the diplomacy command
+     */
+    public String diplomacy(String[] p_splittedCommand) {
+        return d_phase.deploy(p_splittedCommand);
+    }
 
     /**
      * Constructor which creates a neutral player when game is started
@@ -44,218 +216,6 @@ public class GameEngine {
 
     /**
      * Main method for execution method for commands
-     *
-     * @param p_splittedCommand the command that has been splitted into multiple
-     *                          parts for processing
-     * @return the result of the command to be executed
-     */
-    public String executeCommand(String[] p_splittedCommand) {
-        String l_result = "";
-        switch (p_splittedCommand[0]) {
-            case "loadmap":
-                l_result = loadMap(p_splittedCommand);
-                break;
-
-            case "editcontinent":
-                l_result = editContinent(p_splittedCommand);
-                break;
-
-            case "editcountry":
-                l_result = editCountry(p_splittedCommand);
-                break;
-
-            case "editneighbor":
-                l_result = editNeighbor(p_splittedCommand);
-                break;
-
-            case "editmap":
-                l_result = editMap(p_splittedCommand);
-                break;
-
-            case "savemap":
-                l_result = saveMap(p_splittedCommand);
-                break;
-
-            case "gameplayer":
-                l_result = gamePlayer(p_splittedCommand);
-                break;
-
-            case "assigncountries":
-                l_result = assignCountries(p_splittedCommand);
-                break;
-
-            case "validatemap":
-                l_result = validateMap(p_splittedCommand);
-                break;
-
-            case "showmap":
-                l_result = showmap();
-                break;
-
-            case "deploy":
-                l_result = deploy(p_splittedCommand);
-                break;
-
-            case "negotiate":
-                l_result = diplomacy(p_splittedCommand);
-                break;
-
-            case "advance":
-                l_result = advance(p_splittedCommand);
-                break;
-
-            case "airlift":
-                l_result = airlift(p_splittedCommand);
-                break;
-
-            case "bomb":
-                l_result = bomb(p_splittedCommand);
-                break;
-
-            case "blockade":
-                l_result = blockade(p_splittedCommand);
-                break;
-
-            default:
-                l_result = "Command not found";
-        }
-
-        return l_result;
-    }
-
-    /**
-     * This method is used to get the order size of the player
-     *
-     * @return an integer representing the size of the orders, the players has
-     */
-    public int getPlayersOrderSize() {
-        return d_playersOrder.size();
-    }
-
-    /**
-     * This method is used to add order to the order queue of the player
-     *
-     * @param p_player represents the player whose order is to be added to the queue
-     */
-    public void addPlayerOrder(Player p_player) {
-        d_playersOrder.add(p_player);
-    }
-
-    /**
-     * This method is used to remove an order from the order queue of the player
-     *
-     * @return removal of order from the queue of the player
-     */
-    public Player getPlayerOrder() {
-        return d_playersOrder.remove();
-    }
-
-    /**
-     * This method is used to obtain the phase in which we are present in the game
-     *
-     * @return the phase we currently are in the game
-     */
-    public Phase getPhase() {
-        return d_phase;
-    }
-
-    /**
-     * This method is used to return the current state/situation of the game map
-     *
-     * @return the current game map
-     */
-    public GameMap getGameMap() {
-        return d_gameMap;
-    }
-
-    /**
-     * This method is used set the game map according to the parameter provided
-     *
-     * @param p_gameMap the game map state we want to set
-     */
-    public void setGameMap(GameMap p_gameMap) {
-        d_gameMap = p_gameMap;
-    }
-
-    /**
-     * This method is used to set the phases of the game like editing phase, loading phase,
-     * gamesetup and gameplay phase
-     *
-     * @param p_phase the name of the phase to be set
-     */
-    public void setPhase(Phase p_phase) {
-        d_phase = p_phase;
-    }
-
-    /**
-     * This method is used for deployment of armies to countries
-     *
-     * @param p_splittedCommand the command that has been splitted into multiple
-     *                          parts for further processing
-     * @return the result of the deploy command
-     */
-    public String deploy(String[] p_splittedCommand) {
-        return d_phase.deploy(p_splittedCommand);
-    }
-
-    /**
-     * This method is used to  advance of armies from player country to enemy country or
-     * own country
-     *
-     * @param p_splittedCommand the command that has been splitted into multiple
-     *                          parts for further processing
-     * @return the result of the advance command
-     */
-    public String advance(String[] p_splittedCommand) {
-        return d_phase.deploy(p_splittedCommand);
-    }
-
-    /**
-     * This method is used to  airlift of armies to player's own countries
-     *
-     * @param p_splittedCommand the command that has been splitted into multiple
-     *                          parts for further processing
-     * @return the result of the airlift command
-     */
-    public String airlift(String[] p_splittedCommand) {
-        return d_phase.deploy(p_splittedCommand);
-    }
-
-    /**
-     * This method is used to  bombing of the country of enemy player
-     *
-     * @param p_splittedCommand the command that has been splitted into multiple
-     *                          parts for further processing
-     * @return the result of the bomb command
-     */
-    public String bomb(String[] p_splittedCommand) {
-        return d_phase.deploy(p_splittedCommand);
-    }
-
-    /**
-     * This method is used to  blockade card that blocks player own country
-     *
-     * @param p_splittedCommand the command that has been splitted into multiple
-     *                          parts for further processing
-     * @return the result of the blockade command
-     */
-    public String blockade(String[] p_splittedCommand) {
-        return d_phase.deploy(p_splittedCommand);
-    }
-
-    /**
-     * This method is used to establish diplomacy among players
-     *
-     * @param p_splittedCommand the command that has been splitted into multiple
-     *                          parts for further processing
-     * @return the result of the diplomacy command
-     */
-    public String diplomacy(String[] p_splittedCommand) {
-        return d_phase.deploy(p_splittedCommand);
-    }
-
-    /**
-     * This method is basically used to edit map. 
      *
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
@@ -274,7 +234,87 @@ public class GameEngine {
         }
         return d_phase.editMap(p_splittedCommand[1]);
     }
-    
+
+    /**
+     * function to support adding and removing of players to the game map
+     *
+     * @param p_splittedCommand the command that has been splitted into multiple
+     *                          parts for further processing
+     * @return the result of the gameplayer command depending upon the syntax of
+     *         command provided
+     */
+    public String gamePlayer(String[] p_splittedCommand) {
+        String[] l_commandParts;
+        String l_result = "";
+        int l_i = 1;
+        if (p_splittedCommand.length < 3) {
+            return "Please enter valid command. Command is \"gameplayer -add playerName -remove playerName\".";
+        }
+
+        int l_addRemoveCount = 0;
+        int l_argsPerCmd = 2;
+
+        for (int l_index = 1; l_index < p_splittedCommand.length; l_index++) {
+            if ("-add".equals(p_splittedCommand[l_index]) || "-remove".equals(p_splittedCommand[l_index])) {
+                l_addRemoveCount++;
+            }
+        }
+
+        if ((p_splittedCommand.length - 1) != (l_addRemoveCount * 2)) {
+            return "Number of arguments does not match with the add and remove command. Command is: \"gameplayer -add playername -remove playername\".";
+        }
+
+        int l_validAddRemovePlacement = 1;
+        while (l_validAddRemovePlacement < p_splittedCommand.length) {
+            if (!"-add".equals(p_splittedCommand[l_validAddRemovePlacement])
+                    && !"-remove".equals(p_splittedCommand[l_validAddRemovePlacement])) {
+                return "Misplacement of -add and -remove keyword w.r.t number of arguments. Command is \"gameplayer -add playername -remove playername\". Use -add and -remove as per your need.";
+            }
+            l_validAddRemovePlacement += l_argsPerCmd;
+        }
+
+        try {
+            while (l_i < p_splittedCommand.length) {
+                if ("-add".equals(p_splittedCommand[l_i])) {
+                    l_commandParts = new String[3];
+                    l_commandParts[0] = p_splittedCommand[l_i];
+                    l_commandParts[1] = p_splittedCommand[l_i + 1];
+                    if (!"".equals(l_result)) {
+                        l_result += "\n";
+                    }
+                    l_result += d_phase.gamePlayer(l_commandParts);
+                    l_i = l_i + 2;
+                } else if ("-remove".equals(p_splittedCommand[l_i])) {
+                    l_commandParts = new String[2];
+                    l_commandParts[0] = p_splittedCommand[l_i];
+                    l_commandParts[1] = p_splittedCommand[l_i + 1];
+                    if (!"".equals(l_result)) {
+                        l_result += "\n";
+                    }
+                    l_result += d_phase.gamePlayer(l_commandParts);
+                    l_i = l_i + 2;
+                } else {
+                    if (!"".equals(l_result)) {
+                        l_result += "\n";
+                    }
+                    l_result += "Command needs to have -add or -remove.";
+                    l_i++;
+                }
+            }
+        } catch (Exception p_e) {
+            System.out.println("Valid command not entered.");
+        }
+        return l_result;
+    }
+
+    /**
+     * This method is used to show the map, it will show the map in edit phase and play phase
+     *
+     * @return the map with all the information of the current state
+     */
+    public String showmap() {
+        return d_phase.showMap();
+    }
 
     /**
      * This method is used to edit the continents
@@ -373,11 +413,11 @@ public class GameEngine {
     }
 
     /**
-     * This method is used to edit  countries
+     * This method is used to  airlift of armies to player's own countries
      *
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
-     * @return the result of the editCountry command based upon the syntax of
+     * @return the result of the editCountry command depending upon the syntax of
      *         command provided
      */
     public String editCountry(String[] p_splittedCommand) {
@@ -464,9 +504,8 @@ public class GameEngine {
         return l_result;
     }
 
-
-     /**
-     * method is used to edit the neighbors of  countries
+    /**
+     * This method is used to establish diplomacy among players
      *
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
@@ -559,9 +598,8 @@ public class GameEngine {
         return l_result;
     }
 
-
     /**
-     * Method to save the map with the specific file name
+     * This method is used to save the map with the specified file name
      *
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
@@ -586,15 +624,42 @@ public class GameEngine {
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
      * @return the result of map validation
+     * @param p_splittedCommand the command that has been splitted into multiple
+     *                          parts for further processing
+     * @return the result of map validation
      */
+    public String validateMap(String[] p_splittedCommand) {
+        if (p_splittedCommand.length > 1) {
+            return "Please enter valid command";
     public String validateMap(String[] p_splittedCommand) {
         if (p_splittedCommand.length > 1) {
             return "Please enter valid command";
         }
         return d_phase.validateMap();
+        return d_phase.validateMap();
     }
 
     /**
+     * This method is used to load a map.
+     *
+     * @param p_splittedCommand the command that has been splitted into multiple
+     *                          parts for further processing
+     * @return the result of loading of map
+     */
+    public String loadMap(String[] p_splittedCommand) {
+        if (d_phase instanceof EditPhase) {
+            setPhase(new PreLoad(this));
+        }
+        if (p_splittedCommand.length < 2) {
+            return "Please enter valid command";
+        }
+        if (p_splittedCommand[1].split("\\.").length <= 1) {
+            return "File extension should be .map";
+        }
+        if (!"map".equals(p_splittedCommand[1].split("\\.")[1])) {
+            return "File extension should be .map";
+        }
+        return d_phase.loadMap(p_splittedCommand[1]);
      * This method is used to load a map.
      *
      * @param p_splittedCommand the command that has been splitted into multiple
@@ -632,7 +697,7 @@ public class GameEngine {
     }
 
     /**
-     * This method is used to process the entire command provided by the user that will be
+     * function to process the entire command provided by the user that will be
      * splitted for further processing
      *
      * @param p_userCommand the entire line that acts as the command
@@ -642,7 +707,7 @@ public class GameEngine {
     }
 
     /**
-     * This method is used to check if a string can be converted to integer or
+     * This function is used to check if a string can be converted to integer or
      * not.
      *
      * @param p_str represents the string to be casted to Integer value.

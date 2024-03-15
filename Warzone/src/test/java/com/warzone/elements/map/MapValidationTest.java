@@ -1,28 +1,34 @@
 package com.warzone.elements.map;
 
 import com.warzone.elements.GameMap;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Testcases for MapValidationTest
  */
-class MapValidationTest {
+/**
+ * This class performs Unit testing on every function of the MapValidation Class
+ */
+public class MapValidationTest {
 
     GameMap d_gameMap = new GameMap();
     GameMap d_gameMap1 = new GameMap();
     GameMap d_gameMap2 = new GameMap();
 
-
     /**
      * This test will validate "getMapValidationStatus" function which will return
      * boolean value
      */
-    @Test
+    @org.junit.Test
     public void testGetMapValidationStatus() {
         GameMap l_gameMap = new GameMap();
         l_gameMap.loadMap("risk.map");
@@ -60,7 +66,7 @@ class MapValidationTest {
      * which outputs the string value based on multiple conditions of map being
      * loaded.
      */
-    @Test
+    @org.junit.Test
     public void testValidate() {
         GameMap l_gameMap = new GameMap();
         l_gameMap.loadMap("risk.map");
@@ -94,7 +100,7 @@ class MapValidationTest {
      * This test will validate "isConnected" function with different maps provided
      * in resource
      */
-    @Test
+    @org.junit.Test
     public void testIsConnected() {
 
         MapValidation l_mapValidation;

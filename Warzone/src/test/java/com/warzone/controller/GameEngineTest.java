@@ -1,280 +1,313 @@
 package com.warzone.controller;
 
-import com.warzone.elements.GameMap;
-import com.warzone.elements.Player;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.Assert.*;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Test;
+
+import com.warzone.elements.orders.Advance;
+import com.warzone.elements.orders.Deploy;
 
 /**
-* Test cases for GameEngine
-*/
-class GameEngineTest {
-    GameEngine d_gameEngine;
-    String d_mapName1 = "risk.map";
+ * GameEngine Test
+ */
+public class GameEngineTest {
+	private GameEngine d_gameEngine = new GameEngine();
 
-    /**
-     * This is the before method (fixture) for testing, which will run before any
-     * other test function is being executed. This is used to instantiate the Class
-     * which this tests.
-     */
-    @BeforeEach
-    public void setUp() {
-        d_gameEngine = new GameEngine();
-    }
+	/**
+	 * main executeCommand test Checks whether any command is executed or not
+	 */
+	@Test
+	public void testExecuteCommand() {
+		d_gameEngine.setPhase(new PreLoad(d_gameEngine));
+		String[] l_newStrings = new String[] { "loadmap", "risk.map" };
+		String l_result = d_gameEngine.executeCommand(l_newStrings);
+		assertEquals("Map \"risk.map\" loaded successfully", l_result);
+	}
 
-    /**
-     * This is the after method (fixture) for testing, which will run after any
-     * other test function is being executed. This is used to deallocate the member
-     * variables.
-     */
-    @AfterEach
-    public void tearDown() {
-        d_gameEngine = null;
-    }
+	/**
+	 * Test to check if specific orders can be executed in specific phase.
+	 */
+	@Test
+	public void testPhase() {
+		d_gameEngine.setPhase(new PreLoad(d_gameEngine));
+		String[] l_newStrings = new String[] { "deploy", "2", "3" };
+		String l_result = d_gameEngine.executeCommand(l_newStrings);
+		assertEquals("Invalid command in phase PreLoad", l_result);
 
-    /**
-     * This test function tests the loadMap function with multiple criteria.
-     */
-    @Test
-    public void testLoadMap() {
-        String l_resultString;
-        l_resultString = d_gameEngine.loadMap(d_mapName1);
-        assertEquals("Map \"" + d_mapName1 + "\" loaded successfully", l_resultString);
-        assertNotNull(l_resultString);
+		d_gameEngine.setPhase(new PostLoad(d_gameEngine));
+		l_newStrings = new String[] { "loadmap", "risk.map" };
+		l_result = d_gameEngine.executeCommand(l_newStrings);
+		assertEquals("Map already loaded", l_result);
 
-        String l_resultString1;
-        d_gameEngine = new GameEngine();
-        d_mapName1 = "WorldMapFail.map";
-        l_resultString1 = d_gameEngine.loadMap(d_mapName1);
-        assertEquals(" The graph is not connected. Countries are not traverseble.", l_resultString1);
-        assertNotNull(l_resultString);
-    }
+		d_gameEngine.setPhase(new IssueOrders(d_gameEngine));
+		l_newStrings = new String[] { "loadmap", "risk.map" };
+		l_result = d_gameEngine.executeCommand(l_newStrings);
+		assertEquals("Invalid command in phase IssueOrders", l_result);
+	}
 
-    /**
-     * This test function tests the addPlayer function with multiple players being
-     * added to the game.
-     */
-    @Test
-    public void testAddPlayer() {
-        String l_playerNameString = "John";
-        String l_resultString1 = d_gameEngine.addPlayer(l_playerNameString);
-        assertEquals("Player \"" + l_playerNameString + "\" added to game", l_resultString1);
+	/**
+	 * Test to check loaded map Checks if a map is properly loaded Checked with a
+	 * file with correct name, incorrect name and file without .map as extension
+	 */
+	@Test
+	public void testLoadMap() {
+		d_gameEngine.setPhase(new PreLoad(d_gameEngine));
+		String[] l_loadCommand1 = new String[] { "loadmap", "risk.map" };
+		String l_loadResultString1 = d_gameEngine.executeCommand(l_loadCommand1);
+		assertEquals("Map \"risk.map\" loaded successfully", l_loadResultString1);
 
-        l_playerNameString = "John";
-        String l_resultString2 = d_gameEngine.addPlayer(l_playerNameString);
-        assertEquals("Player \"" + l_playerNameString + "\" already present in game", l_resultString2);
+		d_gameEngine.setPhase(new PreLoad(d_gameEngine));
+		String[] l_loadCommand2 = new String[] { "loadmap", "xyzabc.map" };
+		String l_loadResultString2 = d_gameEngine.executeCommand(l_loadCommand2);
+		assertEquals("Map \"xyzabc.map\" cannot be loaded", l_loadResultString2);
 
-        l_playerNameString = "Doe";
-        String l_resultString3 = d_gameEngine.addPlayer(l_playerNameString);
-        assertEquals("Player \"" + l_playerNameString + "\" added to game", l_resultString3);
-    }
+		d_gameEngine.setPhase(new PreLoad(d_gameEngine));
+		String[] l_loadCommand3 = new String[] { "loadmap", "xyzabc" };
+		String l_loadResultString3 = d_gameEngine.executeCommand(l_loadCommand3);
+		assertEquals("File extension should be .map", l_loadResultString3);
+	}
 
-    /**
-     * This test function tests the removePlayer function with multiple players
-     * being added first and then remove them from the game.
-     */
-    @Test
-    public void testRemovePlayer() {
-        String l_playerNameString;
-        d_gameEngine.addPlayer("John");
-        d_gameEngine.addPlayer("Doe");
-        d_gameEngine.addPlayer("Smith");
-        d_gameEngine.addPlayer("Jack");
-        d_gameEngine.addPlayer("Arnold");
-        d_gameEngine.addPlayer("Paul");
+	/**
+	 * Test to check addition and deletion of continents Checked by adding a correct
+	 * continent id and, continent with id already present in map Checked by
+	 * removing a continent and also checked that correct results are obtained by
+	 * removing continent id which is not present in map.
+	 */
+	@Test
+	public void testEditContinent() {
+		d_gameEngine.setPhase(new PreEdit(d_gameEngine));
+		String[] l_loadCommand1 = new String[] { "editmap", "WorldMap.map" };
+		String l_loadResultString1 = d_gameEngine.executeCommand(l_loadCommand1);
 
-        l_playerNameString = "John";
-        String l_resultString1 = d_gameEngine.removePlayer(l_playerNameString);
-        assertEquals("Player \"" + l_playerNameString + "\" removed from game", l_resultString1);
+		String[] l_addContinent1 = new String[] { "editcontinent", "-add", "1", "2" };
+		String l_addResult1 = d_gameEngine.executeCommand(l_addContinent1);
+		assertEquals("Continent \"1\" added to map", l_addResult1);
 
-        l_playerNameString = "John";
-        String l_resultString2 = d_gameEngine.removePlayer(l_playerNameString);
-        assertEquals("Player \"" + l_playerNameString + "\" not present in game", l_resultString2);
+		String[] l_addContinent2 = new String[] { "editcontinent", "-add", "1", "2" };
+		String l_addResult2 = d_gameEngine.executeCommand(l_addContinent2);
+		assertEquals("Continent \"1\" already present in map", l_addResult2);
 
-        l_playerNameString = "Paul";
-        String l_resultString3 = d_gameEngine.removePlayer(l_playerNameString);
-        assertEquals("Player \"" + l_playerNameString + "\" removed from game", l_resultString3);
+		String[] l_removeContinent1 = new String[] { "editcontinent", "-remove", "1" };
+		String l_removeResult1 = d_gameEngine.executeCommand(l_removeContinent1);
+		assertEquals("Continent \"1\" successfully removed from map", l_removeResult1);
 
-        l_playerNameString = "Arnold";
-        String l_resultString4 = d_gameEngine.removePlayer(l_playerNameString);
-        assertEquals("Player \"" + l_playerNameString + "\" removed from game", l_resultString4);
-    }
+		String[] l_removeContinent2 = new String[] { "editcontinent", "-remove", "1" };
+		String l_removeResult2 = d_gameEngine.executeCommand(l_removeContinent2);
+		assertEquals("Continent \"1\" not present in map", l_removeResult2);
+	}
 
-    /**
-     * This function tests the object returned by the getGameMap function.
-     */
-    @Test
-    public void testGetGameMap() {
+	/**
+	 * Test to check addition and deletion of countries Checked by adding a correct
+	 * country id and, country with id already present in map Checked by removing a
+	 * country and also checked that correct results are obtained by removing
+	 * country id which is not present in map.
+	 */
+	@Test
+	public void testEditCountry() {
 
-        d_gameEngine.loadMap(d_mapName1);
-        GameMap l_resultGameMap = d_gameEngine.getGameMap();
-        GameEngine l_resultGameEngine = d_gameEngine;
-        l_resultGameEngine.loadMap("risk.map");
+		d_gameEngine.setPhase(new PreEdit(d_gameEngine));
+		String[] l_loadCommand1 = new String[] { "editmap", "WorldMap.map" };
+		String l_loadResultString1 = d_gameEngine.executeCommand(l_loadCommand1);
 
-        assertEquals(l_resultGameMap, l_resultGameEngine.getGameMap());
+		String[] l_addContinent = new String[] { "editcontinent", "-add", "1", "2" };
+		d_gameEngine.executeCommand(l_addContinent);
+		String[] l_addCountry1 = new String[] { "editcountry", "-add", "1", "1" };
+		String l_addResult1 = d_gameEngine.executeCommand(l_addCountry1);
+		assertEquals("Country \"1\" successfully added to map", l_addResult1);
 
-        GameEngine l_resultGameEngine1 = new GameEngine();
-        l_resultGameEngine1.loadMap("risk.map");
-        GameMap l_resultGameMap1 = l_resultGameEngine1.getGameMap();
-        assertNotEquals(l_resultGameMap1, l_resultGameEngine.getGameMap());
-    }
+		String[] l_addCountry2 = new String[] { "editcountry", "-add", "1", "1" };
+		String l_addResult2 = d_gameEngine.executeCommand(l_addCountry2);
+		assertEquals("Country \"1\" already present in map", l_addResult2);
 
-    /**
-     * This function tests the HashMap returned after adding the players in the
-     * Game.
-     */
-    @Test
-    public void testGetPlayers() {
-        boolean l_result;
+		String[] l_removeCountry1 = new String[] { "editcountry", "-remove", "1" };
+		String l_removeResult1 = d_gameEngine.executeCommand(l_removeCountry1);
+		assertEquals("Country \"1\" successfully removed from map", l_removeResult1);
 
-        d_gameEngine.addPlayer("John");
-        d_gameEngine.addPlayer("Doe");
-        d_gameEngine.addPlayer("Erick");
-        HashMap<String, Player> l_resultPlayersExpected = d_gameEngine.getPlayers();
-        Set<String> l_resultPlayersExpectedKeySet = l_resultPlayersExpected.keySet();
+		String[] l_removeCountry2 = new String[] { "editcountry", "-remove", "1" };
+		String l_removeResult2 = d_gameEngine.executeCommand(l_removeCountry2);
+		assertEquals("Country \"1\" not present in map", l_removeResult2);
+	}
 
-        GameEngine l_gameEngine = new GameEngine();
-        l_gameEngine.addPlayer("John");
-        l_gameEngine.addPlayer("Doe");
-        l_gameEngine.addPlayer("Erick");
+	/**
+	 * Test to check addition and deletion of neighbors Checked by adding a country
+	 * to neighbor list of another country, and also checked that correct results
+	 * were obtained by adding already added country to neighbor Checked that
+	 * countries are correctly removed from source country neighbor list and correct
+	 * results are obtained when a country is not a neighbor of source and is tried
+	 * to remove
+	 */
+	@Test
+	public void testEditNeighbor() {
+		d_gameEngine.setPhase(new PreEdit(d_gameEngine));
+		String[] l_loadCommand1 = new String[] { "editmap", "WorldMap.map" };
+		String l_loadResultString1 = d_gameEngine.executeCommand(l_loadCommand1);
 
-        l_result = l_resultPlayersExpectedKeySet.equals(l_gameEngine.getPlayers().keySet());
+		String[] l_addContinent = new String[] { "editcontinent", "-add", "1", "2" };
+		d_gameEngine.executeCommand(l_addContinent);
+		String[] l_addCountry = new String[] { "editcountry", "-add", "1", "1", "-add", "2", "1" };
+		d_gameEngine.executeCommand(l_addCountry);
 
-        assertTrue(l_result);
+		String[] l_addNeighbor1 = new String[] { "editneighbor", "-add", "1", "2" };
+		String l_addResult1 = d_gameEngine.executeCommand(l_addNeighbor1);
+		assertEquals("Country \"2\" is now a neighbor of country \"1\"", l_addResult1);
 
-        l_gameEngine.addPlayer("Arnold");
-        l_result = l_resultPlayersExpectedKeySet.equals(l_gameEngine.getPlayers().keySet());
-        assertFalse(l_result);
-    }
+		String[] l_addNeighbor2 = new String[] { "editneighbor", "-add", "1", "2" };
+		String l_addResult2 = d_gameEngine.executeCommand(l_addNeighbor2);
+		assertEquals("Country \"2\" already a neighbor of \"1\"", l_addResult2);
 
-    /**
-     * This function tests the validateMap function with different conditions like
-     * if the map is null, without countries, not traverseble and other different
-     * conditions.
-     */
-    @Test
-    public void testValidateMap() {
-        d_gameEngine.loadMap(d_mapName1);
-        String l_resultString = d_gameEngine.validateMap();
-        assertEquals(" The graph is connected. Countries are traverseble.", l_resultString);
+		String[] l_removeNeighbor1 = new String[] { "editneighbor", "-remove", "1", "2" };
+		String l_removeResult1 = d_gameEngine.executeCommand(l_removeNeighbor1);
+		assertEquals("Country \"2\" removed from neighbors of \"1\"", l_removeResult1);
 
-        GameEngine l_gameEngine1 = new GameEngine();
-        String l_resultString2 = l_gameEngine1.validateMap();
-        assertEquals("The Map does not contain any countries.", l_resultString2);
+		String[] l_removeNeighbor2 = new String[] { "editneighbor", "-remove", "1", "2" };
+		String l_removeResult2 = d_gameEngine.executeCommand(l_removeNeighbor2);
+		assertEquals("Country \"2\" is not a neighbor of \"1\"", l_removeResult2);
+	}
 
-        GameEngine l_gameEngine2 = new GameEngine();
-        l_gameEngine2.d_gameMap = null;
-        String l_resultString3 = l_gameEngine2.validateMap();
-        assertEquals("Cannot validate map", l_resultString3);
-    }
+	/**
+	 * Test to check map editing is allowed and executed correctly or not Checks
+	 * that a map is properly loaded in edit mode Checked with a file with correct
+	 * name, incorrect name and file without .map as extension
+	 */
+	@Test
+	public void testEditMap() {
 
-    /**
-     * This function tests the "checkContinentOwnership" method with various test
-     * cases of checking the ownership of each player and which player owns how many
-     * continents.
-     */
-    @Test
-    public void testCheckContinentOwnership() {
-        d_gameEngine.loadMap("uk.map");
+		d_gameEngine.setPhase(new PreEdit(d_gameEngine));
+		String[] l_loadCommand1 = new String[] { "editmap", "WorldMap.map" };
+		String l_editResultString1 = d_gameEngine.executeCommand(l_loadCommand1);
+		assertEquals("Map \"WorldMap.map\" ready for edit", l_editResultString1);
 
-        d_gameEngine.addPlayer("John");
-        d_gameEngine.addPlayer("Doe");
-        d_gameEngine.addPlayer("Erick");
+		d_gameEngine.setPhase(new PreEdit(d_gameEngine));
+		String[] l_loadCommand2 = new String[] { "editmap", "WorldMap" };
+		String l_editResultString2 = d_gameEngine.executeCommand(l_loadCommand2);
+		assertEquals("File extension should be .map", l_editResultString2);
 
-        d_gameEngine.getPlayers().get("John").addCountry(d_gameEngine.getGameMap().getCountries().get(1));
-        d_gameEngine.getPlayers().get("John").addCountry(d_gameEngine.getGameMap().getCountries().get(2));
-        d_gameEngine.getPlayers().get("Doe").addCountry(d_gameEngine.getGameMap().getCountries().get(3));
-        d_gameEngine.getPlayers().get("Erick").addCountry(d_gameEngine.getGameMap().getCountries().get(4));
-        d_gameEngine.getPlayers().get("Erick").addCountry(d_gameEngine.getGameMap().getCountries().get(5));
+		d_gameEngine.setPhase(new PostEdit(d_gameEngine));
+		String[] l_loadCommand3 = new String[] { "editmap", "WorldMap.map" };
+		String l_editResultString3 = d_gameEngine.executeCommand(l_loadCommand3);
+		assertEquals("Invalid command in phase PostEdit", l_editResultString3);
+	}
 
-        d_gameEngine.checkContinentOwnership();
+	/**
+	 * Test to check map saving is allowed and executed correctly or not Checks that
+	 * a map is properly loaded in edit mode Checked with a file with correct name,
+	 * incorrect name and file without .map as extension
+	 */
+	@Test
+	public void testSaveMap() {
 
-        assertEquals(1, d_gameEngine.getPlayers().get("John").getContinents().keySet().size());
-        assertTrue(
-                d_gameEngine.getPlayers().get("John").getContinents().keySet().equals(new HashSet<>(Arrays.asList(1))));
+		d_gameEngine.setPhase(new PreEdit(d_gameEngine));
+		String[] l_loadCommand1 = new String[] { "editmap", "risk.map" };
+		String l_loadResultString1 = d_gameEngine.executeCommand(l_loadCommand1);
 
-        assertEquals(0, d_gameEngine.getPlayers().get("Doe").getContinents().keySet().size());
-        assertTrue(
-                d_gameEngine.getPlayers().get("Doe").getContinents().keySet().equals(new HashSet<>(Arrays.asList())));
+		String[] l_saveCommand1 = new String[] { "savemap", "abc.map" };
+		String l_saveResultString1 = d_gameEngine.executeCommand(l_saveCommand1);
+		assertEquals("Map file \"abc.map\" saved successfully", l_saveResultString1);
 
-        assertEquals(1, d_gameEngine.getPlayers().get("Erick").getContinents().keySet().size());
-        assertTrue(d_gameEngine.getPlayers().get("Erick").getContinents().keySet()
-                .equals(new HashSet<>(Arrays.asList(3))));
-    }
+		String[] l_saveCommand2 = new String[] { "savemap", "abc" };
+		String l_saveResultString2 = d_gameEngine.executeCommand(l_saveCommand2);
+		assertEquals("File extension should be .map", l_saveResultString2);
+	}
 
-    /**
-     * This function tests the "gamePlayer" method with various test cases of adding
-     * and removing players from the game.
-     */
-    @Test
-    public void testGamePlayer() {
-        // Load a map to allow adding/removing players
-        d_gameEngine.loadMap("risk.map");
+	/**
+	 * Test to check whether players are added/removed correctly or not Checked by
+	 * adding a correct player name and, player with name already present in game
+	 * Checked by removing a player and also checked that correct results are
+	 * obtained by removing player name which is not present in game.
+	 */
+	@Test
+	public void testGamePlayer() {
 
-        // Test adding a player
-        String[] addCommand = {"-add", "John"};
-        String result = d_gameEngine.gamePlayer(addCommand);
-        assertEquals("Player \"John\" added to game", result);
+		d_gameEngine.setPhase(new PreLoad(d_gameEngine));
+		String[] l_newStrings = new String[] { "loadmap", "risk.map" };
+		String l_result = d_gameEngine.executeCommand(l_newStrings);
 
-        // Test removing a player
-        String[] removeCommand = {"-remove", "John"};
-        result = d_gameEngine.gamePlayer(removeCommand);
-        assertEquals("Player \"John\" removed from game", result);
+		String[] l_addPlayer1 = new String[] { "gameplayer", "-add", "Jay" };
+		String l_addResult1 = d_gameEngine.executeCommand(l_addPlayer1);
+		assertEquals("Player \"Jay\" added to game", l_addResult1);
 
-        // Test adding a player when it's not allowed
-        d_gameEngine.d_isEditMap = true;
-        result = d_gameEngine.gamePlayer(addCommand);
-        assertEquals("Players cannot be added/removed in this phase", result);
+		String[] l_addPlayer2 = new String[] { "gameplayer", "-add", "Jay" };
+		String l_addResult2 = d_gameEngine.executeCommand(l_addPlayer2);
+		assertEquals("Player \"Jay\" already present in game", l_addResult2);
 
-        // Test removing a player when it's not allowed
-        result = d_gameEngine.gamePlayer(removeCommand);
-        assertEquals("Players cannot be added/removed in this phase", result);
-    }
+		String[] l_removePlayer1 = new String[] { "gameplayer", "-remove", "Jay" };
+		String l_removeResult1 = d_gameEngine.executeCommand(l_removePlayer1);
+		assertEquals("Player \"Jay\" removed from game", l_removeResult1);
 
-    /**
-     * This function tests the "editContinent" method with various test cases of loading
-     * and saving maps.
-     */
-    @Test
-    public void testEditContinent() {
-        // Test adding a continent
-        d_gameEngine.d_isEditMap = true;
-        String[] addCommand = {"-add", "1", "5"};
-        String result = d_gameEngine.editContinent(addCommand);
-        assertEquals("Continent \"1\" successfully added to map", result);
+		String[] l_removePlayer2 = new String[] { "gameplayer", "-remove", "Jay" };
+		String l_removeResult2 = d_gameEngine.executeCommand(l_removePlayer2);
+		assertEquals("Player \"Jay\" not present in game", l_removeResult2);
+	}
 
-        // Test removing a continent
-        String[] removeCommand = {"-remove", "1"};
-        result = d_gameEngine.editContinent(removeCommand);
-        assertEquals("Continent \"1\" successfully removed from map", result);
+	/**
+	 * This function tests the validateMap function with different conditions like
+	 * if the map is null, without countries, not traversable and other different
+	 * conditions.
+	 */
+	@Test
+	public void testValidateMap() {
+		GameEngine l_gameEngine1 = new GameEngine();
+		l_gameEngine1.setPhase(new PreLoad(l_gameEngine1));
+		String[] l_newString1 = new String[] { "loadmap", "uk.map" };
+		String l_result1 = l_gameEngine1.executeCommand(l_newString1);
+		String[] l_valString = new String[] { "validatemap" };
+		String l_resValString = l_gameEngine1.executeCommand(l_valString);
+		assertEquals(" The graph is connected. Countries are traverseble.", l_resValString);
 
-        // Test adding a continent when it's not allowed
-        d_gameEngine.d_isEditMap = false;
-        result = d_gameEngine.editContinent(addCommand);
-        assertEquals("Map can only be edited when file is open in edit phase", result);
+		GameEngine l_gameEngine2 = new GameEngine();
+		l_gameEngine2.setPhase(new PreLoad(l_gameEngine2));
+		String[] l_valString2 = new String[] { "validatemap" };
+		String l_resValString2 = l_gameEngine2.executeCommand(l_valString2);
+		assertEquals("The Map does not contain any countries.", l_resValString2);
 
-        // Test removing a continent when it's not allowed
-        result = d_gameEngine.editContinent(removeCommand);
-        assertEquals("Map can only be edited when file is open in edit phase", result);
-    }
+		GameEngine l_gameEngine3 = new GameEngine();
+		l_gameEngine3.setPhase(new PreLoad(l_gameEngine3));
+		l_gameEngine3.setGameMap(null);
+		String[] l_valString3 = new String[] { "validatemap" };
+		String l_resValString3 = l_gameEngine3.executeCommand(l_valString3);
+		assertEquals("Cannot validate map", l_resValString3);
+	}
 
-    /**
-     * This function tests the "AssignCountries" method with various test cases of adding
-     * and removing player.
-     */
-    @Test
-    public void testAssignCountries() {
-        // Test with less than two players
-        String result = d_gameEngine.assignCountries();
-        assertEquals("There must be at least two player", result);
+	/**
+	 * Check to see if correct player is declared as winner.
+	 */
+	@Test
+	public void winningTest() {
+		GameEngine l_gameEngine = new GameEngine();
 
-    }
+		l_gameEngine.setPhase(new PostLoad(l_gameEngine));
+		String[] l_newString1 = new String[] { "gameplayer", "-add", "Nen", "-add", "Meet" };
+		String l_result1 = l_gameEngine.executeCommand(l_newString1);
+		l_gameEngine.getGameMap().addContinent(1, 5);
+		l_gameEngine.getGameMap().addCountry(1, 1);
+		l_gameEngine.getGameMap().addCountry(2, 1);
+		l_gameEngine.getGameMap().addNeighbor(1, 2);
+		l_gameEngine.getGameMap().getCountries().get(1).setPlayer(l_gameEngine.d_players.get("Nen"));
+		l_gameEngine.getGameMap().getCountries().get(2).setPlayer(l_gameEngine.d_players.get("Meet"));
+		l_gameEngine.d_players.get("Nen").addCountry(l_gameEngine.getGameMap().getCountries().get(1));
+		l_gameEngine.d_players.get("Nen").setNumberOfArmies();
+		l_gameEngine.d_players.get("Meet").addCountry(l_gameEngine.getGameMap().getCountries().get(2));
+		l_gameEngine.d_players.get("Meet").setNumberOfArmies();
+
+		l_gameEngine.setPhase(new IssueOrders(l_gameEngine));
+		Deploy l_deploy = new Deploy(l_gameEngine.d_players.get("Nen"), 1, 3);
+		l_gameEngine.d_players.get("Nen").d_orders.add(l_deploy);
+		l_gameEngine.addPlayerOrder(l_gameEngine.d_players.get("Nen"));
+
+		Advance l_advanceCmd = new Advance(l_gameEngine.d_players.get("Nen"), 1, 2, 2);
+		HashMap<String, Integer> l_ordersBefore = new HashMap<String, Integer>();
+		l_ordersBefore.putAll(l_gameEngine.d_players.get("Nen").d_cardsOwned);
+
+		l_gameEngine.d_players.get("Nen").d_orders.add(l_advanceCmd);
+		l_gameEngine.addPlayerOrder(l_gameEngine.d_players.get("Nen"));
+
+		l_gameEngine.setPhase(new ExecuteOrders(l_gameEngine));
+		l_gameEngine.getPhase().executeOrders();
+		assertEquals(1, l_gameEngine.d_playerName.size());
+
+		HashMap<String, Integer> l_ordersAfter = l_gameEngine.d_players.get("Nen").d_cardsOwned;
+		assertFalse(l_ordersBefore.equals(l_ordersAfter));
+	}
 }
