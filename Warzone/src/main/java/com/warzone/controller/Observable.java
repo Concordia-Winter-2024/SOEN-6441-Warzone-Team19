@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- *  Observable class observers and observables (subject). It also implements the notification
+ *  The <code>Observable</code> class implements diccnnection or disconnection between observes and  subject. It also implements the notification
  * mechanism that the observable will trigger when its state changes.
  */
 public class Observable {

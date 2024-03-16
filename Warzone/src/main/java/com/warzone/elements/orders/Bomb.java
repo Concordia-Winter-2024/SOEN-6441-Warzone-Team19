@@ -7,7 +7,7 @@ import com.warzone.elements.Player;
 import java.util.HashSet;
 
 /**
- * This class represents the bomb card. The Bomb Card allows you to target an
+ * This class represents the bomb card which allows you to target an
  * enemy or neutral territory and kill half of the armies on that territory. You
  * can target any territory that is adjacent to one of your own territories.
  * Since it kills half of the armies on a territory, it's most effective when

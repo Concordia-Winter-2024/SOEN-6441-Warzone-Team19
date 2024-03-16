@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Phase entered after preload class, it contains methods to add or remove
+ * Game entered this phase after preload class, it contains methods to add or remove
  * players from game and to assign countries randomly to players.
  */
 public class PostLoad extends GameSetup {

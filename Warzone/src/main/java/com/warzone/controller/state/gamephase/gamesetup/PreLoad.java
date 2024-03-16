@@ -4,7 +4,7 @@ import com.warzone.controller.GameEngine;
 import com.warzone.elements.GameMap;
 
 /**
- * Phase entered after map is saved successfully or at the start of the game, it
+ * Game entered this phase after map is saved successfully or at the start of the game, it
  * contains methods to load a map.
  */
 public class PreLoad extends GameSetup {
