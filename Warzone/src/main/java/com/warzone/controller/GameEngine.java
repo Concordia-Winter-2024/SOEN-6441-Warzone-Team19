@@ -8,8 +8,6 @@ import java.util.Random;
 
 
 import com.warzone.controller.state.Phase;
-import com.warzone.controller.state.edit.EditPhase;
-import com.warzone.controller.state.gamephase.gamesetup.PreLoad;
 import com.warzone.elements.GameMap;
 import com.warzone.elements.Player;
 
@@ -46,7 +44,8 @@ public class GameEngine {
      * @return the result of the command to be executed
      */
     public String executeCommand(String[] p_splittedCommand) {
-        String l_result = switch (p_splittedCommand[0]) {
+
+        return switch (p_splittedCommand[0]) {
             case "loadmap" -> loadMap(p_splittedCommand);
             case "editcontinent" -> editContinent(p_splittedCommand);
             case "editcountry" -> editCountry(p_splittedCommand);
@@ -65,8 +64,26 @@ public class GameEngine {
             case "blockade" -> blockade(p_splittedCommand);
             default -> "Command not found";
         };
+    }
 
-        return l_result;
+    /**
+     * This method is used to validate the command
+     *
+     * @param command the command that has been splitted into multiple parts for further processing
+     *             and validation
+     * @throws IllegalArgumentException if the command is invalid
+     */
+
+    private void validateCommand(String[] command) {
+        if (command.length < 2) {
+            throw new IllegalArgumentException("Please enter valid command");
+        }
+        if (command[1].split("\\.").length <= 1) {
+            throw new IllegalArgumentException("File extension should be " + ".map");
+        }
+        if (!"map".equals(command[1].split("\\.")[1])) {
+            throw new IllegalArgumentException("File extension should be " + ".map");
+        }
     }
 
     /**
@@ -206,19 +223,16 @@ public class GameEngine {
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
      * @return the result of the editmap command depending upon the syntax of
-     *         command provided
+     * command provided
+     * @throws IllegalArgumentException if the command is invalid
      */
     public String editMap(String[] p_splittedCommand) {
-        if (p_splittedCommand.length < 2) {
-            return "Please enter valid command";
+        try {
+            validateCommand(p_splittedCommand);
+            return d_phase.editMap(p_splittedCommand[1]);
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
         }
-        if (p_splittedCommand[1].split("\\.").length <= 1) {
-            return "File extension should be .map";
-        }
-        if (!"map".equals(p_splittedCommand[1].split("\\.")[1])) {
-            return "File extension should be .map";
-        }
-        return d_phase.editMap(p_splittedCommand[1]);
     }
 
     /**
@@ -227,11 +241,11 @@ public class GameEngine {
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
      * @return the result of the gameplayer command depending upon the syntax of
-     *         command provided
+     * command provided
      */
     public String gamePlayer(String[] p_splittedCommand) {
         String[] l_commandParts;
-        String l_result = "";
+        StringBuilder l_result = new StringBuilder();
         int l_i = 1;
         if (p_splittedCommand.length < 3) {
             return "Please enter valid command. Command is \"gameplayer -add playerName -remove playerName\".";
@@ -265,32 +279,32 @@ public class GameEngine {
                     l_commandParts = new String[3];
                     l_commandParts[0] = p_splittedCommand[l_i];
                     l_commandParts[1] = p_splittedCommand[l_i + 1];
-                    if (!"".equals(l_result)) {
-                        l_result += "\n";
+                    if (!l_result.isEmpty()) {
+                        l_result.append("\n");
                     }
-                    l_result += d_phase.gamePlayer(l_commandParts);
+                    l_result.append(d_phase.gamePlayer(l_commandParts));
                     l_i = l_i + 2;
                 } else if ("-remove".equals(p_splittedCommand[l_i])) {
                     l_commandParts = new String[2];
                     l_commandParts[0] = p_splittedCommand[l_i];
                     l_commandParts[1] = p_splittedCommand[l_i + 1];
-                    if (!"".equals(l_result)) {
-                        l_result += "\n";
+                    if (!l_result.isEmpty()) {
+                        l_result.append("\n");
                     }
-                    l_result += d_phase.gamePlayer(l_commandParts);
+                    l_result.append(d_phase.gamePlayer(l_commandParts));
                     l_i = l_i + 2;
                 } else {
-                    if (!"".equals(l_result)) {
-                        l_result += "\n";
+                    if (!l_result.isEmpty()) {
+                        l_result.append("\n");
                     }
-                    l_result += "Command needs to have -add or -remove.";
+                    l_result.append("Command needs to have -add or -remove.");
                     l_i++;
                 }
             }
         } catch (Exception p_e) {
             System.out.println("Valid command not entered.");
         }
-        return l_result;
+        return l_result.toString();
     }
 
     /**
@@ -308,11 +322,11 @@ public class GameEngine {
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
      * @return the result of the editContinent command depending upon the syntax of
-     *         command provided
+     * command provided
      */
     public String editContinent(String[] p_splittedCommand) {
         String[] l_commandParts;
-        String l_result = "";
+        StringBuilder l_result = new StringBuilder();
         int l_i = 1;
         if (p_splittedCommand.length < 3) {
             return "Please enter valid command. Command is: \"editcontinent -add continentId controlValue -remove continentId\"";
@@ -370,32 +384,32 @@ public class GameEngine {
                     l_commandParts[0] = p_splittedCommand[l_i];
                     l_commandParts[1] = p_splittedCommand[l_i + 1];
                     l_commandParts[2] = p_splittedCommand[l_i + 2];
-                    if (!"".equals(l_result)) {
-                        l_result += "\n";
+                    if (!l_result.isEmpty()) {
+                        l_result.append("\n");
                     }
-                    l_result += d_phase.editContinent(l_commandParts);
+                    l_result.append(d_phase.editContinent(l_commandParts));
                     l_i = l_i + 3;
                 } else if ("-remove".equals(p_splittedCommand[l_i])) {
                     l_commandParts = new String[2];
                     l_commandParts[0] = p_splittedCommand[l_i];
                     l_commandParts[1] = p_splittedCommand[l_i + 1];
-                    if (!"".equals(l_result)) {
-                        l_result += "\n";
+                    if (!l_result.isEmpty()) {
+                        l_result.append("\n");
                     }
-                    l_result += d_phase.editContinent(l_commandParts);
+                    l_result.append(d_phase.editContinent(l_commandParts));
                     l_i = l_i + 2;
                 } else {
-                    if (!"".equals(l_result)) {
-                        l_result += "\n";
+                    if (!l_result.isEmpty()) {
+                        l_result.append("\n");
                     }
-                    l_result += "Command needs to have -add or -remove.";
+                    l_result.append("Command needs to have -add or -remove.");
                     l_i++;
                 }
             }
         } catch (Exception p_e) {
             System.out.println("valid command not entered.");
         }
-        return l_result;
+        return l_result.toString();
     }
 
     /**
@@ -404,11 +418,11 @@ public class GameEngine {
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
      * @return the result of the editCountry command depending upon the syntax of
-     *         command provided
+     * command provided
      */
     public String editCountry(String[] p_splittedCommand) {
         String[] l_commandParts;
-        String l_result = "";
+        StringBuilder l_result = new StringBuilder();
         int l_i = 1;
         if (p_splittedCommand.length < 3) {
             return "Please enter valid command. Command is: \"editcountry -add countryId continentId -remove countryId\".";
@@ -465,29 +479,29 @@ public class GameEngine {
                 l_commandParts[0] = p_splittedCommand[l_i];
                 l_commandParts[1] = p_splittedCommand[l_i + 1];
                 l_commandParts[2] = p_splittedCommand[l_i + 2];
-                if (!"".equals(l_result)) {
-                    l_result += "\n";
+                if (!l_result.isEmpty()) {
+                    l_result.append("\n");
                 }
-                l_result += d_phase.editCountry(l_commandParts);
+                l_result.append(d_phase.editCountry(l_commandParts));
                 l_i = l_i + 3;
             } else if ("-remove".equals(p_splittedCommand[l_i])) {
                 l_commandParts = new String[2];
                 l_commandParts[0] = p_splittedCommand[l_i];
                 l_commandParts[1] = p_splittedCommand[l_i + 1];
-                if (!"".equals(l_result)) {
-                    l_result += "\n";
+                if (!l_result.isEmpty()) {
+                    l_result.append("\n");
                 }
-                l_result += d_phase.editCountry(l_commandParts);
+                l_result.append(d_phase.editCountry(l_commandParts));
                 l_i = l_i + 2;
             } else {
-                if (!"".equals(l_result)) {
-                    l_result += "\n";
+                if (!l_result.isEmpty()) {
+                    l_result.append("\n");
                 }
-                l_result += "Command needs to have -add or -remove.";
+                l_result.append("Command needs to have -add or -remove.");
                 l_i++;
             }
         }
-        return l_result;
+        return l_result.toString();
     }
 
     /**
@@ -496,11 +510,11 @@ public class GameEngine {
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
      * @return the result of the editNeighbor command depending upon the syntax of
-     *         command provided
+     * command provided
      */
     public String editNeighbor(String[] p_splittedCommand) {
         String[] l_commandParts;
-        String l_result = "";
+        StringBuilder l_result = new StringBuilder();
         int l_i = 1;
         if (p_splittedCommand.length < 4) {
             return "Please enter valid command. Command is \"editneighbor -add countryId neighborCountryId -remove countryId neighborCountryId\".";
@@ -528,11 +542,7 @@ public class GameEngine {
                     && !"-remove".equals(p_splittedCommand[l_validAddRemovePlacement])) {
                 return "Misplacement of -add and -remove keyword w.r.t number of arguments. Command is \"editneighbor -add countryId neighborCountryId -remove countryId neighborCountryId\". Use -add and -remove as per your need.";
             }
-            if ("-add".equals(p_splittedCommand[l_validAddRemovePlacement])) {
-                l_validAddRemovePlacement += 3;
-            } else {
-                l_validAddRemovePlacement += 3;
-            }
+            l_validAddRemovePlacement += 3;
         }
 
         l_validAddRemovePlacement = 1;
@@ -558,54 +568,51 @@ public class GameEngine {
                 l_commandParts[0] = p_splittedCommand[l_i];
                 l_commandParts[1] = p_splittedCommand[l_i + 1];
                 l_commandParts[2] = p_splittedCommand[l_i + 2];
-                if (!"".equals(l_result)) {
-                    l_result += "\n";
+                if (!l_result.isEmpty()) {
+                    l_result.append("\n");
                 }
-                l_result += d_phase.editNeighbor(l_commandParts);
+                l_result.append(d_phase.editNeighbor(l_commandParts));
                 l_i = l_i + 3;
             } else if ("-remove".equals(p_splittedCommand[l_i])) {
                 l_commandParts = new String[3];
                 l_commandParts[0] = p_splittedCommand[l_i];
                 l_commandParts[1] = p_splittedCommand[l_i + 1];
                 l_commandParts[2] = p_splittedCommand[l_i + 2];
-                if (!"".equals(l_result)) {
-                    l_result += "\n";
+                if (!l_result.isEmpty()) {
+                    l_result.append("\n");
                 }
-                l_result += d_phase.editNeighbor(l_commandParts);
+                l_result.append(d_phase.editNeighbor(l_commandParts));
                 l_i = l_i + 3;
             } else {
-                if (!"".equals(l_result)) {
-                    l_result += "\n";
+                if (!l_result.isEmpty()) {
+                    l_result.append("\n");
                 }
-                l_result += "Command needs to have -add or -remove.";
+                l_result.append("Command needs to have -add or -remove.");
                 l_i++;
             }
         }
-        return l_result;
+        return l_result.toString();
     }
 
     /**
-     *  Method to save the map with the specific file name
+     * Method to save the map with the specific file name
      *
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
      * @return the result of executing the saveMap command
+     * @throws IllegalArgumentException if the command is invalid
      */
     public String saveMap(String[] p_splittedCommand) {
-        if (p_splittedCommand.length < 2) {
-            return "Please enter valid command";
+        try {
+            validateCommand(p_splittedCommand);
+            return d_phase.saveMap(p_splittedCommand[1]);
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
         }
-        if (p_splittedCommand[1].split("\\.").length <= 1) {
-            return "File extension should be .map";
-        }
-        if (!"map".equals(p_splittedCommand[1].split("\\.")[1])) {
-            return "File extension should be .map";
-        }
-        return d_phase.saveMap(p_splittedCommand[1]);
     }
 
     /**
-     *  Validate map method to validate a map
+     * Validate map method to validate a map
      *
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
@@ -624,21 +631,15 @@ public class GameEngine {
      * @param p_splittedCommand the command that has been splitted into multiple
      *                          parts for further processing
      * @return the result of loading of map
+     * @throws IllegalArgumentException if the command is invalid
      */
     public String loadMap(String[] p_splittedCommand) {
-        if (d_phase instanceof EditPhase) {
-            setPhase(new PreLoad(this));
+        try {
+            validateCommand(p_splittedCommand);
+            return d_phase.loadMap(p_splittedCommand[1]);
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
         }
-        if (p_splittedCommand.length < 2) {
-            return "Please enter valid command";
-        }
-        if (p_splittedCommand[1].split("\\.").length <= 1) {
-            return "File extension should be .map";
-        }
-        if (!"map".equals(p_splittedCommand[1].split("\\.")[1])) {
-            return "File extension should be .map";
-        }
-        return d_phase.loadMap(p_splittedCommand[1]);
     }
 
     /**
@@ -650,7 +651,7 @@ public class GameEngine {
      */
     public String assignCountries(String[] p_splittedCommand) {
         if (p_splittedCommand.length > 1) {
-            return String.format("Invalid Command");
+            return "Invalid Command";
         }
         return d_phase.assignCountries();
     }
@@ -676,8 +677,6 @@ public class GameEngine {
         try {
             Integer.parseInt(p_str);
             return true;
-        } catch (NumberFormatException p_e) {
-            return false;
         } catch (Exception p_e) {
             return false;
         }
