@@ -59,7 +59,7 @@ public class GameInitialization {
      */
     public void start() {
         System.out.println("\033[1;93m"+WELCOME_MESSAGE+"\033[0m");
-        new GameEngine().d_logEntryBuffer.setString("Game Started");
+        new GameEngine().d_logEntryBuffer.setString("Game Initialized");
         GameInitialization l_gameInitialization = new GameInitialization();
         while (true) {
             String l_commandOpt = l_gameInitialization.getCommand();
