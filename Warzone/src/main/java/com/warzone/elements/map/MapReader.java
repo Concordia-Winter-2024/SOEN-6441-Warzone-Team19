@@ -48,7 +48,7 @@ public class MapReader {
      */
     public boolean readFullMap(String p_filePath) {
         File l_mapFile = new File(
-                Paths.get(Paths.get("").toAbsolutePath().toString() + "/maps/" + p_filePath).toString());
+                Paths.get(Paths.get("").toAbsolutePath() + "/maps/" + p_filePath).toString());
         String l_line, l_dataString;
         int l_countryCtn = 0, l_continentCtn = 0;
 
@@ -88,7 +88,7 @@ public class MapReader {
                         }
                     }
 
-//				Read boundries
+//				Read boundaries
                     case "[borders]" -> {
                         while (d_reader.hasNextLine()) {
                             l_line = d_reader.nextLine();
