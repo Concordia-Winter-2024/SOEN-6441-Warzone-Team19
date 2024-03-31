@@ -33,6 +33,19 @@ public class RandomPlayer extends PlayerStrategy {
 		super(p_player, p_gameEngine);
 	}
 
+    /**
+     * This method is used to get neighboring countries of the country
+	 * 
+	 * @return neighbors of the countries
+	 */
+	public HashSet getNeighborCountries() {
+		HashSet<Integer> l_neighbours = new HashSet<>();
+		for (Country l_country : d_gameEngine.getGameMap().getCountries().values()) {
+			l_neighbours.addAll(l_country.getNeighborIds());
+		}
+		return l_neighbours;
+	}
+
 	/**
 	 * This method creates random orders,
      * deploys on a random country attacks random neighboring
