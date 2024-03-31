@@ -186,6 +186,21 @@ public class Aggresive extends PlayerStrategy {
 		return l_neighbours;
 	}
 
-	
+	/**
+	 * This method is used to get all strong neighboring countries of 
+     * the strongest country the player holds
+	 * 
+	 * @param l_strongCountry the strongest country of player
+	 * @return  the strong neighboring countries
+	 */
+	public List<Integer> getStrongNeighbors(Country l_strongCountry) {
+		List<Integer> l_strongNeighbors = new ArrayList<>();
+		for (Country l_country : l_strongCountry.getNeighborCountries()) {
+			if (!d_player.equals(l_country.getPlayer())) {
+				l_strongNeighbors.add(l_country.getId());
+			}
+		}
+		return l_strongNeighbors;
+	}
 
 }
