@@ -173,4 +173,19 @@ public class Aggresive extends PlayerStrategy {
 		return l_order;
 	}
 
+    /**
+	 * This method is used to get neighboring countries of any country
+	 * 
+	 * @return the neighbors of a country
+	 */
+	public HashSet getNeighborCountries() {
+		HashSet<Integer> l_neighbours = new HashSet<>();
+		for (Country l_country : d_gameEngine.getGameMap().getCountries().values()) {
+			l_neighbours.addAll(l_country.getNeighborIds());
+		}
+		return l_neighbours;
+	}
+
+	
+
 }
