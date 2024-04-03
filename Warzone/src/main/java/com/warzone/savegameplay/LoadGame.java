@@ -7,15 +7,15 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Set;
 
-import controller.state.GameEngine;
+import com.warzone.controller.GameEngine;
 //import
-import controller.state.gamephase.gameplay.AssignArmies;
-import controller.state.gamephase.gameplay.IssueOrders;
-import controller.state.gamephase.gamesetup.PostLoad;
-import controller.state.gamephase.gamesetup.PreLoad;
-import entities.Player;
-import entities.orders.*;
-import strategy.*;
+import com.warzone.controller.state.gamephase.gameplay.AssignArmies;
+import com.warzone.controller.state.gamephase.gameplay.IssueOrders;
+import com.warzone.controller.state.gamephase.gamesetup.PostLoad;
+import com.warzone.controller.state.gamephase.gamesetup.PreLoad;
+import com.warzone.elements.Player;
+import com.warzone.elements.orders.*;
+import com.warzone.strategy.*;
 
 /**
  * Class to load a game from a ".game" file.
@@ -91,7 +91,6 @@ public class LoadGame {
                     }
                 }
 
-//				Read boundries
                 else if ("[borders]".equals(l_dataString)) {
                     while (d_reader.hasNextLine()) {
                         l_line = d_reader.nextLine();
@@ -117,13 +116,9 @@ public class LoadGame {
                         if (l_line.length() > 0) {
                             String[] l_playerInfo = l_line.split("[|]");
 
-//[PlayerName|Strategy|#Continents|#Countries|NumArmies|[ContinentId]|[CountryId CountryArmies]|[Airlift,Blockade,Bomb,Diplomacy]|[NegotiatedPlayersList]]
-//a|humanPlayer|2|3|9|[2,3]|[3 0,4 0,5 0]|[airlift 0,blockade 0,bomb 0,diplomacy 0]|[]
-//							adding player to game
                             d_gameEngine.setPhase(new PostLoad(d_gameEngine));
                             d_gameEngine.gamePlayer(new String[] { "gameplayer", "-add", l_playerInfo[0] });
 
-//							setting strategy type of the player
                             Player l_currentPlayer = d_gameEngine.d_players.get(l_playerInfo[0]);
                             switch (l_playerInfo[1]) {
                                 case "aggressivePlayer":
@@ -143,7 +138,6 @@ public class LoadGame {
                                     break;
                             }
 
-//							assign the countries to the Player
                             String l_countryInfoString = l_playerInfo[6].substring(1, l_playerInfo[6].length() - 1);
                             if (l_countryInfoString.equals("")) {
                                 continue;
@@ -159,14 +153,14 @@ public class LoadGame {
                                         .setPlayer(l_currentPlayer);
                             }
 
-//							assign continents to the player
+
                             d_gameEngine.setPhase(new AssignArmies(d_gameEngine));
                             d_gameEngine.getPhase().checkContinentOwnership();
 
-//							set number of armies to player
+
                             l_currentPlayer.setNumberOfArmies();
 
-//							giving cards to players
+
                             String l_cardsInfoString = l_playerInfo[7].substring(1, l_playerInfo[7].length() - 1);
                             String[] l_cards = l_cardsInfoString.split(",");
                             for (String l_currentCard : l_cards) {
@@ -187,7 +181,6 @@ public class LoadGame {
                             String[] l_playerInfo = l_line.split("[|]");
                             Player l_currentPlayer = d_gameEngine.d_neutralPlayer;
 
-//							assign the countries to the Player
                             String l_countryInfoString = l_playerInfo[6].substring(1, l_playerInfo[6].length() - 1);
                             if (l_countryInfoString.equals("")) {
                                 continue;
