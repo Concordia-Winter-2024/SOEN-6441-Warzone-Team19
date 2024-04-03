@@ -43,40 +43,47 @@ public class Bomb implements Orders {
 	 */
 	@Override
 	public String execute(GameEngine p_game) {
-		if (d_player.d_cardsOwned.get("bomb") >= 1) {
-			if (!d_player.getCountries().containsKey(d_country)) {
-				HashSet<Integer> l_intCountry = new HashSet<>();
-				for (Country l_tempCountry : d_player.getCountries().values()) {
-					l_intCountry.addAll(l_tempCountry.getNeighborIds());
-				}
-				if (!l_intCountry.contains(d_country)) {
-					return String.format(
-							"The country \"%d\" is not a neighbour country of the countries owned by player \"%s\".",
-							d_country, d_player.getName());
-				}
-				if (d_player.d_negotiatedPlayerNames
-						.contains(p_game.getGameMap().getCountries().get(d_country).getPlayer().getName())) {
-					return String.format("Cannot bomb, as diplomacy is established between \"%s\" and \"%s\".",
-							d_player.getName(),
-							p_game.getGameMap().getCountries().get(d_country).getPlayer().getName());
-				}
-
-				int l_armiesPresent = p_game.getGameMap().getCountries().get(d_country).getNumberOfArmiesPresent();
-				if (l_armiesPresent >= 0) {
-					p_game.getGameMap().getCountries().get(d_country).setNumberOfArmiesPresent(l_armiesPresent / 2);
-					int l_bombCardCount = d_player.d_cardsOwned.get("bomb");
-					d_player.d_cardsOwned.replace("bomb", l_bombCardCount - 1);
-					return String.format("Player \"%s\" bombed country \"%d\" successfully.", d_player.getName(),
-							d_country);
-				} else {
-					return "";
-				}
-			} else {
-				return String.format("Cannot bomb country \"%d\" as it is controlled by player \"%s\".", d_country,
-						d_player.getName());
-			}
-		} else {
-			return String.format("Player \"%s\" doesn't have bomb card.", d_player.getName());
+		String validationResult = validateBomb(p_game);
+		if (validationResult != null) {
+			return validationResult;
 		}
+
+		return executeBomb(p_game);
+	}
+
+	private String validateBomb(GameEngine p_game) {
+		int l_bombCardCount = d_player.d_cardsOwned.get("bomb");
+		if (l_bombCardCount == 0) {
+			return String.format("Player \"%s\" does not have a bomb card.", d_player.getName());
+		}
+		if (d_player.getCountries().containsKey(d_country)) {
+			return String.format("Cannot bomb country \"%d\" as it is controlled by player \"%s\".", d_country,
+					d_player.getName());
+		}
+		HashSet<Integer> l_intCountry = new HashSet<>();
+		for (Country l_tempCountry : d_player.getCountries().values()) {
+			l_intCountry.addAll(l_tempCountry.getNeighborIds());
+		}
+		if (!l_intCountry.contains(d_country)) {
+			return String.format(
+					"The country \"%d\" is not a neighbour country of the countries owned by player \"%s\".",
+					d_country, d_player.getName());
+		}
+		if (d_player.d_negotiatedPlayerNames
+				.contains(p_game.getGameMap().getCountries().get(d_country).getPlayer().getName())) {
+			return String.format("Cannot bomb, as diplomacy is established between \"%s\" and \"%s\".",
+					d_player.getName(),
+					p_game.getGameMap().getCountries().get(d_country).getPlayer().getName());
+		}
+		return null;
+	}
+
+	private String executeBomb(GameEngine p_game) {
+		int l_armiesPresent = p_game.getGameMap().getCountries().get(d_country).getNumberOfArmiesPresent();
+		p_game.getGameMap().getCountries().get(d_country).setNumberOfArmiesPresent(l_armiesPresent / 2);
+		int l_bombCardCount = d_player.d_cardsOwned.get("bomb");
+		d_player.d_cardsOwned.replace("bomb", l_bombCardCount - 1);
+		return String.format("Player \"%s\" bombed country \"%d\" successfully.", d_player.getName(),
+				d_country);
 	}
 }

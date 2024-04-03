@@ -65,7 +65,7 @@ public class MapValidation {
                 l_validationResult.append("The Map does not contain any countries.");
             } else {
                 if (!d_connectedGraph) {
-                    l_validationResult.append(" The graph is not connected. Countries are not traverseble.");
+                    l_validationResult.append(" The graph is not connected. Countries are not traversable.");
                 }
                 if (d_emptyContinent) {
                     l_validationResult.append(" Empty Continent(s) found.");
@@ -76,7 +76,7 @@ public class MapValidation {
             }
         } else {
             if (d_connectedGraph) {
-                l_validationResult.append(" The graph is connected. Countries are traverseble.");
+                l_validationResult.append(" The graph is connected. Countries are traversable.");
             }
             if (d_emptyContinent) {
                 l_validationResult.append(" Empty Continent(s) found.");
@@ -95,7 +95,7 @@ public class MapValidation {
      *         everything in map is correct, then it will return true
      */
     public boolean checkAll() {
-        if (d_gameMap.getCountries().size() == 0) {
+        if (d_gameMap.getCountries().isEmpty()) {
             d_emptyMap = true;
             return false;
         }
@@ -129,7 +129,7 @@ public class MapValidation {
      *         connected.
      */
     public boolean isConnected(Country p_firstCountry, Set<Integer> p_countryIds) {
-        Set<Integer> l_countryIdsVisited = new HashSet<Integer>();
+        Set<Integer> l_countryIdsVisited = new HashSet<>();
         l_countryIdsVisited = countryIterator(p_firstCountry, l_countryIdsVisited);
         return l_countryIdsVisited.containsAll(p_countryIds);
     }

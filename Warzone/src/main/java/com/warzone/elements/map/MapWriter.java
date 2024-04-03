@@ -37,11 +37,11 @@ public class MapWriter {
         int l_countryCtn = 0, l_continentCtn = 0;
         try {
             FileWriter l_fw = new FileWriter(
-                    Paths.get(Paths.get("").toAbsolutePath().toString() + "/maps/" + p_filePath).toString());
+                    Paths.get(Paths.get("").toAbsolutePath() + "/maps/" + p_filePath).toString());
             d_writer = new BufferedWriter(l_fw);
 
 //			 Writing Continents
-            HashMap<Integer, Continent> l_continents = new HashMap<>();
+            HashMap<Integer, Continent> l_continents;
             l_continents = d_gameMap.getContinents();
             d_writer.write("[continents]");
             d_writer.newLine();
@@ -65,18 +65,18 @@ public class MapWriter {
             }
 
 //			 Writing borders
-            HashMap<Integer, Country> l_countries = new HashMap<>();
+            HashMap<Integer, Country> l_countries;
             l_countries = d_gameMap.getCountries();
             d_writer.write("\n");
             d_writer.write("[borders]");
             d_writer.newLine();
             for (int p_countries : d_countriesMap.keySet()) {
                 Set<Integer> l_neighborIds = l_countries.get(p_countries).getNeighborIds();
-                StringBuilder l_sb = new StringBuilder("");
-                l_sb.append(d_countriesMap.get(p_countries).toString() + " ");
+                StringBuilder l_sb = new StringBuilder();
+                l_sb.append(d_countriesMap.get(p_countries).toString()).append(" ");
 
                 for (int p_neighborIds : l_neighborIds) {
-                    l_sb.append(d_countriesMap.get(p_neighborIds).toString() + " ");
+                    l_sb.append(d_countriesMap.get(p_neighborIds).toString()).append(" ");
                 }
                 d_writer.write(l_sb.toString());
                 d_writer.newLine();

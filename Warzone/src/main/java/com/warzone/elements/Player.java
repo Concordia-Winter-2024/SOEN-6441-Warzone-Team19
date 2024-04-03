@@ -42,7 +42,7 @@ public class Player {
         d_cardsOwned.put("blockade", 0);
         d_cardsOwned.put("airlift", 0);
         d_cardsOwned.put("diplomacy", 0);
-        d_negotiatedPlayerNames = new ArrayList<String>();
+        d_negotiatedPlayerNames = new ArrayList<>();
         d_isConquered = false;
     }
 
@@ -103,7 +103,7 @@ public class Player {
     /**
      * This method is used to remove country from player when player loses the country
      *
-     * @param p_countryId Id of the country
+     * @param p_countryId ID of the country
      */
     public void removeCountry(int p_countryId) {
         d_countries.remove(p_countryId);
@@ -166,7 +166,7 @@ public class Player {
     public void issueOrder() {
         GameInitialization l_gameInitialization = new GameInitialization();
         l_gameInitialization.setPhase(new IssueOrders(null));
-        String[] l_splittedOrder = null;
+        String[] l_splittedOrder;
         boolean l_isCorrect = false;
         while (!l_isCorrect) {
             try {

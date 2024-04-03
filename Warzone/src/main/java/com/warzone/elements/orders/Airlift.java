@@ -41,6 +41,15 @@ public class Airlift implements Orders {
 	 */
 	@Override
 	public String execute(GameEngine p_game) {
+		String validationResult = validateAirlift(p_game);
+		if (validationResult != null) {
+			return validationResult;
+		}
+
+		return executeAirlift(p_game);
+	}
+
+	private String validateAirlift(GameEngine p_game) {
 		int l_airliftCardCount = d_player.d_cardsOwned.get("airlift");
 		if (l_airliftCardCount == 0) {
 			return String.format("Player \"%s\" does not have a airlift card", d_player.getName());
@@ -59,9 +68,14 @@ public class Airlift implements Orders {
 					"Country \"%d\" should remain with at least 1 armies after moving the armies during Airlift",
 					d_countryNameFrom);
 		}
+		return null;
+	}
+
+	private String executeAirlift(GameEngine p_game) {
 		d_player.getCountries().get(d_countryNameFrom).removeArmies(d_armies);
 		d_player.getCountries().get(d_countryNameTo).placeArmies(d_armies);
 
+		int l_airliftCardCount = d_player.d_cardsOwned.get("airlift");
 		d_player.d_cardsOwned.replace("airlift", l_airliftCardCount - 1);
 		return String.format("Armies successfully moved from country \"%d\" to country \"%d\"", d_countryNameFrom,
 				d_countryNameTo);
