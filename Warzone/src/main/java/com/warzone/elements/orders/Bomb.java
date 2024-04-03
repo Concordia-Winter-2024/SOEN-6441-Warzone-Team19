@@ -35,6 +35,15 @@ public class Bomb implements Orders {
 	}
 
 	/**
+	 * This method is used to get the order in String format.
+	 *
+	 * @return command in String form.
+	 */
+	public String getOrder() {
+		return "bomb " + d_country;
+	}
+
+	/**
 	 * method to execute bomb command
 	 * 
 	 * @param p_game gets the object of GameEngine class for accessing details

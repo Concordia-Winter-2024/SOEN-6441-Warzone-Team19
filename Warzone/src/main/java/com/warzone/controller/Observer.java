@@ -15,5 +15,5 @@ public interface Observer {
      *                         Though it's not always the case,
      *                         this object is frequently the subject.
      */
-    public void update(Observable p_observableState);
+    void update(Observable p_observableState);
 }

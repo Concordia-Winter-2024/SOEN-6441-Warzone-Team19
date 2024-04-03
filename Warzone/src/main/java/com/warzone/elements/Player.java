@@ -1,29 +1,60 @@
 package com.warzone.elements;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 
+import com.warzone.controller.GameEngine;
 import com.warzone.controller.GameInitialization;
 
 import com.warzone.controller.state.gamephase.gameplay.IssueOrders;
 import com.warzone.elements.orders.Advance;
 import com.warzone.elements.orders.Deploy;
 import com.warzone.elements.orders.Orders;
-
+import com.warzone.strategy.PlayerStrategy;
 import com.warzone.elements.orders.*;
 
 /**
- * Player class in a game
+ * Player in a game contains information about the continents and countries
+ * controlled by player, cards the player have, method to order input from user,
+ * queue to store player order and number of reinforcement armies player have.
  */
 public class Player {
     private String d_name;
     private HashMap<Integer, Country> d_countries;
     private HashMap<Integer, Continent> d_continents;
+
+    /**
+     * This Queue stores the object of type Orders for each Player
+     * to be executed in FIFO pattern later.
+     */
     public Queue<Orders> d_orders;
     private int d_numberOfArmies;
     private boolean d_isCommit;
+
+    /**
+     * This hashmap stores the number of cards owned in key value format where key is
+     * name of card and value is number of cards available to the player.
+     * Example: (bomb, 2), i.e. player owns 2 bomb cards.
+     */
     public HashMap<String, Integer> d_cardsOwned;
+
+    /**
+     * This array list stores the name of players for which
+     * diplomacy card is used for negotiation.
+     */
     public ArrayList<String> d_negotiatedPlayerNames;
+
+    /**
+     * This boolean stores if the country is conquered or not by the player.
+     */
     public boolean d_isConquered;
+
+    /**
+     * This is the type of Strategy that the player possess.
+     */
+    public PlayerStrategy d_strategy;
 
     /**
      * Constructor of player which sets initial values for player data
@@ -42,12 +73,13 @@ public class Player {
         d_cardsOwned.put("blockade", 0);
         d_cardsOwned.put("airlift", 0);
         d_cardsOwned.put("diplomacy", 0);
-        d_negotiatedPlayerNames = new ArrayList<>();
+        d_negotiatedPlayerNames = new ArrayList<String>();
         d_isConquered = false;
+        d_strategy = null;
     }
 
     /**
-     * This method is used to get the name of player
+     * method to get name of player
      *
      * @return d_name name of player
      */
@@ -56,7 +88,25 @@ public class Player {
     }
 
     /**
-     * This method is used to get the countries occupied by player
+     * function to set the strategy of the player
+     *
+     * @param p_strat name of the strategy to be set
+     */
+    public void setStrategy(PlayerStrategy p_strat) {
+        d_strategy = p_strat;
+    }
+
+    /**
+     * function to retrieve the strategy of the player
+     *
+     * @return the strategy of the player
+     */
+    public PlayerStrategy getPlayerBehaviour() {
+        return d_strategy;
+    }
+
+    /**
+     * method to get the countries occupied by player
      *
      * @return d_countries HashMap of countries and their id occupied by player
      */
@@ -65,7 +115,7 @@ public class Player {
     }
 
     /**
-     * This method is used to get the continents occupied by player
+     * method to get the continents occupied by player
      *
      * @return d_continents HashMap of continents and their id occupied by player
      */
@@ -74,7 +124,7 @@ public class Player {
     }
 
     /**
-     * This method is used to get the number of armies player has
+     * method to get the number of armies player has
      *
      * @return d_numberOfArmies number of armies
      */
@@ -83,7 +133,7 @@ public class Player {
     }
 
     /**
-     * This method is used to remove armies to player
+     * method to remove armies
      *
      * @param p_numberArmies number of armies to be removed
      */
@@ -92,7 +142,7 @@ public class Player {
     }
 
     /**
-     * This is method to add country to player when player wins the country
+     * method to add country occupied by player
      *
      * @param p_country Object of country
      */
@@ -101,16 +151,17 @@ public class Player {
     }
 
     /**
-     * This method is used to remove country from player when player loses the country
+     * method to remove country from player, when player looses the country
      *
-     * @param p_countryId ID of the country
+     * @param p_countryId Id of the country
      */
     public void removeCountry(int p_countryId) {
         d_countries.remove(p_countryId);
     }
 
     /**
-     * This method is used to add continent to player when player wins the all countries of continent
+     * method to add continent to player when player wins all the countries in that
+     * continent
      *
      * @param p_continent object of the continent
      */
@@ -119,7 +170,7 @@ public class Player {
     }
 
     /**
-     * This method is used to remove continent from player when player loses the all countries of continent
+     * method to remove continent from player
      *
      * @param p_continentId Id of continent
      */
@@ -128,7 +179,8 @@ public class Player {
     }
 
     /**
-     * This method is used for setting the number of armies
+     * method to set number of armies, which depends upon number of countries and
+     * continents occupied by player
      */
     public void setNumberOfArmies() {
         d_numberOfArmies = d_countries.size() / 3;
@@ -141,7 +193,8 @@ public class Player {
     }
 
     /**
-     * Get boolean value which depicts that player has no more orders in this turn.
+     * method to get boolean value which depicts that player has no more orders in
+     * this turn.
      *
      * @return true if player has no more orders; else false
      */
@@ -150,9 +203,9 @@ public class Player {
     }
 
     /**
-     * Used to set whenever player has no more values or when the turn has started.
-     * Set to false at start of each turn and to true when player has no more
-     * orders.
+     * method used to set whenever player has no more values or when the turn has
+     * started. Set to false at start of each turn and to true when player has no
+     * more orders.
      *
      * @param p_isCommit true if player has no more orders; else false.
      */
@@ -161,188 +214,32 @@ public class Player {
     }
 
     /**
-     * This method is used to issue order
+     * method to issue order called by Game engine
      */
     public void issueOrder() {
-        GameInitialization l_gameInitialization = new GameInitialization();
-        l_gameInitialization.setPhase(new IssueOrders(null));
-        String[] l_splittedOrder;
-        boolean l_isCorrect = false;
-        while (!l_isCorrect) {
-            try {
-                String l_result = (l_gameInitialization.getCommand());
-                if ("exit".equals(l_result)) {
-                    l_isCorrect = true;
-                    d_isCommit = true;
-                    return;
-                } else {
-                    l_splittedOrder = l_result.split(" ");
-
-                    switch (l_splittedOrder[0]) {
-                        case "deploy":
-                            if (l_splittedOrder.length != 3) {
-                                String l_temp = "Invalid command. Correct command is - deploy countryId numarmies";
-                                System.out.println(l_temp);
-                                l_gameInitialization.d_gameEngine.d_logEntryBuffer.setString(l_temp);
-                                continue;
-                            } else if (!isNumeric(l_splittedOrder[1]) || !isNumeric(l_splittedOrder[2])) {
-                                String l_temp = "After deploy keyword, you can only use integer to represent the countryId and numarmies";
-                                System.out.println(l_temp);
-                                l_gameInitialization.d_gameEngine.d_logEntryBuffer.setString(l_temp);
-                                continue;
-                            } else {
-                                Deploy l_deploy = new Deploy(this, Integer.parseInt(l_splittedOrder[1]),
-                                        Integer.parseInt(l_splittedOrder[2]));
-                                d_orders.add(l_deploy);
-                                String l_temp = "deploy " + Integer.parseInt(l_splittedOrder[1]) + " "
-                                        + Integer.parseInt(l_splittedOrder[2]);
-                                l_gameInitialization.d_gameEngine.d_logEntryBuffer.setString(l_temp);
-                                l_isCorrect = true;
-                            }
-                            break;
-                        case "advance":
-                            if (l_splittedOrder.length != 4) {
-                                String l_temp = "Invalid command. Correct command is - advance countryFrom countryTo numarmies";
-                                System.out.println(l_temp);
-                                l_gameInitialization.d_gameEngine.d_logEntryBuffer.setString(l_temp);
-                                continue;
-                            } else if (!isNumeric(l_splittedOrder[1]) || !isNumeric(l_splittedOrder[2])
-                                    || !isNumeric(l_splittedOrder[3])) {
-                                String l_temp = "After advance keyword, you can only use integer to represent the countryFrom, countryTo and numarmies";
-                                System.out.println(l_temp);
-                                l_gameInitialization.d_gameEngine.d_logEntryBuffer.setString(l_temp);
-                                continue;
-                            } else {
-                                Advance l_advance = new Advance(this, Integer.parseInt(l_splittedOrder[1]),
-                                        Integer.parseInt(l_splittedOrder[2]), Integer.parseInt(l_splittedOrder[3]));
-                                d_orders.add(l_advance);
-                                String l_temp = "advance " + Integer.parseInt(l_splittedOrder[1]) + " "
-                                        + Integer.parseInt(l_splittedOrder[2]) + " " + Integer.parseInt(l_splittedOrder[3]);
-                                l_gameInitialization.d_gameEngine.d_logEntryBuffer.setString(l_temp);
-                                l_isCorrect = true;
-                            }
-                            break;
-                        case "bomb":
-                            if (l_splittedOrder.length != 2) {
-                                String l_temp = "Invalid command. Correct command is - bomb countryId";
-                                System.out.println(l_temp);
-                                l_gameInitialization.d_gameEngine.d_logEntryBuffer.setString(l_temp);
-                                continue;
-                            } else if (!isNumeric(l_splittedOrder[1])) {
-                                String l_temp = "After bomb keyword, you can only use integer to represent the countryId";
-                                System.out.println(l_temp);
-                                l_gameInitialization.d_gameEngine.d_logEntryBuffer.setString(l_temp);
-                                continue;
-                            } else {
-                                Bomb l_bomb = new Bomb(this, Integer.parseInt(l_splittedOrder[1]));
-                                d_orders.add(l_bomb);
-                                String l_temp = "bomb " + Integer.parseInt(l_splittedOrder[1]);
-                                l_gameInitialization.d_gameEngine.d_logEntryBuffer.setString(l_temp);
-                                l_isCorrect = true;
-                            }
-                            break;
-                        case "blockade":
-                            if (l_splittedOrder.length != 2) {
-                                String l_temp = "Invalid command. Correct command is - blockade countryId";
-                                System.out.println(l_temp);
-                                l_gameInitialization.d_gameEngine.d_logEntryBuffer.setString(l_temp);
-                                continue;
-                            } else if (!isNumeric(l_splittedOrder[1])) {
-                                String l_temp = "After blockade keyword, you can only use integer to represent the countryId";
-                                System.out.println(l_temp);
-                                l_gameInitialization.d_gameEngine.d_logEntryBuffer.setString(l_temp);
-                                continue;
-                            } else {
-                                Blockade l_blockade = new Blockade(this, Integer.parseInt(l_splittedOrder[1]));
-                                d_orders.add(l_blockade);
-                                String l_temp = "blockade " + Integer.parseInt(l_splittedOrder[1]);
-                                l_gameInitialization.d_gameEngine.d_logEntryBuffer.setString(l_temp);
-                                l_isCorrect = true;
-                            }
-                            break;
-                        case "airlift":
-                            if (l_splittedOrder.length != 4) {
-                                String l_temp = "Invalid command. Correct command is - airlift sourceCountryId targetCountryId numarmies";
-                                System.out.println(l_temp);
-                                l_gameInitialization.d_gameEngine.d_logEntryBuffer.setString(l_temp);
-                                continue;
-                            } else if (!isNumeric(l_splittedOrder[1]) || !isNumeric(l_splittedOrder[2])
-                                    || !isNumeric(l_splittedOrder[3])) {
-                                String l_temp = "After airlift keyword, you can only use integer to represent the sourceCountryId, targetCountryId and numarmies";
-                                System.out.println(l_temp);
-                                l_gameInitialization.d_gameEngine.d_logEntryBuffer.setString(l_temp);
-                                continue;
-                            } else {
-                                Airlift l_airlift = new Airlift(this, Integer.parseInt(l_splittedOrder[1]),
-                                        Integer.parseInt(l_splittedOrder[2]), Integer.parseInt(l_splittedOrder[3]));
-                                d_orders.add(l_airlift);
-                                String l_temp = "airlift " + Integer.parseInt(l_splittedOrder[1]) + " "
-                                        + Integer.parseInt(l_splittedOrder[2]) + " " + Integer.parseInt(l_splittedOrder[3]);
-                                l_gameInitialization.d_gameEngine.d_logEntryBuffer.setString(l_temp);
-                                l_isCorrect = true;
-                            }
-                            break;
-                        case "negotiate":
-                            if (l_splittedOrder.length != 2) {
-                                String l_temp = "Invalid command. Correct command is - negotiate playerId";
-                                System.out.println(l_temp);
-                                l_gameInitialization.d_gameEngine.d_logEntryBuffer.setString(l_temp);
-                                continue;
-                            } else if (isNumeric(l_splittedOrder[1])) {
-                                String l_temp = "After negotiate keyword, you can not use integer to represent the playerName";
-                                System.out.println(l_temp);
-                                l_gameInitialization.d_gameEngine.d_logEntryBuffer.setString(l_temp);
-                                continue;
-                            } else {
-                                Diplomacy l_diplomacy = new Diplomacy(this, l_splittedOrder[1]);
-                                d_orders.add(l_diplomacy);
-                                String l_temp = "negotiate " + l_splittedOrder[1];
-                                l_gameInitialization.d_gameEngine.d_logEntryBuffer.setString(l_temp);
-                                l_isCorrect = true;
-                            }
-                            break;
-                        default:
-                            System.out.println(l_result);
-                            l_gameInitialization.d_gameEngine.d_logEntryBuffer.setString(l_result);
-                            break;
-                    }
-                }
-            } catch (Exception p_exception) {
-                System.out.println("Something went wront. Exception occured.");
-            }
+        Orders l_order = d_strategy.createOrder();
+        if (l_order instanceof Exit) {
+            return;
+        } else {
+            d_orders.add(l_order);
         }
     }
 
     /**
-     * This function is used to check if a string can be converted to integer or
-     * not.
-     *
-     * @param p_str represents the string to be casted to Integer value.
-     * @return true if the string can be parsed to an Integer.
-     */
-    public static boolean isNumeric(String p_str) {
-        try {
-            Integer.parseInt(p_str);
-            return true;
-        } catch (NumberFormatException p_e) {
-            return false;
-        } catch (Exception p_e) {
-            return false;
-        }
-    }
-
-    /**
-     * This method to check if player owns all the countries of continent
+     * method to check if player owns all countries of a continent
      *
      * @param p_continent continent for which ownership is to be checked
      * @return true if player owns all the countries of continent; else false
      */
     public boolean checkContinent(Continent p_continent) {
-        return d_countries.keySet().containsAll(p_continent.getCountriesIds());
+        if (d_countries.keySet().containsAll(p_continent.getCountriesIds())) {
+            return true;
+        }
+        return false;
     }
 
     /**
-     * This method is used to get the next order
+     * method to get next order from the orders queue
      *
      * @return order
      */

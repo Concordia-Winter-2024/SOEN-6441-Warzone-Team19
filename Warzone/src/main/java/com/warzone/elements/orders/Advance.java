@@ -1,15 +1,16 @@
 package com.warzone.elements.orders;
 
+import java.util.Random;
+import java.util.Set;
+
 import com.warzone.controller.GameEngine;
 import com.warzone.elements.Player;
 
-import java.util.Set;
-
 /**
- * The advance command is represented by this class. The attack mechanism is really basic.
- * One defensive army has a 60% probability of being destroyed by every attacking army.
- * If all defensive troops are defeated, the territory is seized, and all
- * attacking forces advance to occupy the destination territory.
+ * This class represents the advance command. The attack system is very simple.
+ * Each army that attacks has a 60% chance at killing one defending army. If all
+ * of the defending armies are killed, the territory is captured and all the
+ * attacking armies move to occupy the destination territory.
  */
 public class Advance implements Orders {
 
@@ -19,7 +20,7 @@ public class Advance implements Orders {
     private int d_armies;
 
     /**
-     * Constructor for Advance class
+     * Constructor to assign initial values
      *
      * @param p_player          player who is firing advance command
      * @param p_countryNameFrom country from which the reinforcements are to be
@@ -35,10 +36,19 @@ public class Advance implements Orders {
     }
 
     /**
-     * This method is used to execute the advance command
+     * This method is used to get the order in String format.
+     *
+     * @return command in String form.
+     */
+    public String getOrder() {
+        return "advance " + d_countryNameFrom + " " + d_countryNameTo + " " + d_armies;
+    }
+
+    /**
+     * Method to execute advance command
      *
      * @param p_game gets the object of GameEngine class
-     * @return string
+     * @return string according to the executed order
      */
     @Override
     public String execute(GameEngine p_game) {
@@ -56,7 +66,7 @@ public class Advance implements Orders {
             }
 
             if ((d_player.getCountries().get(d_countryNameFrom).getNumberOfArmiesPresent() - d_armies) < 1) {
-                return String.format("Country \"%d\" should remain with at least 1 armies after advancing command",
+                return String.format("Country \"%d\" should remain with atleast 1 armies after advancing command",
                         d_countryNameFrom);
             }
 
@@ -78,7 +88,8 @@ public class Advance implements Orders {
             if (d_player.d_negotiatedPlayerNames
                     .contains(p_game.getGameMap().getCountries().get(d_countryNameTo).getPlayer().getName())) {
 
-                return String.format("Armies cannot be moved to country \"%d\" as there is diplomacy established between the calling and the called player",
+                return String.format(
+                        "Armies cannot be moved to country \"%d\" as there is diplomacy established between the calling and the called player",
                         d_countryNameTo);
             }
 
@@ -98,10 +109,11 @@ public class Advance implements Orders {
                 d_player.addCountry(p_game.getGameMap().getCountries().get(d_countryNameTo));
 
                 l_playerBeingAttacked.getCountries().remove(d_countryNameTo);
-                d_player.getCountries().get(d_countryNameFrom).setNumberOfArmiesPresent(l_sourceCountryArmies - d_armies);
+                d_player.getCountries().get(d_countryNameFrom)
+                        .setNumberOfArmiesPresent(l_sourceCountryArmies - d_armies);
                 d_player.getCountries().get(d_countryNameTo)
                         .setNumberOfArmiesPresent(d_armies - l_capabilityDestinationCountryArmies);
-                String[] l_cardNames = {"airlift", "bomb", "blockade", "diplomacy"};
+                String[] l_cardNames = { "airlift", "bomb", "blockade", "diplomacy" };
 
                 if (!d_player.d_isConquered) {
                     int l_cardNumber = p_game.d_random.nextInt(l_cardNames.length);

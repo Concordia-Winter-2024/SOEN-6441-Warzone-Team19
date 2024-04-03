@@ -1,7 +1,7 @@
 package com.warzone.strategy;
 
 import com.warzone.controller.GameEngine;
-import com.warzone.controller.UserCommand;
+import com.warzone.controller.GameInitialization;
 import com.warzone.controller.state.gamephase.gameplay.IssueOrders;
 import com.warzone.elements.Player;
 import com.warzone.elements.orders.Advance;
@@ -12,7 +12,7 @@ import com.warzone.elements.orders.Deploy;
 import com.warzone.elements.orders.Diplomacy;
 import com.warzone.elements.orders.Exit;
 import com.warzone.elements.orders.Orders;
-import com.warzone.elements.savedgames.SaveGame;
+import com.warzone.elements.savegameplay.SaveGame;
 
 /**
  * Human player class that that deploys, attacks,
@@ -40,7 +40,7 @@ public class HumanPlayer extends PlayerStrategy {
 	@Override
 	public Orders createOrder() {
 		SaveGame l_saveGame = new SaveGame(d_gameEngine);
-		UserCommand l_userCommand = new UserCommand();
+		GameInitialization l_userCommand = new GameInitialization();
 		l_userCommand.setPhase(new IssueOrders(null));
 		String[] l_splittedOrder = null;
 		boolean l_isCorrect = false;

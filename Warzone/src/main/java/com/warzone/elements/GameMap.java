@@ -1,8 +1,12 @@
 package com.warzone.elements;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import com.warzone.elements.map.MapReader;
@@ -13,6 +17,8 @@ import java.nio.charset.StandardCharsets;
 import com.warzone.elements.map.MapWriter;
 import com.warzone.elements.map.MapValidation;
 
+import com.warzone.elements.map.*;
+
 /**
  * GameMap Class
  *
@@ -21,6 +27,7 @@ public class GameMap {
     private HashMap<Integer, Continent> d_continents;
     private HashMap<Integer, Country> d_countries;
     private boolean d_isValid;
+    private boolean d_isConquestMap = false;
 
     /**
      * Constructor for GameMap
@@ -148,12 +155,25 @@ public class GameMap {
      * @return False response if map file is failed to load successfully, returns True otherwise.
      */
     public String loadMap(String p_fileName) {
-        MapReader l_mapRead = new MapReader(this);
-        boolean l_loadCheck = l_mapRead.readFullMap(p_fileName);
-        if (!l_loadCheck) {
-            return String.format("Map \"%s\" cannot be loaded", p_fileName);
+        MapReader l_mapRead;
+        Boolean l_loadCheck;
+        if (isConquestMap(p_fileName)) {
+            l_mapRead = new MapReaderAdapter(new ConquestMapReader(this), this);
+            l_loadCheck = l_mapRead.readFullMap(p_fileName);
+            if (!l_loadCheck) {
+                return String.format("Map \"%s\" cannot be loaded", p_fileName);
+            } else {
+                return String.format("Conquest Map \"%s\" loaded successfully", p_fileName);
+            }
+        } else {
+            l_mapRead = new MapReader(this);
+            l_loadCheck = l_mapRead.readFullMap(p_fileName);
+            if (!l_loadCheck) {
+                return String.format("Map \"%s\" cannot be loaded", p_fileName);
+            } else {
+                return String.format("Domination Map \"%s\" loaded successfully", p_fileName);
+            }
         }
-        return String.format("Map \"%s\" loaded successfully", p_fileName);
     }
 
     /**
@@ -287,5 +307,35 @@ public class GameMap {
      */
     public HashMap<Integer, Country> getCountries() {
         return d_countries;
+    }
+
+    /**
+     * method that check map is of type Conquest or Domination
+     *
+     * @param p_filePath the file passed to the function
+     * @return true if it is conquest map or false if it is domination map.
+     */
+    public Boolean isConquestMap(String p_filePath) {
+        File l_mapFile = new File(
+                Paths.get(Paths.get("").toAbsolutePath().toString() + "/maps/" + p_filePath).toString());
+        Scanner l_reader = null;
+        String l_dataString;
+        try {
+            l_reader = new Scanner(l_mapFile);
+            while (l_reader.hasNextLine()) {
+                l_dataString = l_reader.nextLine();
+                if ("[Territories]".equals(l_dataString)) {
+                    d_isConquestMap = true;
+                    break;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            return false;
+        }
+        if (d_isConquestMap) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

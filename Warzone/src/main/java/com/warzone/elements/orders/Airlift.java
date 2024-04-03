@@ -49,6 +49,15 @@ public class Airlift implements Orders {
 		return executeAirlift(p_game);
 	}
 
+	/**
+	 * This method is used to get the order in String format.
+	 *
+	 * @return command in String form.
+	 */
+	public String getOrder() {
+		return "airlift " + d_countryNameFrom + " " + d_countryNameTo + " " + d_armies;
+	}
+
 	private String validateAirlift(GameEngine p_game) {
 		int l_airliftCardCount = d_player.d_cardsOwned.get("airlift");
 		if (l_airliftCardCount == 0) {

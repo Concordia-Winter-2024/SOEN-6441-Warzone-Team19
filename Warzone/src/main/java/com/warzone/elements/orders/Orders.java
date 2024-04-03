@@ -14,4 +14,11 @@ public interface Orders {
 	 * @return true response if command was successful, otherwise false
 	 */
 	String execute(GameEngine p_game);
+
+	/**
+	 * This function will give you the command format of Order.
+	 *
+	 * @return Command of Order in String format.
+	 */
+	public String getOrder();
 }
