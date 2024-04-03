@@ -55,7 +55,7 @@ public class BlockadeTest {
 	@Test
 	public void testExecuteOrder1() {
 		Blockade l_blockadeCmd = new Blockade(d_game.d_players.get("Nen"), 1);
-		assertEquals("Player \"Nen\" doesn't have blockade card.", l_blockadeCmd.execute(d_game));
+		assertEquals("Player \"Nen\" does not have a blockade card.", l_blockadeCmd.execute(d_game));
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class BlockadeTest {
 	public void testExecuteOrder2() {
 		d_game.d_players.get("Nen").d_cardsOwned.put("blockade", 1);
 		Blockade l_blockadeCmd = new Blockade(d_game.d_players.get("Nen"), 2);
-		assertEquals("Player \"Nen\" doesn't control country \"2\".", l_blockadeCmd.execute(d_game));
+		assertEquals("Player \"Nen\" does not own country \"2\".", l_blockadeCmd.execute(d_game));
 	}
 
 	/**

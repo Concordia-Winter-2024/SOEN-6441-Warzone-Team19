@@ -24,8 +24,6 @@ public class LogWriter implements Observer {
     public LogWriter(LogEntryBuffer p_logEntry) {
         p_logEntry.attach(this);
         d_dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss:SSS z");
-        //d_dtf = DateTimeFormatter.ofPattern(DateTimeFormatter.RFC_1123_DATE_TIME.format(ZonedDateTime.now()));
-        //d_dtf = DateTimeFormatter.RFC_1123_DATE_TIME;
         d_now = LocalDateTime.now();
     }
 
@@ -38,14 +36,11 @@ public class LogWriter implements Observer {
      */
     @Override
     public void update(Observable p_observableState) {
-
-        try {
-            d_logFile = new FileWriter(
-                    Paths.get(Paths.get("").toAbsolutePath().toString() + "/log/logfile.log").toString(), true);
-            d_logFile.append(d_dtf.format(ZonedDateTime.now()) + "> " + ((LogEntryBuffer) p_observableState).getString() + "\n");
-            d_logFile.close();
+        try (FileWriter logFile = new FileWriter(
+                Paths.get(Paths.get("").toAbsolutePath().toString() + "/log/logfile.log").toString(), true)) {
+            logFile.append(d_dtf.format(ZonedDateTime.now()) + "> " + ((LogEntryBuffer) p_observableState).getString() + "\n");
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Failed to write to log file", e);
         }
     }
 }

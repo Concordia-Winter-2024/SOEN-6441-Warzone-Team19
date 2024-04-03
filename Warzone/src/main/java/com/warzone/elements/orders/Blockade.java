@@ -32,28 +32,35 @@ public class Blockade implements Orders {
 	 */
 	@Override
 	public String execute(GameEngine p_game) {
-		if (d_player.d_cardsOwned.get("blockade") >= 1) {
-			if (d_player.getCountries().containsKey(d_country)) {
-				int l_armiesPresent = d_player.getCountries().get(d_country).getNumberOfArmiesPresent();
-				if (l_armiesPresent >= 0) {
-					d_player.getCountries().get(d_country).setNumberOfArmiesPresent(l_armiesPresent * 3);
-					//
-					d_player.getCountries().get(d_country).setPlayer(p_game.d_neutralPlayer);
-					p_game.d_neutralPlayer.addCountry(p_game.getGameMap().getCountries().get(d_country));
-					d_player.removeCountry(d_country);
-					//
-					int l_blockadeCardCount = d_player.d_cardsOwned.get("blockade");
-					d_player.d_cardsOwned.replace("blockade", l_blockadeCardCount - 1);
-					return String.format("Blockade Card utilized successfully by player  \"%s\" on country  \"%d\".",
-							d_player.getName(), d_country);
-				} else {
-					return "";
-				}
-			} else {
-				return String.format("Player \"%s\" doesn't control country \"%d\".", d_player.getName(), d_country);
-			}
-		} else {
-			return String.format("Player \"%s\" doesn't have blockade card.", d_player.getName());
+		String validationResult = validateBlockade(p_game);
+		if (validationResult != null) {
+			return validationResult;
 		}
+
+		return executeBlockade(p_game);
+	}
+
+	private String validateBlockade(GameEngine p_game) {
+		int l_blockadeCardCount = d_player.d_cardsOwned.get("blockade");
+		if (l_blockadeCardCount == 0) {
+			return String.format("Player \"%s\" does not have a blockade card.", d_player.getName());
+		}
+		if (!d_player.getCountries().containsKey(d_country)) {
+			return String.format("Player \"%s\" does not own country \"%d\".", d_player.getName(), d_country);
+		}
+		return null;
+	}
+
+	private String executeBlockade(GameEngine p_game) {
+		int l_armiesPresent = d_player.getCountries().get(d_country).getNumberOfArmiesPresent();
+		d_player.getCountries().get(d_country).setNumberOfArmiesPresent(l_armiesPresent * 3);
+		d_player.getCountries().get(d_country).setPlayer(p_game.d_neutralPlayer);
+		p_game.d_neutralPlayer.addCountry(p_game.getGameMap().getCountries().get(d_country));
+		d_player.removeCountry(d_country);
+
+		int l_blockadeCardCount = d_player.d_cardsOwned.get("blockade");
+		d_player.d_cardsOwned.replace("blockade", l_blockadeCardCount - 1);
+		return String.format("Blockade Card utilized successfully by player  \"%s\" on country  \"%d\".",
+				d_player.getName(), d_country);
 	}
 }
