@@ -25,7 +25,7 @@ import com.warzone.strategy.HumanPlayer;
 import com.warzone.strategy.RandomPlayer;
 
 /**
- * Class to save the game into a ".game" file.
+ * Class for saving the game into ".game" file.
  */
 public class SaveGame {
 
@@ -36,10 +36,10 @@ public class SaveGame {
     private GameEngine d_gameEngine;
 
     /**
-     * Constructor of Save Game class.
+     * Save Game class Constructor.
      *
-     * @param p_gameEngine Object of Game Engine to access other resources of the
-     *                     games.
+     * @param p_gameEngine object of the game engine provides access to additional
+     *                     game resources.
      */
     public SaveGame(GameEngine p_gameEngine) {
         d_gameMap = new GameMap();
@@ -49,14 +49,14 @@ public class SaveGame {
     }
 
     /**
-     * This function is used to save the game in a formatted manner that can be used
-     * to load afterwards.
+     * This function is saves the game in a formatted way that can be used
+     * afterwards to load.
      *
-     * @param p_fileName    Name of File which will save the game.
-     * @param p_callePlayer Player Name who wants to save the game.
-     * @return Return the message regarding the status of save game.
+     * @param p_fileName    File which will save the game.
+     * @param p_callPlayer Name of the player who wants to save the game.
+     * @return Returns the message indicating the status of save game.
      */
-    public String saveGame(String p_fileName, Player p_callePlayer) {
+    public String saveGame(String p_fileName, Player p_callPlayer) {
         d_gameMap = d_gameEngine.getGameMap();
         int l_countryCtn = 0, l_continentCtn = 0;
         try {
@@ -262,7 +262,7 @@ public class SaveGame {
             d_writer.newLine();
             d_writer.write("[nextPlayer]");
             d_writer.newLine();
-            d_writer.write(p_callePlayer.getName());
+            d_writer.write(p_callPlayer.getName());
             d_writer.newLine();
 
             d_writer.close();
