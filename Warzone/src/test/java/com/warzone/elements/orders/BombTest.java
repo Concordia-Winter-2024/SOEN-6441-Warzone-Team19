@@ -77,7 +77,7 @@ public class BombTest {
 	@Test
 	public void testExecuteOrder3() {
 		Bomb l_bombCmd = new Bomb(d_game.d_players.get("Nen"), 1);
-		assertEquals("Player \"Nen\" doesn't have bomb card.", l_bombCmd.execute(d_game));
+		assertEquals("Player \"Nen\" does not have a bomb card.", l_bombCmd.execute(d_game));
 	}
 
 	/**

@@ -260,7 +260,7 @@ public class GameEngineTest {
 		String l_result1 = l_gameEngine1.executeCommand(l_newString1);
 		String[] l_valString = new String[] { "validatemap" };
 		String l_resValString = l_gameEngine1.executeCommand(l_valString);
-		assertEquals(" The graph is connected. Countries are traverseble.", l_resValString);
+		assertEquals(" The graph is connected. Countries are traversable.", l_resValString);
 
 		GameEngine l_gameEngine2 = new GameEngine();
 		l_gameEngine2.setPhase(new PreLoad(l_gameEngine2));
