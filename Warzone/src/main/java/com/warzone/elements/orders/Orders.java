@@ -20,5 +20,5 @@ public interface Orders {
 	 *
 	 * @return Command of Order in String format.
 	 */
-	public String getOrder();
+    String getOrder();
 }

@@ -29,7 +29,7 @@ public class GameEngineTest {
 		d_gameEngine.setPhase(new PreLoad(d_gameEngine));
 		String[] l_newStrings = new String[] { "loadmap", "risk.map" };
 		String l_result = d_gameEngine.executeCommand(l_newStrings);
-		assertEquals("Map \"risk.map\" loaded successfully", l_result);
+		assertEquals("Domination Map \"risk.map\" loaded successfully", l_result);
 	}
 
 	/**
@@ -62,7 +62,7 @@ public class GameEngineTest {
 		d_gameEngine.setPhase(new PreLoad(d_gameEngine));
 		String[] l_loadCommand1 = new String[] { "loadmap", "risk.map" };
 		String l_loadResultString1 = d_gameEngine.executeCommand(l_loadCommand1);
-		assertEquals("Map \"risk.map\" loaded successfully", l_loadResultString1);
+		assertEquals("Domination Map \"risk.map\" loaded successfully", l_loadResultString1);
 
 		d_gameEngine.setPhase(new PreLoad(d_gameEngine));
 		String[] l_loadCommand2 = new String[] { "loadmap", "xyzabc.map" };
@@ -210,7 +210,7 @@ public class GameEngineTest {
 
 		String[] l_saveCommand1 = new String[] { "savemap", "abc.map" };
 		String l_saveResultString1 = d_gameEngine.executeCommand(l_saveCommand1);
-		assertEquals("Map file \"abc.map\" saved successfully", l_saveResultString1);
+		assertEquals("Domination Map file \"abc.map\" saved successfully", l_saveResultString1);
 
 		String[] l_saveCommand2 = new String[] { "savemap", "abc" };
 		String l_saveResultString2 = d_gameEngine.executeCommand(l_saveCommand2);

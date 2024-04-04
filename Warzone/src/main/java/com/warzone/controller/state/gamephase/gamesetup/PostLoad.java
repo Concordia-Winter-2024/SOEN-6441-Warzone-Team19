@@ -5,9 +5,12 @@ import com.warzone.controller.state.gamephase.gameplay.AssignArmies;
 import com.warzone.elements.Country;
 import com.warzone.elements.Player;
 
+import com.warzone.strategy.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Game entered this phase after preload class, it contains methods to add or remove
@@ -58,16 +61,65 @@ public class PostLoad extends GameSetup {
 	 * 
 	 * @return string indicating that countries are assigned to the players
 	 */
+	@Override
 	public String assignCountries() {
 		if (d_gameEngine.d_players.size() < 2) {
 			return "There must be at least two player";
 		}
+		for (Player l_player : d_gameEngine.d_players.values()) {
+			boolean l_isCorrect = false;
+			if (l_player.d_strategy == null) {
+				System.out.println();
+				System.out.println();
+				System.out.println();
+				System.out.println(" _______________________________ ");
+				System.out.println("| Player Strategy Selection\t|");
+				System.out.println("|===============================|");
+				System.out.println("| 1. Random Player\t\t|");
+				System.out.println("| 2. Human Player\t\t|");
+				System.out.println("| 3. Benevolent Player\t\t|");
+				System.out.println("| 4. Aggressive Player\t\t|");
+				System.out.println("| 5. Cheater Player\t\t|");
+				System.out.println("|_______________________________|");
+				while (!l_isCorrect) {
+					System.out.print("Enter strategy for player " + l_player.getName() + ": ");
+                    switch (new Scanner(System.in).nextInt()) {
+                        case 1 -> {
+                            l_player.setStrategy(new RandomPlayer(l_player, d_gameEngine));
+                            d_gameEngine.d_logEntryBuffer.setString(String.format("Player %s strategy set to %s.", l_player.getName(), "Random"));
+                            l_isCorrect = true;
+                        }
+                        case 2 -> {
+                            l_player.setStrategy(new HumanPlayer(l_player, d_gameEngine));
+                            d_gameEngine.d_logEntryBuffer.setString(String.format("Player %s strategy set to %s.", l_player.getName(), "Human"));
+                            l_isCorrect = true;
+                        }
+                        case 3 -> {
+                            l_player.setStrategy(new Benevolent(l_player, d_gameEngine));
+                            d_gameEngine.d_logEntryBuffer.setString(String.format("Player %s strategy set to %s.", l_player.getName(), "Benevolent"));
+                            l_isCorrect = true;
+                        }
+                        case 4 -> {
+                            l_player.setStrategy(new Aggressive(l_player, d_gameEngine));
+                            d_gameEngine.d_logEntryBuffer.setString(String.format("Player %s strategy set to %s.", l_player.getName(), "Aggressive"));
+                            l_isCorrect = true;
+                        }
+                        case 5 -> {
+                            l_player.setStrategy(new Cheater(l_player, d_gameEngine));
+                            d_gameEngine.d_logEntryBuffer.setString(String.format("Player %s strategy set to %s.", l_player.getName(), "Cheater"));
+                            l_isCorrect = true;
+                        }
+                        default -> System.out.println("Please enter valid behaviour");
+                    }
+				}
+
+			}
+		}
 		HashMap<Integer, Country> l_countries = d_gameEngine.getGameMap().getCountries();
-		List<Country> l_countryObjects = new ArrayList<Country>();
-		l_countryObjects.addAll(l_countries.values());
+        List<Country> l_countryObjects = new ArrayList<>(l_countries.values());
 		while (true) {
 			for (Player p_player : d_gameEngine.d_players.values()) {
-				if (l_countryObjects.size() == 0) {
+				if (l_countryObjects.isEmpty()) {
 					break;
 				}
 				int l_idOfCountry = d_gameEngine.d_random.nextInt(l_countryObjects.size());
@@ -75,7 +127,7 @@ public class PostLoad extends GameSetup {
 				l_countryObjects.get(l_idOfCountry).setPlayer(p_player);
 				l_countryObjects.remove(l_countryObjects.get(l_idOfCountry));
 			}
-			if (l_countryObjects.size() == 0) {
+			if (l_countryObjects.isEmpty()) {
 				break;
 			}
 		}
@@ -92,7 +144,7 @@ public class PostLoad extends GameSetup {
 	 * present in the game or not
 	 * 
 	 * @param p_playerName Name of the player to be added
-	 * @return sting indicating the whether player is added or not
+	 * @return string indicating whether player is added or not
 	 */
 	@Override
 	public String addPlayer(String p_playerName) {
@@ -132,5 +184,16 @@ public class PostLoad extends GameSetup {
 	@Override
 	public void next() {
 		d_gameEngine.setPhase(new AssignArmies(d_gameEngine));
+	}
+
+	/**
+	 * Method to load a previously saved game
+	 *
+	 * @param p_fileName name of the file to be loaded
+	 * @return string representing the result of loading the file
+	 */
+	@Override
+	public String loadGame(String p_fileName) {
+		return printInvalidCommandMessage();
 	}
 }

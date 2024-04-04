@@ -1,5 +1,6 @@
 package com.warzone.controller.state.gamephase.endphase;
 
+import java.util.ArrayList;
 import com.warzone.controller.GameEngine;
 import com.warzone.controller.state.gamephase.GamePhase;
 
@@ -9,6 +10,8 @@ import com.warzone.controller.state.gamephase.GamePhase;
  */
 public class EndPhase extends GamePhase {
 
+	private String d_winner;
+
 	/**
 	 * constructor that takes  the object of GameEngine
 	 * 
@@ -16,6 +19,45 @@ public class EndPhase extends GamePhase {
 	 */
 	public EndPhase(GameEngine p_gameEngine) {
 		super(p_gameEngine);
+	}
+
+	/**
+	 * Method to print invalid command as the following command cannot be used in
+	 * this phase
+	 *
+	 * @param p_fileName name of game file that is to be saved
+	 * @return string to print the invalid command message
+	 */
+	@Override
+	public String saveGame(String p_fileName) {
+		return printInvalidCommandMessage();
+	}
+
+	/**
+	 * Method to print invalid command as the following command cannot be used in
+	 * this phase
+	 *
+	 * @param p_fileName name of game file that is to be loaded
+	 * @return string to print the invalid command message
+	 */
+	@Override
+	public String loadGame(String p_fileName) {
+		return printInvalidCommandMessage();
+	}
+
+	/**
+	 * Function to print invalid command as the following command cannot be used in
+	 * this phase
+	 *
+	 * @param p_maps    list of maps in the tournament
+	 * @param p_players list of players in the tournament
+	 * @param p_games   number of games in the tournament
+	 * @param p_turns   number of turns in the tournament
+	 * @return string to print the invalid message
+	 */
+	@Override
+	public String tournament(ArrayList<String> p_maps, ArrayList<String> p_players, int p_games, int p_turns) {
+		return printInvalidCommandMessage();
 	}
 
 	/**
@@ -171,8 +213,20 @@ public class EndPhase extends GamePhase {
 	 * @return string to print winner of the game
 	 */
 	public String printWinner(String p_playerName) {
+		d_winner = p_playerName;
 		return "\nWinner:  " + p_playerName;
 	}
+
+	/**
+	 * Method to return the winner of the game
+	 *
+	 * @return d_winner returns the winner of the game
+	 */
+	@Override
+	public String returnWinner() {
+		return d_winner;
+	}
+
 
 	/**
 	 * This method is used to proceed to the next phase of the game but as this is the final

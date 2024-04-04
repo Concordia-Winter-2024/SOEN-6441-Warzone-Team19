@@ -3,10 +3,7 @@ package com.warzone.elements.savegameplay;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -19,7 +16,7 @@ import com.warzone.elements.GameMap;
 import com.warzone.elements.Player;
 import com.warzone.elements.orders.Orders;
 import com.warzone.strategy.Cheater;
-import com.warzone.strategy.Aggresive;
+import com.warzone.strategy.Aggressive;
 import com.warzone.strategy.Benevolent;
 import com.warzone.strategy.HumanPlayer;
 import com.warzone.strategy.RandomPlayer;
@@ -114,7 +111,7 @@ public class SaveGame {
                 // behavior of the player
                 d_writer.write("|");
                 {
-                    if (l_currentPlayer.getPlayerBehaviour() instanceof Aggresive) {
+                    if (l_currentPlayer.getPlayerBehaviour() instanceof Aggressive) {
                         d_writer.write("aggressivePlayer");
                     } else if (l_currentPlayer.getPlayerBehaviour() instanceof Benevolent) {
                         d_writer.write("benevolentPlayer");

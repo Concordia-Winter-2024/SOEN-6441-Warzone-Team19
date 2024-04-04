@@ -8,11 +8,9 @@ import java.util.Scanner;
 import java.util.Set;
 
 import com.warzone.controller.GameEngine;
-//import
 import com.warzone.controller.state.gamephase.gameplay.AssignArmies;
 import com.warzone.controller.state.gamephase.gameplay.IssueOrders;
 import com.warzone.controller.state.gamephase.gamesetup.PostLoad;
-import com.warzone.controller.state.gamephase.gamesetup.PreLoad;
 import com.warzone.elements.Player;
 import com.warzone.elements.orders.*;
 import com.warzone.strategy.*;
@@ -121,21 +119,16 @@ public class LoadGame {
 
                             Player l_currentPlayer = d_gameEngine.d_players.get(l_playerInfo[0]);
                             switch (l_playerInfo[1]) {
-                                case "aggressivePlayer":
-                                    l_currentPlayer.setStrategy(new Aggresive(l_currentPlayer, d_gameEngine));
-                                    break;
-                                case "benevolentPlayer":
-                                    l_currentPlayer.setStrategy(new Benevolent(l_currentPlayer, d_gameEngine));
-                                    break;
-                                case "cheaterPlayer":
-                                    l_currentPlayer.setStrategy(new Cheater(l_currentPlayer, d_gameEngine));
-                                    break;
-                                case "humanPlayer":
-                                    l_currentPlayer.setStrategy(new HumanPlayer(l_currentPlayer, d_gameEngine));
-                                    break;
-                                case "randomPlayer":
-                                    l_currentPlayer.setStrategy(new RandomPlayer(l_currentPlayer, d_gameEngine));
-                                    break;
+                                case "aggressivePlayer" ->
+                                        l_currentPlayer.setStrategy(new Aggressive(l_currentPlayer, d_gameEngine));
+                                case "benevolentPlayer" ->
+                                        l_currentPlayer.setStrategy(new Benevolent(l_currentPlayer, d_gameEngine));
+                                case "cheaterPlayer" ->
+                                        l_currentPlayer.setStrategy(new Cheater(l_currentPlayer, d_gameEngine));
+                                case "humanPlayer" ->
+                                        l_currentPlayer.setStrategy(new HumanPlayer(l_currentPlayer, d_gameEngine));
+                                case "randomPlayer" ->
+                                        l_currentPlayer.setStrategy(new RandomPlayer(l_currentPlayer, d_gameEngine));
                             }
 
                             String l_countryInfoString = l_playerInfo[6].substring(1, l_playerInfo[6].length() - 1);

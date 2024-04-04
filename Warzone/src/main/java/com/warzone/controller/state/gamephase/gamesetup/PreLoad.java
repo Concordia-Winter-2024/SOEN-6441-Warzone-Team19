@@ -2,6 +2,7 @@ package com.warzone.controller.state.gamephase.gamesetup;
 
 import com.warzone.controller.GameEngine;
 import com.warzone.elements.GameMap;
+import com.warzone.elements.savegameplay.LoadGame;
 
 /**
  * Game entered this phase after map is saved successfully or at the start of the game, it
@@ -83,5 +84,19 @@ public class PreLoad extends GameSetup {
 	@Override
 	public void next() {
 		d_gameEngine.setPhase(new PostLoad(d_gameEngine));
+	}
+
+	/**
+	 * function to load map from the save file
+	 *
+	 * @param p_fileName name of the file to load
+	 * @return result of the loading of the file
+	 */
+	@Override
+	public String loadGame(String p_fileName) {
+		String l_result;
+		d_gameEngine.setGameMap(new GameMap());
+		LoadGame l_loadGame = new LoadGame(d_gameEngine);
+		return l_loadGame.loadGame(p_fileName);
 	}
 }

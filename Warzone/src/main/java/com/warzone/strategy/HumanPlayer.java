@@ -48,7 +48,7 @@ public class HumanPlayer extends PlayerStrategy {
 		while (!l_isCorrect) {
 			try {
 				String l_result = l_userCommand.getCommand();
-				if ("exit()".equals(l_result)) {
+				if ("exit".equals(l_result)) {
 					l_isCorrect = true;
 					d_player.setIsCommit(true);
 					return new Exit();

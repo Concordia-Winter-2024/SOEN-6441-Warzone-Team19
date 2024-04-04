@@ -263,11 +263,26 @@ public class GameMap {
      * @return True response if map written to file successfully
      */
     public String saveMap(String p_fileName) {
-        MapWriter l_mapWriter = new MapWriter(this);
-        if (!l_mapWriter.writeFullMap(p_fileName)) {
-            return String.format("Map file \"%s\" cannot be saved", p_fileName);
+        MapWriter l_writeMap;
+        boolean l_result;
+        boolean l_isConquest = p_fileName.indexOf("conquest") != -1 ? true : false;
+
+        if (l_isConquest) {
+            l_writeMap = new MapWriterAdapter(new ConquestWriteMap(this), this);
+            l_result = l_writeMap.writeFullMap(p_fileName);
+            if (!l_result) {
+                return String.format("Map file \"%s\" cannot be saved", p_fileName);
+            }
+            return String.format("Conquest Map file \"%s\" saved successfully", p_fileName);
+        } else {
+            l_writeMap = new MapWriter(this);
+            l_result = l_writeMap.writeFullMap(p_fileName);
+            if (!l_result) {
+                return String.format("Map file \"%s\" cannot be saved", p_fileName);
+            }
+            return String.format("Domination Map file \"%s\" saved successfully", p_fileName);
         }
-        return String.format("Map file \"%s\" saved successfully", p_fileName);
+
     }
 
     /**

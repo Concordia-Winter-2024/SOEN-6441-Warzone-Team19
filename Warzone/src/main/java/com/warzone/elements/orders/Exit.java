@@ -3,7 +3,7 @@ package com.warzone.elements.orders;
 import com.warzone.controller.GameEngine;
 
 /**
- * This is the exit class order, while in IssueOrder phase, if the player types exit() to commit its command
+ * This is the exit class order, while in IssueOrder phase, if the player types exit to commit its command
  * then, this class is used.
  */
 public class Exit implements Orders {
@@ -25,6 +25,6 @@ public class Exit implements Orders {
 	 * @return command in String form.
 	 */
 	public String getOrder() {
-		return "exit()";
+		return "exit";
 	}
 }

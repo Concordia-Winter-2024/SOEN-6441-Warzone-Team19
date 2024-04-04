@@ -5,12 +5,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import com.warzone.controller.GameEngine;
-import com.warzone.controller.GameInitialization;
-
-import com.warzone.controller.state.gamephase.gameplay.IssueOrders;
-import com.warzone.elements.orders.Advance;
-import com.warzone.elements.orders.Deploy;
 import com.warzone.elements.orders.Orders;
 import com.warzone.strategy.PlayerStrategy;
 import com.warzone.elements.orders.*;

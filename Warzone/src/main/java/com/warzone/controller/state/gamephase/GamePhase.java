@@ -92,4 +92,5 @@ public abstract class GamePhase extends Phase {
 	public String printWinner(String p_playerName) {
 		return printInvalidCommandMessage();
 	}
+
 }

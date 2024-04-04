@@ -163,4 +163,16 @@ public class AssignArmies extends GamePlay {
 	public void next() {
 		d_gameEngine.setPhase(new IssueOrders(d_gameEngine));
 	}
+
+	/**
+	 * Method to print invalid command as the following command cannot be used in
+	 * this phase
+	 *
+	 * @param p_fileName File that saves the game.
+	 * @return string to print the invalid command message
+	 */
+	@Override
+	public String saveGame(String p_fileName) {
+		return printInvalidCommandMessage();
+	}
 }

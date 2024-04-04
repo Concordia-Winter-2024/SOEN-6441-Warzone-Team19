@@ -15,12 +15,12 @@ import com.warzone.elements.orders.Dummy;
 import com.warzone.elements.orders.Orders;
 
 /**
- * Aggresive class implemeting PlayerStrategy that focuses on centralization of 
+ * Aggressive class implementing PlayerStrategy that focuses on centralization of
  * forces and then attack, i.e. it deploys on its strongest country, then always 
  * attack with its strongest country, then moves its armies in order to 
  * maximize aggregation of forces in one country.
  */
-public class Aggresive extends PlayerStrategy {
+public class Aggressive extends PlayerStrategy {
 
 	/**
 	 * Constructor method of the class
@@ -28,12 +28,12 @@ public class Aggresive extends PlayerStrategy {
 	 * @param p_player     name of the aggressive player
 	 * @param p_gameEngine object of GameEngine class
 	 */
-	public Aggresive(Player p_player, GameEngine p_gameEngine) {
+	public Aggressive(Player p_player, GameEngine p_gameEngine) {
 		super(p_player, p_gameEngine);
 	}
 
 	/**
-     * This Method is used to create orders based on play of aggresive player.
+     * This Method is used to create orders based on play of aggressive player.
 	 */
 	@Override
 	public Orders createOrder() {
@@ -47,16 +47,16 @@ public class Aggresive extends PlayerStrategy {
 		Country l_strongCountryWEnyNei;
 		boolean l_isComplete = false;
 
-		if (l_playerCountries.size() == 0) {
+		if (l_playerCountries.isEmpty()) {
 			return new Dummy();
 		}
 
 		while (!l_isComplete) {
 			l_randomOrder = d_gameEngine.d_random.nextInt(5 - 1) + 1;
-			l_strongCountryWEnyNei = d_gameEngine.getGameMap().getCountries().get(l_playerCountries.get(0));
-			if (getStrongNeighbors(l_strongCountryWEnyNei).size() == 0) {
+			l_strongCountryWEnyNei = d_gameEngine.getGameMap().getCountries().get(l_playerCountries.getFirst());
+			if (getStrongNeighbors(l_strongCountryWEnyNei).isEmpty()) {
 				for (Country l_country : d_player.getCountries().values()) {
-					if (getStrongNeighbors(l_country).size() != 0) {
+					if (!getStrongNeighbors(l_country).isEmpty()) {
 						l_strongCountryWEnyNei = l_country;
 						break;
 					}
@@ -66,7 +66,7 @@ public class Aggresive extends PlayerStrategy {
 			for (Country l_country : d_player.getCountries().values()) {
 				if (l_strongCountryWEnyNei.getNumberOfArmiesPresent() < l_country.getNumberOfArmiesPresent()
 						&& d_player.getCountries().containsKey(l_country.getId())) {
-					if (getStrongNeighbors(l_country).size() != 0) {
+					if (!getStrongNeighbors(l_country).isEmpty()) {
 						l_strongCountryWEnyNei = l_country;
 					}
 				}
