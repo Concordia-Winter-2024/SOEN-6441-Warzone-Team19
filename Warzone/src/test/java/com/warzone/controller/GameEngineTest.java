@@ -316,4 +316,19 @@ public class GameEngineTest {
 		HashMap<String, Integer> l_ordersAfter = l_gameEngine.d_players.get("Nen").d_cardsOwned;
 		assertFalse(l_ordersBefore.equals(l_ordersAfter));
 	}
+
+	/**
+	 * Test to check the tournament mode works perfectly, tournament is held on two
+	 * maps with two games on each map and two players with random and cheater
+	 * behavior.
+	 */
+	@Test
+	public void tournamentTest() {
+		GameEngine l_gameEngine = new GameEngine();
+		l_gameEngine.setPhase(new PreLoad(l_gameEngine));
+		String[] l_newString1 = new String[] { "tournament", "-M", "uk.map", "risk.map", "-P", "Random", "Cheater",
+				"-G", "2", "-D", "50" };
+		assertEquals("{uk.map=[Cheater, Cheater], risk.map=[Cheater, Cheater]}",
+				l_gameEngine.executeCommand(l_newString1));
+	}
 }
