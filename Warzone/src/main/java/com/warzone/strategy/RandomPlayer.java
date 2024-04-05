@@ -64,12 +64,12 @@ public class RandomPlayer extends PlayerStrategy {
 		int l_randomEnemyCountry;
 		boolean l_isComplete = false;
 
-		if (l_playerCountries.size() == 0) {
+		if (l_playerCountries.isEmpty()) {
 			return new Dummy();
 		}
 
 		while (!l_isComplete) {
-			l_randomOrder = d_gameEngine.d_random.nextInt(5 - 1) + 1;
+			l_randomOrder = d_gameEngine.d_random.nextInt(6 - 1) + 1;
 			switch (l_randomOrder) {
 			case 1:
 				l_randomOwnCountry = d_gameEngine.d_random.nextInt(l_playerCountries.size());

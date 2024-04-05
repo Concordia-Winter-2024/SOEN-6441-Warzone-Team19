@@ -210,7 +210,7 @@ public class Player {
     /**
      * method to issue order called by Game engine
      */
-    public void issueOrder() {
+    public void issue_order() {
         Orders l_order = d_strategy.createOrder();
         if (l_order instanceof Exit) {
             return;

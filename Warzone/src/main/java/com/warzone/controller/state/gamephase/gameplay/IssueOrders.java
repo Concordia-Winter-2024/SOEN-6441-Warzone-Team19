@@ -2,6 +2,7 @@ package com.warzone.controller.state.gamephase.gameplay;
 
 import com.warzone.controller.GameEngine;
 import com.warzone.elements.Player;
+import com.warzone.strategy.HumanPlayer;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -140,11 +141,7 @@ public class IssueOrders extends GamePlay {
 		System.out.println("\nIssue orders phase entered");
 		d_gameEngine.d_logEntryBuffer.setString("Issue orders phase entered");
 		System.out.println(org.apache.commons.lang3.StringUtils.repeat("-", 20));
-		for (Player l_player : d_gameEngine.d_players.values()) {
-			l_player.setIsCommit(false);
-			l_player.d_negotiatedPlayerNames = new ArrayList<String>();
-			l_player.d_isConquered = false;
-		}
+
 		while (l_playersCompleted.size() < d_gameEngine.d_playerName.size()) {
 			if (!d_gameEngine.d_players.get(d_gameEngine.d_playerName.get(l_currentPlayer)).getIsCommit()) {
 				System.out.println(d_gameEngine.getGameMap().showMapPlay());
@@ -155,10 +152,15 @@ public class IssueOrders extends GamePlay {
 						.get(d_gameEngine.d_playerName.get(l_currentPlayer)).getNumberOfArmies());
 				System.out.println("Cards: "
 						+ d_gameEngine.d_players.get(d_gameEngine.d_playerName.get(l_currentPlayer)).d_cardsOwned);
-				d_gameEngine.d_players.get(d_gameEngine.d_playerName.get(l_currentPlayer)).issueOrder();
+				d_gameEngine.d_players.get(d_gameEngine.d_playerName.get(l_currentPlayer)).issue_order();
 				if (!d_gameEngine.d_players.get(d_gameEngine.d_playerName.get(l_currentPlayer)).getIsCommit()) {
 					d_gameEngine
 							.addPlayerOrder(d_gameEngine.d_players.get(d_gameEngine.d_playerName.get(l_currentPlayer)));
+				}
+
+				if (!(d_gameEngine.d_players.get(d_gameEngine.d_playerName.get(l_currentPlayer))
+						.getPlayerBehaviour() instanceof HumanPlayer)) {
+					d_gameEngine.d_players.get(d_gameEngine.d_playerName.get(l_currentPlayer)).setIsCommit(true);
 				}
 			} else {
 				l_playersCompleted.add(d_gameEngine.d_playerName.get(l_currentPlayer));
@@ -174,7 +176,7 @@ public class IssueOrders extends GamePlay {
 			l_player.d_isConquered = false;
 		}
 		next();
-		d_gameEngine.d_logEntryBuffer.setString("Deploy completed");
+		d_gameEngine.d_logEntryBuffer.setString("Issue orders phase completed");
 		d_gameEngine.getPhase().executeOrders();
 		return "";
 	}
