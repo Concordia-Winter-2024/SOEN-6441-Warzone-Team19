@@ -16,7 +16,7 @@ import com.warzone.elements.orders.*;
 import com.warzone.strategy.*;
 
 /**
- * Class to load a game from a ".game" file.
+ * Class for loading a game from a ".game" file.
  */
 public class LoadGame {
     private GameEngine d_gameEngine;
@@ -25,9 +25,9 @@ public class LoadGame {
     Scanner d_reader;
 
     /**
-     * constructor method for load game class
+     * Load game class constructor.
      *
-     * @param p_gameEngine object of gameEngine class
+     * @param p_gameEngine object for gameEngine class
      */
     public LoadGame(GameEngine p_gameEngine) {
         d_gameEngine = p_gameEngine;
@@ -36,10 +36,10 @@ public class LoadGame {
     }
 
     /**
-     * Method that opens a file and reads the Game Data from that file.
+     * Method which opens the file and reads the Game Data from the file.
      *
      * @param p_fileName from .game file
-     * @return string representing the result of loading the game from the saved
+     * @return string that represents the result of loading the game from the saved
      *         file
      */
     public String loadGame(String p_fileName) {
@@ -58,7 +58,7 @@ public class LoadGame {
             while (d_reader.hasNextLine()) {
                 l_dataString = d_reader.nextLine();
 
-//				Read continents
+
                 if ("[continents]".equals(l_dataString)) {
                     while (d_reader.hasNextLine()) {
                         l_line = d_reader.nextLine();
@@ -73,7 +73,7 @@ public class LoadGame {
                     }
                 }
 
-//				Read countries
+
                 else if ("[countries]".equals(l_dataString)) {
                     while (d_reader.hasNextLine()) {
                         l_line = d_reader.nextLine();
@@ -283,7 +283,7 @@ public class LoadGame {
     }
 
     /**
-     * method to get continents ids
+     * method that provides continents ids
      *
      * @return Set of continents ids read
      */
@@ -292,7 +292,7 @@ public class LoadGame {
     }
 
     /**
-     * method to get countries ids
+     * method that provides countries ids
      *
      * @return Set of countries ids read
      */
