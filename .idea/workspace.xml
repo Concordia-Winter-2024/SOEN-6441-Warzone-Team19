@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="adb1f805-d646-4c00-9466-8239eb1d944b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/WarzoneGame/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/WarzoneGame/src/main/model/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/SOEN-6441-Warzone-Game-Team20.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SOEN-6441-Warzone-Game-Team20.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +31,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "MeetKalariya",
+    "git-widget-placeholder": "Tushar__bd3",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
