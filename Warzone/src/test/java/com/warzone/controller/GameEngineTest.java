@@ -248,7 +248,7 @@ public class GameEngineTest {
 	}
 
 	/**
-	 * This function tests the validateMap function with different conditions like
+	 * This method tests the validateMap function with different conditions like
 	 * if the map is null, without countries, not traversable and other different
 	 * conditions.
 	 */

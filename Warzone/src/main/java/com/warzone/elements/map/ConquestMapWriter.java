@@ -12,7 +12,7 @@ import java.util.Set;
 /**
  * Class to write into map file
  */
-public class ConquestWriteMap {
+public class ConquestMapWriter {
 	private GameMap d_gameMap;
 	private LinkedHashMap<Integer, Integer> d_continentsMap;
 	private LinkedHashMap<Integer, Integer> d_countriesMap;
@@ -23,7 +23,7 @@ public class ConquestWriteMap {
 	 * 
 	 * @param p_gameMap GameMap object
 	 */
-	public ConquestWriteMap(GameMap p_gameMap) {
+	public ConquestMapWriter(GameMap p_gameMap) {
 		d_gameMap = p_gameMap;
 		d_continentsMap = new LinkedHashMap<>();
 		d_countriesMap = new LinkedHashMap<>();

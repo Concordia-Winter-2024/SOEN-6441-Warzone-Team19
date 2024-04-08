@@ -46,7 +46,7 @@ public class EndPhase extends GamePhase {
 	}
 
 	/**
-	 * Function to print invalid command as the following command cannot be used in
+	 * Method to print invalid command as the following command cannot be used in
 	 * this phase
 	 *
 	 * @param p_maps    list of maps in the tournament

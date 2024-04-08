@@ -105,7 +105,7 @@ public class PreEdit extends EditPhase {
 	}
 
 	/**
-	 * function to proceed to the next phase of the editing phase of the game
+	 * Method to proceed to the next phase of the editing phase of the game
 	 */
 	@Override
 	public void next() {

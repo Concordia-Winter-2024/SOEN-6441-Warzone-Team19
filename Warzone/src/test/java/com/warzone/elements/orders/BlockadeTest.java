@@ -42,7 +42,7 @@ public class BlockadeTest {
 	}
 
 	/**
-	 * This function resets the variables to null.
+	 * This method resets the variables to null.
 	 */
 	@After
 	public void tearDown() {

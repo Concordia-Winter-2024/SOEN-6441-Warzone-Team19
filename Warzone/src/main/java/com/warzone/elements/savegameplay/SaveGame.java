@@ -46,8 +46,8 @@ public class SaveGame {
     }
 
     /**
-     * This function is saves the game in a formatted way that can be used
-     * afterwards to load.
+     * This method is saves the game in a formatted way that can be used
+     * afterward to load.
      *
      * @param p_fileName    File which will save the game.
      * @param p_callPlayer Name of the player who wants to save the game.
@@ -58,10 +58,10 @@ public class SaveGame {
         int l_countryCtn = 0, l_continentCtn = 0;
         try {
             FileWriter l_fw = new FileWriter(
-                    Paths.get(Paths.get("").toAbsolutePath().toString() + "/games/" + p_fileName).toString());
+                    Paths.get(Paths.get("").toAbsolutePath() + "/games/" + p_fileName).toString());
             d_writer = new BufferedWriter(l_fw);
 
-            HashMap<Integer, Continent> l_continents = new HashMap<>();
+            HashMap<Integer, Continent> l_continents;
             l_continents = d_gameMap.getContinents();
             d_writer.write("[continents]");
             d_writer.newLine();
@@ -83,18 +83,18 @@ public class SaveGame {
                 }
             }
 
-            HashMap<Integer, Country> l_countries = new HashMap<>();
+            HashMap<Integer, Country> l_countries;
             l_countries = d_gameMap.getCountries();
             d_writer.write("\n");
             d_writer.write("[borders]");
             d_writer.newLine();
             for (int p_countries : d_countriesMap.keySet()) {
                 Set<Integer> l_neighborIds = l_countries.get(p_countries).getNeighborIds();
-                StringBuilder l_sb = new StringBuilder("");
-                l_sb.append(d_countriesMap.get(p_countries).toString() + " ");
+                StringBuilder l_sb = new StringBuilder();
+                l_sb.append(d_countriesMap.get(p_countries).toString()).append(" ");
 
                 for (int p_neighborIds : l_neighborIds) {
-                    l_sb.append(d_countriesMap.get(p_neighborIds).toString() + " ");
+                    l_sb.append(d_countriesMap.get(p_neighborIds).toString()).append(" ");
                 }
                 d_writer.write(l_sb.toString());
                 d_writer.newLine();
@@ -228,7 +228,7 @@ public class SaveGame {
             }
 
 
-            boolean l_hasMoreOrders = false;
+            boolean l_hasMoreOrders;
             do {
                 l_hasMoreOrders = false;
                 for (String l_currentPlayer : l_playerOrderHashMap.keySet()) {

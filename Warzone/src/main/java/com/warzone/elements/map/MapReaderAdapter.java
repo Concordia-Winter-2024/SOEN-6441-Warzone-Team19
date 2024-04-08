@@ -20,7 +20,7 @@ public class MapReaderAdapter extends MapReader {
 	}
 	
 	/**
-	 * function to read a file feed data to GameMap object.
+	 * Method to read a file feed data to GameMap object.
 	 * @param p_filePath path to .map file
 	 * @return true if file load successfully, else false
 	 */

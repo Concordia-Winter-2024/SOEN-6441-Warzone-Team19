@@ -16,7 +16,7 @@ public interface Orders {
 	String execute(GameEngine p_game);
 
 	/**
-	 * This function will give you the command format of Order.
+	 * This method will give you the command format of Order.
 	 *
 	 * @return Command of Order in String format.
 	 */

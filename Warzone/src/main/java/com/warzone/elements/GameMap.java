@@ -268,7 +268,7 @@ public class GameMap {
         boolean l_isConquest = p_fileName.indexOf("conquest") != -1 ? true : false;
 
         if (l_isConquest) {
-            l_writeMap = new MapWriterAdapter(new ConquestWriteMap(this), this);
+            l_writeMap = new MapWriterAdapter(new ConquestMapWriter(this), this);
             l_result = l_writeMap.writeFullMap(p_fileName);
             if (!l_result) {
                 return String.format("Map file \"%s\" cannot be saved", p_fileName);

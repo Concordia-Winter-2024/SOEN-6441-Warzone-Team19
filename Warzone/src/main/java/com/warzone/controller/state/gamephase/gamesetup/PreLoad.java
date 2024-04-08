@@ -87,7 +87,7 @@ public class PreLoad extends GameSetup {
 	}
 
 	/**
-	 * function to load map from the save file
+	 * Method to load map from the save file
 	 *
 	 * @param p_fileName name of the file to load
 	 * @return result of the loading of the file

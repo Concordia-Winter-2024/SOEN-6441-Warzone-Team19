@@ -81,7 +81,7 @@ public class AssignArmies extends GamePlay {
 	}
 
 	/**
-	 * function to print invalid command as the following command cannot be used in
+	 * Method to print invalid command as the following command cannot be used in
 	 * this phase
 	 * 
 	 * @param p_commandSplitted splitted command parts used for execution of command

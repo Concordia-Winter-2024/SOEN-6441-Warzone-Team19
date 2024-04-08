@@ -7,14 +7,14 @@ import com.warzone.elements.GameMap;
  *
  */
 public class MapWriterAdapter extends MapWriter {
-	private ConquestWriteMap d_conquestWriter;
+	private ConquestMapWriter d_conquestWriter;
 
 	/**
 	 * MapWriterAdapter constructor
 	 * @param p_conquestWriter ConquestWriter object
 	 * @param p_gameMap GameMap object
 	 */
-	public MapWriterAdapter(ConquestWriteMap p_conquestWriter, GameMap p_gameMap) {
+	public MapWriterAdapter(ConquestMapWriter p_conquestWriter, GameMap p_gameMap) {
 		super(p_gameMap);
 		d_conquestWriter = p_conquestWriter;
 	}

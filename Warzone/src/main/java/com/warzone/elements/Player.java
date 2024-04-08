@@ -82,7 +82,7 @@ public class Player {
     }
 
     /**
-     * function to set the strategy of the player
+     * method to set the strategy of the player
      *
      * @param p_strat name of the strategy to be set
      */
@@ -91,7 +91,7 @@ public class Player {
     }
 
     /**
-     * function to retrieve the strategy of the player
+     * method to retrieve the strategy of the player
      *
      * @return the strategy of the player
      */

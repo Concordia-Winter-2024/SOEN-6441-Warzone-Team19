@@ -9,3 +9,5 @@ com.warzone.controller.state.gamephase.gamesetup
 com.warzone.elements
 com.warzone.elements.map
 com.warzone.elements.orders
+com.warzone.elements.savegameplay
+com.warzone.strategy
